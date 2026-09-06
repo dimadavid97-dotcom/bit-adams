@@ -9,44 +9,40 @@
 <style>
 *{box-sizing:border-box}
 :root{
- --bg:#050807;--panel:#08110d;--panel2:#0b1712;--line:#18372a;
- --green:#20f28a;--red:#ff5b6e;--gold:#f4c95d;
- --text:#f6f8f7;--muted:#7f9188;
+  --bg:#050807;--panel:#08110d;--panel2:#0b1712;--line:#18372a;
+  --green:#20f28a;--red:#ff5b6e;--gold:#f4c95d;--text:#f6f8f7;--muted:#7f9188;
 }
 html,body{
- margin:0;padding:0;color:var(--text);
- font-family:Arial,Helvetica,sans-serif;
- background:radial-gradient(circle at 50% -10%,#0b2b1b 0,transparent 28%),var(--bg);
+  margin:0;padding:0;color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  background:radial-gradient(circle at 50% -10%,#0b2b1b 0,transparent 28%),var(--bg);
 }
 body{
- min-height:100%;
- padding-bottom:calc(82px + env(safe-area-inset-bottom));
+  min-height:100%;
+  padding-bottom:calc(82px + env(safe-area-inset-bottom));
 }
 button{font:inherit;cursor:pointer}
 .app{max-width:560px;margin:auto;min-height:100vh}
 
 .topbar{
- position:sticky;top:0;z-index:30;min-height:74px;
- padding:14px 18px;
- padding-top:calc(14px + env(safe-area-inset-top));
- display:flex;align-items:center;justify-content:space-between;
- background:rgba(5,8,7,.96);
- border-bottom:1px solid #10241a;
- backdrop-filter:blur(14px);
+  position:sticky;top:0;z-index:30;min-height:74px;
+  padding:14px 18px;
+  padding-top:calc(14px + env(safe-area-inset-top));
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(5,8,7,.96);border-bottom:1px solid #10241a;
+  backdrop-filter:blur(14px);
 }
 .brand{display:flex;align-items:center;gap:10px}
 .logo{
- width:44px;height:44px;display:grid;place-items:center;
- border-radius:14px;
- background:linear-gradient(145deg,#16281e,#08110d);
- border:1px solid #4f4021;color:var(--gold);font-size:27px
+  width:44px;height:44px;display:grid;place-items:center;border-radius:14px;
+  background:linear-gradient(145deg,#16281e,#08110d);
+  border:1px solid #4f4021;color:var(--gold);font-size:27px
 }
 .brandTitle{font-weight:900;letter-spacing:1.5px}
 .brandSub{margin-top:3px;color:var(--muted);font-size:10px;letter-spacing:.7px}
 .headerBtn{
- width:44px;height:44px;border-radius:13px;
- border:1px solid var(--line);background:var(--panel);
- color:#fff;font-size:20px
+  width:44px;height:44px;border-radius:13px;border:1px solid var(--line);
+  background:var(--panel);color:#fff;font-size:20px
 }
 
 main{padding:18px 16px 16px}
@@ -54,63 +50,40 @@ main{padding:18px 16px 16px}
 .screen.active{display:block}
 
 .card,.assetCard,.signalCard,.chartCard,.statBox{
- background:linear-gradient(145deg,#0a1510,#07100c);
- border:1px solid var(--line);
+  background:linear-gradient(145deg,#0a1510,#07100c);
+  border:1px solid var(--line);
 }
 .card{border-radius:20px;padding:14px;margin-bottom:11px}
-
 .sectionTitle{
- margin:23px 2px 11px;
- display:flex;justify-content:space-between;
- align-items:center;gap:10px
+  margin:23px 2px 11px;display:flex;justify-content:space-between;align-items:center;gap:10px
 }
 .sectionTitle h2{margin:0;font-size:16px;letter-spacing:.9px}
-
-.muted{color:var(--muted)}
-.green{color:var(--green)}
-.red{color:var(--red)}
-.gold{color:var(--gold)}
-.mini{font-size:11px}
-.small{font-size:12px}
+.muted{color:var(--muted)} .green{color:var(--green)} .red{color:var(--red)} .gold{color:var(--gold)}
+.mini{font-size:11px}.small{font-size:12px}
 
 .hero{
- margin-top:4px;border:1px solid var(--line);
- border-radius:26px;padding:14px;
- background:linear-gradient(145deg,#07170f,#07100c);
- overflow:visible
+  margin-top:4px;border:1px solid var(--line);border-radius:26px;padding:14px;
+  background:linear-gradient(145deg,#07170f,#07100c);
+  overflow:visible;
 }
 .assetGrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .assetCard{min-width:0;padding:14px;border-radius:20px;overflow:hidden}
 .assetCard.goldCard{border-color:#4b3d20}
-.assetTitle{
- display:flex;align-items:center;justify-content:space-between;
- gap:6px;font-size:12px;font-weight:900
-}
+.assetTitle{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12px;font-weight:900}
 .assetSymbol{color:var(--muted);font-size:10px}
-.price{
- font-weight:900;font-size:22px;margin:10px 0 7px;
- white-space:nowrap;overflow:hidden;text-overflow:ellipsis
-}
+.price{font-weight:900;font-size:22px;margin:10px 0 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trendText{font-size:11px;font-weight:bold}
-
 .rateArea{display:flex;align-items:center;gap:11px;margin-top:12px}
 .ring{
- --p:0;width:67px;height:67px;min-width:67px;
- border-radius:50%;position:relative;
- display:grid;place-items:center;
- background:conic-gradient(var(--green) calc(var(--p)*1%),#132d20 0)
+  --p:0;width:67px;height:67px;min-width:67px;border-radius:50%;position:relative;display:grid;place-items:center;
+  background:conic-gradient(var(--green) calc(var(--p)*1%),#132d20 0)
 }
-.ring:after{
- content:"";position:absolute;width:52px;height:52px;
- border-radius:50%;background:#09130e
-}
-.ring span{
- position:relative;z-index:2;font-size:14px;font-weight:900
-}
+.ring:after{content:"";position:absolute;width:52px;height:52px;border-radius:50%;background:#09130e}
+.ring span{position:relative;z-index:2;font-size:14px;font-weight:900}
 
 .statusLine{
- display:flex;align-items:center;justify-content:space-between;
- gap:10px;padding:11px 0;border-bottom:1px solid #11251b
+  display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;
+  border-bottom:1px solid #11251b
 }
 .statusLine:last-child{border-bottom:0}
 .statusName{color:#aebbb5;font-size:12px}
@@ -118,117 +91,61 @@ main{padding:18px 16px 16px}
 
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .tabs.three{grid-template-columns:repeat(3,1fr)}
-.tfTabs{
- display:grid;grid-template-columns:repeat(6,1fr);
- gap:7px;margin-top:10px
-}
+.tfTabs{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-top:10px}
 .tab,.tf{
- min-height:44px;border:1px solid var(--line);
- border-radius:12px;background:var(--panel);
- color:var(--muted);font-weight:800;padding:8px 5px
+  min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--panel);
+  color:var(--muted);font-weight:800;padding:8px 5px
 }
 .tab.active,.tf.active{
- border-color:var(--green);color:#fff;
- background:linear-gradient(145deg,#0d2117,#09130e);
- box-shadow:inset 0 0 0 1px rgba(32,242,138,.10)
+  border-color:var(--green);color:#fff;background:linear-gradient(145deg,#0d2117,#09130e);
+  box-shadow:inset 0 0 0 1px rgba(32,242,138,.10)
 }
 
 .mtfBox{
- margin-top:11px;border:1px solid #264f3b;
- border-radius:16px;padding:12px;
- background:linear-gradient(145deg,#0b1d14,#08110d)
+  margin-top:11px;border:1px solid #264f3b;border-radius:16px;padding:12px;
+  background:linear-gradient(145deg,#0b1d14,#08110d)
 }
-.mtfTop{
- display:flex;justify-content:space-between;
- gap:10px;align-items:center
-}
-.mtfBar{
- height:8px;background:#10271c;border-radius:999px;
- overflow:hidden;margin-top:10px
-}
+.mtfTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.mtfBar{height:8px;background:#10271c;border-radius:999px;overflow:hidden;margin-top:10px}
 .mtfFill{height:100%;background:var(--green);width:0}
 .mtfList{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.mtfPill{
- font-size:10px;border:1px solid var(--line);
- border-radius:999px;padding:5px 7px;background:#06100c
-}
+.mtfPill{font-size:10px;border:1px solid var(--line);border-radius:999px;padding:5px 7px;background:#06100c}
 
 .signalCard{border-radius:20px;padding:14px;margin-top:11px}
-.signalHeader{
- display:flex;justify-content:space-between;
- gap:10px;align-items:flex-start
-}
+.signalHeader{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
 .side{font-size:20px;font-weight:900}
 .signalSymbol{margin-top:2px;color:#c7d2cd;font-size:12px}
 .confidence{
- min-width:58px;text-align:center;padding:7px 9px;
- border-radius:999px;font-weight:900;font-size:12px;
- border:1px solid currentColor
+  min-width:58px;text-align:center;padding:7px 9px;border-radius:999px;font-weight:900;font-size:12px;border:1px solid currentColor
 }
-.levels{
- display:grid;grid-template-columns:repeat(5,1fr);
- gap:7px;margin-top:13px
-}
-.level{
- min-width:0;padding:9px 6px;border-radius:11px;
- background:#06100c;border:1px solid #10271c
-}
-.level label{
- display:block;font-size:9px;color:var(--muted);margin-bottom:4px
-}
-.level strong{
- display:block;font-size:11px;
- overflow:hidden;text-overflow:ellipsis
-}
+.levels{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:13px}
+.level{min-width:0;padding:9px 6px;border-radius:11px;background:#06100c;border:1px solid #10271c}
+.level label{display:block;font-size:9px;color:var(--muted);margin-bottom:4px}
+.level strong{display:block;font-size:11px;overflow:hidden;text-overflow:ellipsis}
 .signalInfo{
- margin-top:11px;padding-top:10px;
- border-top:1px solid #11251b;
- display:flex;align-items:center;
- justify-content:space-between;gap:10px
+  margin-top:11px;padding-top:10px;border-top:1px solid #11251b;
+  display:flex;align-items:center;justify-content:space-between;gap:10px
 }
-.quality{
- font-size:11px;font-weight:900;padding:5px 8px;
- border-radius:999px;border:1px solid currentColor
-}
+.quality{font-size:11px;font-weight:900;padding:5px 8px;border-radius:999px;border:1px solid currentColor}
 .trackBtn{
- width:100%;margin-top:11px;min-height:44px;
- border-radius:12px;border:1px solid #24533c;
- background:#0b2016;color:var(--green);font-weight:900
+  width:100%;margin-top:11px;min-height:44px;border-radius:12px;border:1px solid #24533c;
+  background:#0b2016;color:var(--green);font-weight:900
 }
 .trackBtn:disabled{opacity:.45;cursor:not-allowed}
 
-.chartCard{
- margin-top:11px;border-radius:20px;
- overflow:hidden;background:#06100c
-}
-.chartTop{
- display:flex;justify-content:space-between;
- gap:10px;padding:14px
-}
+.chartCard{margin-top:11px;border-radius:20px;overflow:hidden;background:#06100c}
+.chartTop{display:flex;justify-content:space-between;gap:10px;padding:14px}
 .chartTitle{font-weight:900}
 .chartArea{
- position:relative;height:360px;
- background:
- linear-gradient(#0c1a13 1px,transparent 1px),
- linear-gradient(90deg,#0c1a13 1px,transparent 1px);
- background-size:100% 50px,60px 100%;
- touch-action:none
+  position:relative;height:360px;
+  background:linear-gradient(#0c1a13 1px,transparent 1px),linear-gradient(90deg,#0c1a13 1px,transparent 1px);
+  background-size:100% 50px,60px 100%;touch-action:none
 }
 #chartCanvas{width:100%;height:100%;display:block}
-.zoomControls{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:8px;padding:11px
-}
-.zoomControls button{
- min-height:44px;border-radius:12px;
- border:1px solid var(--line);
- background:var(--panel);color:#fff
-}
+.zoomControls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:11px}
+.zoomControls button{min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:#fff}
 
-.statsGrid{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:8px;margin-top:11px
-}
+.statsGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:11px}
 .statBox{min-width:0;border-radius:15px;padding:11px}
 .statBox small{color:var(--muted);font-size:10px}
 .statBox strong{display:block;margin-top:5px;font-size:20px}
@@ -236,3971 +153,1592 @@ main{padding:18px 16px 16px}
 .tradeRow{padding:12px 2px;border-bottom:1px solid #11251b}
 .tradeRow:last-child{border-bottom:0}
 .tradeBtn{
- width:100%;border:0;background:transparent;color:#fff;
- display:flex;align-items:center;justify-content:space-between;
- gap:10px;text-align:left
+  width:100%;border:0;background:transparent;color:#fff;display:flex;align-items:center;justify-content:space-between;
+  gap:10px;text-align:left
 }
 .tradeMeta{font-size:10px;color:var(--muted);margin-top:4px}
-.badge{
- flex-shrink:0;padding:6px 8px;border-radius:999px;
- border:1px solid currentColor;font-size:10px;font-weight:900
-}
+.badge{flex-shrink:0;padding:6px 8px;border-radius:999px;border:1px solid currentColor;font-size:10px;font-weight:900}
 
 .newsRow{padding:13px 2px;border-bottom:1px solid #11251b}
 .newsRow:last-child{border-bottom:0}
-.newsHead{
- display:flex;justify-content:space-between;
- gap:10px;align-items:flex-start
-}
+.newsHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
 .newsTime{color:var(--muted);font-size:10px}
-.newsTitle{
- margin-top:5px;font-size:13px;
- line-height:1.35;font-weight:bold
-}
-.impact{
- flex-shrink:0;border:1px solid currentColor;
- border-radius:999px;font-size:9px;
- font-weight:900;padding:5px 7px
-}
+.newsTitle{margin-top:5px;font-size:13px;line-height:1.35;font-weight:bold}
+.impact{flex-shrink:0;border:1px solid currentColor;border-radius:999px;font-size:9px;font-weight:900;padding:5px 7px}
 
-.setting{
- display:flex;align-items:center;justify-content:space-between;
- gap:10px;padding:12px 0;border-bottom:1px solid #11251b
-}
+.setting{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #11251b}
 .setting:last-child{border-bottom:0}
-.settingName,.settingValue{font-size:12px}
-.settingValue{font-weight:bold}
+.settingName,.settingValue{font-size:12px}.settingValue{font-weight:bold}
 .note{color:var(--muted);line-height:1.5;font-size:11px}
-
 .loading{text-align:center;padding:25px 10px;color:var(--muted)}
-.errorBox{
- padding:13px;border-radius:13px;
- border:1px solid #5f2931;background:#241014;
- color:#ff9aa5;font-size:12px;line-height:1.4
-}
+.errorBox{padding:13px;border-radius:13px;border:1px solid #5f2931;background:#241014;color:#ff9aa5;font-size:12px;line-height:1.4}
 
 .overlay{
- position:fixed;inset:0;z-index:60;
- background:rgba(0,0,0,.74);
- display:none;align-items:flex-end
+  position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.74);display:none;align-items:flex-end
 }
 .overlay.open{display:flex}
 .sheet{
- width:100%;max-width:560px;margin:auto;
- max-height:88vh;overflow:auto;background:#07100c;
- border:1px solid var(--line);
- border-radius:25px 25px 0 0;padding:17px
+  width:100%;max-width:560px;margin:auto;max-height:88vh;overflow:auto;background:#07100c;
+  border:1px solid var(--line);border-radius:25px 25px 0 0;padding:17px
 }
-.sheetHeader{
- display:flex;justify-content:space-between;
- align-items:flex-start;gap:10px
-}
-.closeBtn{
- width:42px;height:42px;border:1px solid var(--line);
- border-radius:12px;background:var(--panel);color:#fff
-}
+.sheetHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.closeBtn{width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:#fff}
 .timeline{margin-top:17px}
 .timelineItem{display:flex;gap:11px;padding-bottom:15px}
-.timelineDot{
- width:11px;height:11px;margin-top:3px;
- border-radius:50%;background:var(--green)
-}
+.timelineDot{width:11px;height:11px;margin-top:3px;border-radius:50%;background:var(--green)}
 
 .bottom{
- position:fixed;bottom:0;left:0;right:0;z-index:40;
- display:flex;justify-content:center;
- padding-bottom:env(safe-area-inset-bottom);
- background:rgba(5,8,7,.98);
- border-top:1px solid #10241a;
- backdrop-filter:blur(15px)
+  position:fixed;bottom:0;left:0;right:0;z-index:40;display:flex;justify-content:center;
+  padding-bottom:env(safe-area-inset-bottom);
+  background:rgba(5,8,7,.98);border-top:1px solid #10241a;backdrop-filter:blur(15px)
 }
-.bottomInner{
- width:100%;max-width:560px;
- display:grid;grid-template-columns:repeat(6,1fr)
-}
-.nav{
- min-height:68px;border:0;background:transparent;
- color:#697b72;font-size:9px;padding:8px 2px
-}
+.bottomInner{width:100%;max-width:560px;display:grid;grid-template-columns:repeat(6,1fr)}
+.nav{min-height:68px;border:0;background:transparent;color:#697b72;font-size:9px;padding:8px 2px}
 .navIcon{display:block;font-size:19px;margin-bottom:4px}
 .nav.active{color:var(--gold)}
 
 @media(max-width:420px){
- main{padding-left:12px;padding-right:12px}
- .hero{padding:10px}
- .assetGrid{gap:8px}
- .assetCard{padding:12px}
- .assetTitle{font-size:11px}
- .price{font-size:18px}
- .rateArea{gap:8px}
- .ring{width:60px;height:60px;min-width:60px}
- .ring:after{width:46px;height:46px}
- .levels{grid-template-columns:repeat(2,1fr)}
+  main{padding-left:12px;padding-right:12px}
+  .hero{padding:10px}
+  .assetGrid{gap:8px}
+  .assetCard{padding:12px}
+  .assetTitle{font-size:11px}
+  .price{font-size:18px}
+  .rateArea{gap:8px}
+  .ring{width:60px;height:60px;min-width:60px}
+  .ring:after{width:46px;height:46px}
+  .levels{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:350px){
- .assetGrid{grid-template-columns:1fr}
- .tfTabs{grid-template-columns:repeat(3,1fr)}
+  .assetGrid{grid-template-columns:1fr}
+  .tfTabs{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
-
 <header class="topbar">
- <div class="brand">
-  <div class="logo">♛</div>
-  <div>
-   <div class="brandTitle">BIT ADAMS</div>
-   <div class="brandSub">AI MARKET ANALYSIS</div>
+  <div class="brand">
+    <div class="logo">♛</div>
+    <div>
+      <div class="brandTitle">BIT ADAMS</div>
+      <div class="brandSub">AI MARKET ANALYSIS</div>
+    </div>
   </div>
- </div>
- <button class="headerBtn" id="refreshAllBtn">↻</button>
+  <button class="headerBtn" id="refreshAllBtn">↻</button>
 </header>
 
 <main>
 
 <section class="screen active" id="home">
+  <div class="hero">
+    <div class="assetGrid">
+      <div class="assetCard">
+        <div class="assetTitle"><span>₿ BITCOIN</span><span class="assetSymbol">BTCUSD</span></div>
+        <div class="price" id="btcPrice">Loading...</div>
+        <div class="trendText" id="btcTrend">ANALYZING...</div>
+        <div class="rateArea">
+          <div class="ring" id="btcRing" style="--p:0"><span id="btcWinRate">--%</span></div>
+          <div><div class="small">WIN RATE</div><div class="mini muted">Closed tracked signals</div></div>
+        </div>
+      </div>
 
-<div class="hero">
- <div class="assetGrid">
-
-  <div class="assetCard">
-   <div class="assetTitle">
-    <span>₿ BITCOIN</span>
-    <span class="assetSymbol">BTCUSD</span>
-   </div>
-   <div class="price" id="btcPrice">Loading...</div>
-   <div class="trendText" id="btcTrend">ANALYZING...</div>
-   <div class="rateArea">
-    <div class="ring" id="btcRing" style="--p:0">
-     <span id="btcWinRate">--%</span>
+      <div class="assetCard goldCard">
+        <div class="assetTitle"><span>◆ GOLD</span><span class="assetSymbol">XAUUSD</span></div>
+        <div class="price gold" id="goldPrice">Loading...</div>
+        <div class="trendText" id="goldTrend">ANALYZING...</div>
+        <div class="rateArea">
+          <div class="ring" id="goldRing" style="--p:0"><span id="goldWinRate">--%</span></div>
+          <div><div class="small">WIN RATE</div><div class="mini muted">Closed tracked signals</div></div>
+        </div>
+      </div>
     </div>
-    <div>
-     <div class="small">WIN RATE</div>
-     <div class="mini muted">Closed tracked signals</div>
-    </div>
-   </div>
   </div>
 
-  <div class="assetCard goldCard">
-   <div class="assetTitle">
-    <span>◆ GOLD</span>
-    <span class="assetSymbol">XAUUSD</span>
-   </div>
-   <div class="price gold" id="goldPrice">Loading...</div>
-   <div class="trendText" id="goldTrend">ANALYZING...</div>
-   <div class="rateArea">
-    <div class="ring" id="goldRing" style="--p:0">
-     <span id="goldWinRate">--%</span>
-    </div>
-    <div>
-     <div class="small">WIN RATE</div>
-     <div class="mini muted">Closed tracked signals</div>
-    </div>
-   </div>
+  <div class="sectionTitle"><h2>MARKET OVERVIEW</h2><span class="mini muted">LIVE DATA</span></div>
+  <div class="card">
+    <div class="statusLine"><span class="statusName">Bitcoin M15</span><span class="statusValue" id="homeBTCSignal">Loading...</span></div>
+    <div class="statusLine"><span class="statusName">Gold M15</span><span class="statusValue" id="homeGoldSignal">Loading...</span></div>
+    <div class="statusLine"><span class="statusName">Best performer</span><span class="statusValue gold" id="bestPerformer">--</span></div>
   </div>
 
- </div>
-</div>
-
-<div class="sectionTitle">
- <h2>MARKET OVERVIEW</h2>
- <span class="mini muted">LIVE DATA</span>
-</div>
-
-<div class="card">
- <div class="statusLine">
-  <span class="statusName">Bitcoin M15</span>
-  <span class="statusValue" id="homeBTCSignal">Loading...</span>
- </div>
-
- <div class="statusLine">
-  <span class="statusName">Gold M15</span>
-  <span class="statusValue" id="homeGoldSignal">Loading...</span>
- </div>
-
- <div class="statusLine">
-  <span class="statusName">Best performer</span>
-  <span class="statusValue gold" id="bestPerformer">--</span>
- </div>
-</div>
-
-<div class="sectionTitle">
- <h2>TIMEFRAMES</h2>
- <span class="mini muted">BTC / GOLD</span>
-</div>
-
-<div class="tabs">
- <button class="tab active" data-home-asset="BTCUSD">BITCOIN</button>
- <button class="tab" data-home-asset="XAUUSD">GOLD</button>
-</div>
-
-<div class="card" id="homeTFList" style="margin-top:11px">
- <div class="loading">Loading timeframe signals...</div>
-</div>
-
+  <div class="sectionTitle"><h2>TIMEFRAMES</h2><span class="mini muted">BTC / GOLD</span></div>
+  <div class="tabs">
+    <button class="tab active" data-home-asset="BTCUSD">BTCUSD</button>
+    <button class="tab" data-home-asset="XAUUSD">XAUUSD</button>
+  </div>
+  <div class="card" id="homeTFList" style="margin-top:10px"><div class="loading">Loading signals...</div></div>
 </section>
-
 
 <section class="screen" id="signals">
-
-<div class="sectionTitle">
- <h2>SIGNALS</h2>
- <span class="mini muted">BUY / SELL</span>
-</div>
-
-<div class="tabs">
- <button class="tab active" data-signal-asset="BTCUSD">BTCUSD</button>
- <button class="tab" data-signal-asset="XAUUSD">XAUUSD</button>
-</div>
-
-<div class="tfTabs" id="signalTFButtons"></div>
-
-<div id="multiTFBox" class="mtfBox">
- <div class="loading">Analyzing all timeframes...</div>
-</div>
-
-<div id="signalContent">
- <div class="loading">Select a timeframe</div>
-</div>
-
+  <div class="sectionTitle"><h2>SIGNALS</h2><span class="mini muted">BUY / SELL</span></div>
+  <div class="tabs">
+    <button class="tab active" data-signal-asset="BTCUSD">BTCUSD</button>
+    <button class="tab" data-signal-asset="XAUUSD">XAUUSD</button>
+  </div>
+  <div class="tfTabs" id="signalTFButtons"></div>
+  <div id="mtfSummary"></div>
+  <div id="signalContent"><div class="loading">Select a timeframe</div></div>
 </section>
-
 
 <section class="screen" id="chart">
-
-<div class="sectionTitle">
- <h2>CANDLESTICK CHART</h2>
- <span class="mini muted">Zoom + Drag</span>
-</div>
-
-<div class="tabs">
- <button class="tab active" data-chart-asset="BTCUSD">BTCUSD</button>
- <button class="tab" data-chart-asset="XAUUSD">XAUUSD</button>
-</div>
-
-<div class="tfTabs" id="chartTFButtons"></div>
-
-<div class="chartCard">
-
- <div class="chartTop">
-  <div>
-   <div class="chartTitle" id="chartTitle">BTCUSD</div>
-   <div class="mini muted" id="chartTimeframe">M15</div>
+  <div class="sectionTitle"><h2>CANDLESTICK CHART</h2><span class="mini muted">Zoom + Drag</span></div>
+  <div class="tabs">
+    <button class="tab active" data-chart-asset="BTCUSD">BTCUSD</button>
+    <button class="tab" data-chart-asset="XAUUSD">XAUUSD</button>
   </div>
-  <div class="statusValue" id="chartSignal">--</div>
- </div>
+  <div class="tfTabs" id="chartTFButtons"></div>
 
- <div class="chartArea" id="chartArea">
-  <canvas id="chartCanvas"></canvas>
- </div>
+  <div class="chartCard">
+    <div class="chartTop">
+      <div><div class="chartTitle" id="chartTitle">BTCUSD</div><div class="mini muted" id="chartTimeframe">M15</div></div>
+      <div class="statusValue" id="chartSignal">--</div>
+    </div>
+    <div class="chartArea" id="chartArea"><canvas id="chartCanvas"></canvas></div>
+    <div class="zoomControls">
+      <button id="zoomOutBtn">− Zoom</button>
+      <button id="resetChartBtn">Reset</button>
+      <button id="zoomInBtn">+ Zoom</button>
+    </div>
+  </div>
 
- <div class="zoomControls">
-  <button id="zoomOutBtn">− Zoom</button>
-  <button id="resetChartBtn">Reset</button>
-  <button id="zoomInBtn">+ Zoom</button>
- </div>
-
-</div>
-
-<div class="card">
-
- <div class="statusLine">
-  <span class="statusName">Entry</span>
-  <span class="statusValue" id="chartEntry">--</span>
- </div>
-
- <div class="statusLine">
-  <span class="statusName">Stop Loss</span>
-  <span class="statusValue red" id="chartSL">--</span>
- </div>
-
- <div class="statusLine">
-  <span class="statusName">Take Profit 1</span>
-  <span class="statusValue green" id="chartTP1">--</span>
- </div>
-
- <div class="statusLine">
-  <span class="statusName">Take Profit 2</span>
-  <span class="statusValue green" id="chartTP2">--</span>
- </div>
-
- <div class="statusLine">
-  <span class="statusName">Take Profit 3</span>
-  <span class="statusValue green" id="chartTP3">--</span>
- </div>
-
-</div>
-
+  <div class="card">
+    <div class="statusLine"><span class="statusName">Entry</span><span class="statusValue" id="chartEntry">--</span></div>
+    <div class="statusLine"><span class="statusName">Stop Loss</span><span class="statusValue red" id="chartSL">--</span></div>
+    <div class="statusLine"><span class="statusName">Take Profit 1</span><span class="statusValue green" id="chartTP1">--</span></div>
+    <div class="statusLine"><span class="statusName">Take Profit 2</span><span class="statusValue green" id="chartTP2">--</span></div>
+    <div class="statusLine"><span class="statusName">Take Profit 3</span><span class="statusValue green" id="chartTP3">--</span></div>
+  </div>
 </section>
-
 
 <section class="screen" id="news">
-
-<div class="sectionTitle">
- <h2>MARKET NEWS</h2>
- <span class="mini muted">IMPORTANT</span>
-</div>
-
-<div class="tabs three">
- <button class="tab active" data-news-filter="ALL">ALL</button>
- <button class="tab" data-news-filter="BTC">BITCOIN</button>
- <button class="tab" data-news-filter="GOLD">GOLD</button>
-</div>
-
-<div class="card" id="newsList" style="margin-top:11px"></div>
-
-<div class="card">
- <strong>News connection</strong>
- <p class="note">
- Twelve Data supplies market prices and candles.
- A separate news API can later provide live Bitcoin and Gold headlines.
- </p>
-</div>
-
+  <div class="sectionTitle"><h2>MARKET NEWS</h2><span class="mini muted">IMPORTANT</span></div>
+  <div class="tabs three">
+    <button class="tab active" data-news-filter="ALL">ALL</button>
+    <button class="tab" data-news-filter="BTC">BITCOIN</button>
+    <button class="tab" data-news-filter="GOLD">GOLD</button>
+  </div>
+  <div class="card" id="newsList" style="margin-top:11px"></div>
+  <div class="card"><strong>News connection</strong><p class="note">Market prices and candles are live from Twelve Data. A dedicated news feed can be connected later for live Bitcoin and Gold headlines.</p></div>
 </section>
-
 
 <section class="screen" id="history">
+  <div class="sectionTitle"><h2>TRADE HISTORY</h2><span class="mini muted">Tap transaction</span></div>
+  <div class="tabs">
+    <button class="tab active" data-history-asset="BTCUSD">BTCUSD</button>
+    <button class="tab" data-history-asset="XAUUSD">XAUUSD</button>
+  </div>
 
-<div class="sectionTitle">
- <h2>TRADE HISTORY</h2>
- <span class="mini muted">Tap transaction</span>
-</div>
-
-<div class="tabs">
- <button class="tab active" data-history-asset="BTCUSD">BTCUSD</button>
- <button class="tab" data-history-asset="XAUUSD">XAUUSD</button>
-</div>
-
-<div class="statsGrid">
-
- <div class="statBox">
-  <small>Signals</small>
-  <strong id="historySignals">0</strong>
- </div>
-
- <div class="statBox">
-  <small>Win Rate</small>
-  <strong class="green" id="historyWinRate">--%</strong>
- </div>
-
- <div class="statBox">
-  <small>Lost</small>
-  <strong class="red" id="historyLost">0</strong>
- </div>
-
-</div>
-
-<div class="card" id="historyList" style="margin-top:11px">
- <div class="loading">No signals tracked yet.</div>
-</div>
-
+  <div class="card" style="margin-top:11px;padding:14px 16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;font-weight:800">
+          <span id="historyLiveDot" style="width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);display:inline-block"></span>
+          <span id="historyLiveText">LIVE TRACKING</span>
+        </div>
+        <div class="mini muted" id="historyCheckStatus" style="margin-top:4px">Open trades are checked automatically.</div>
+      </div>
+      <button class="smallBtn" id="historyCheckNow">CHECK NOW</button>
+    </div>
+  </div>
+  <div class="statsGrid">
+    <div class="statBox"><small>Signals</small><strong id="historySignals">0</strong></div>
+    <div class="statBox"><small>Win Rate</small><strong class="green" id="historyWinRate">--%</strong></div>
+    <div class="statBox"><small>Lost</small><strong class="red" id="historyLost">0</strong></div>
+  </div>
+  <div class="card" id="historyList" style="margin-top:11px"><div class="loading">No signals tracked yet.</div></div>
 </section>
 
-
 <section class="screen" id="settings">
-
-<div class="sectionTitle">
- <h2>SETTINGS</h2>
-</div>
-
-<div class="card">
-
- <div class="setting">
-  <span class="settingName">Market Data</span>
-  <span class="settingValue green">TWELVE DATA</span>
- </div>
-
- <div class="setting">
-  <span class="settingName">Assets</span>
-  <span class="settingValue">BTC + GOLD</span>
- </div>
-
- <div class="setting">
-  <span class="settingName">Timeframes</span>
-  <span class="settingValue">M1 → H4</span>
- </div>
-
- <div class="setting">
-  <span class="settingName">Signal Mode</span>
-  <span class="settingValue green">STRICT</span>
- </div>
-
- <div class="setting">
-  <span class="settingName">Theme</span>
-  <span class="settingValue gold">PREMIUM DARK</span>
- </div>
-
-</div>
-
-<div class="card">
- <strong>Signal engine</strong>
-
- <p class="note">
- Signals use EMA trend, RSI, momentum, ATR and candle direction.
- Multi-Timeframe Confirmation compares M1, M5, M15, M30, H1 and H4.
- </p>
-
- <p class="note">
- Win Rate is calculated separately for Bitcoin and Gold using tracked
- signals that finish as WIN or LOST.
- </p>
-</div>
-
+  <div class="sectionTitle"><h2>SETTINGS</h2></div>
+  <div class="card">
+    <div class="setting"><span class="settingName">Market Data</span><span class="settingValue green">TWELVE DATA</span></div>
+    <div class="setting"><span class="settingName">Assets</span><span class="settingValue">BTC + GOLD</span></div>
+    <div class="setting"><span class="settingName">Timeframes</span><span class="settingValue">M1 → H4</span></div>
+    <div class="setting"><span class="settingName">H4 fallback</span><span class="settingValue green">1H AGGREGATION</span></div>
+    <div class="setting"><span class="settingName">API Guard</span><span class="settingValue green">MAX 8 / MIN</span></div>
+    <div class="setting"><span class="settingName">History Engine</span><span class="settingValue green">LIVE PRICE TRACKING</span></div>
+    <div class="setting"><span class="settingName">Signal Mode</span><span class="settingValue green">STRICT + MTF</span></div>
+    <div class="setting"><span class="settingName">Theme</span><span class="settingValue gold">PREMIUM DARK</span></div>
+    <div class="setting">
+      <span class="settingName">Signal Notifications</span>
+      <button class="smallBtn" id="enableNotificationsBtn">ENABLE</button>
+    </div>
+    <div class="setting">
+      <span class="settingName">Test Notification</span>
+      <button class="smallBtn" id="testNotificationBtn">TEST</button>
+    </div>
+  </div>
+  <div class="card">
+    <strong>How signals work</strong>
+    <p class="note">Every timeframe still returns a BUY or SELL bias. The app also checks multi-timeframe agreement. The confidence number is an internal analysis score, not a guaranteed probability of profit.</p>
+    <p class="note">Win Rate is calculated only from tracked trades that have actually closed as WIN or LOST, separately for Bitcoin and Gold.</p>
+  </div>
 </section>
 
 </main>
 </div>
 
-
 <nav class="bottom">
-<div class="bottomInner">
-
- <button class="nav active" data-screen="home">
-  <span class="navIcon">⌂</span>Home
- </button>
-
- <button class="nav" data-screen="signals">
-  <span class="navIcon">⌁</span>Signals
- </button>
-
- <button class="nav" data-screen="chart">
-  <span class="navIcon">▥</span>Chart
- </button>
-
- <button class="nav" data-screen="news">
-  <span class="navIcon">▤</span>News
- </button>
-
- <button class="nav" data-screen="history">
-  <span class="navIcon">◷</span>History
- </button>
-
- <button class="nav" data-screen="settings">
-  <span class="navIcon">⚙</span>Settings
- </button>
-
-</div>
+  <div class="bottomInner">
+    <button class="nav active" data-screen="home"><span class="navIcon">⌂</span>Home</button>
+    <button class="nav" data-screen="signals"><span class="navIcon">⌁</span>Signals</button>
+    <button class="nav" data-screen="chart"><span class="navIcon">▥</span>Chart</button>
+    <button class="nav" data-screen="news"><span class="navIcon">▤</span>News</button>
+    <button class="nav" data-screen="history"><span class="navIcon">◷</span>History</button>
+    <button class="nav" data-screen="settings"><span class="navIcon">⚙</span>Settings</button>
+  </div>
 </nav>
 
-
 <div class="overlay" id="tradeOverlay">
+  <div class="sheet">
+    <div class="sheetHeader">
+      <div><strong id="detailTitle">TRADE</strong><div class="mini muted" id="detailDate">--</div></div>
+      <button class="closeBtn" id="closeTradeBtn">✕</button>
+    </div>
+    <div class="sectionTitle"><h2>LEVELS</h2></div>
+    <div class="levels">
+      <div class="level"><label>ENTRY</label><strong id="detailEntry">--</strong></div>
+      <div class="level"><label>STOP LOSS</label><strong class="red" id="detailSL">--</strong></div>
+      <div class="level"><label>TP1</label><strong class="green" id="detailTP1">--</strong></div>
+      <div class="level"><label>TP2</label><strong class="green" id="detailTP2">--</strong></div>
+      <div class="level"><label>TP3</label><strong class="green" id="detailTP3">--</strong></div>
+    </div>
+    <div class="sectionTitle"><h2>TRADE STATUS</h2></div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="statusLine"><span class="statusName">Current / Last price</span><span class="statusValue" id="detailCurrent">--</span></div>
+      <div class="statusLine"><span class="statusName">Highest since signal</span><span class="statusValue green" id="detailHigh">--</span></div>
+      <div class="statusLine"><span class="statusName">Lowest since signal</span><span class="statusValue red" id="detailLow">--</span></div>
+      <div class="statusLine"><span class="statusName">Duration</span><span class="statusValue" id="detailDuration">--</span></div>
+    </div>
 
-<div class="sheet">
-
- <div class="sheetHeader">
-  <div>
-   <strong id="detailTitle">TRADE</strong>
-   <div class="mini muted" id="detailDate">--</div>
+    <div class="sectionTitle"><h2>TRANSACTION PROGRESS</h2></div>
+    <div class="timeline" id="detailTimeline"></div>
   </div>
-  <button class="closeBtn" id="closeTradeBtn">✕</button>
- </div>
-
- <div class="sectionTitle"><h2>LEVELS</h2></div>
-
- <div class="levels">
-
-  <div class="level">
-   <label>ENTRY</label>
-   <strong id="detailEntry">--</strong>
-  </div>
-
-  <div class="level">
-   <label>STOP LOSS</label>
-   <strong class="red" id="detailSL">--</strong>
-  </div>
-
-  <div class="level">
-   <label>TP1</label>
-   <strong class="green" id="detailTP1">--</strong>
-  </div>
-
-  <div class="level">
-   <label>TP2</label>
-   <strong class="green" id="detailTP2">--</strong>
-  </div>
-
-  <div class="level">
-   <label>TP3</label>
-   <strong class="green" id="detailTP3">--</strong>
-  </div>
-
- </div>
-
- <div class="sectionTitle">
-  <h2>TRANSACTION PROGRESS</h2>
- </div>
-
- <div class="timeline" id="detailTimeline"></div>
-
 </div>
-</div>
-
 
 <script>
+const API_KEY="9ad169b63c6e40f1bb5dcdac9ec085b1";
 
-/* API KEY */
-
-const API_KEY =
-"9ad169b63c6e40f1bb5dcdac9ec085b1";
-
-
-/* CONFIGURATION */
-
-const TIMEFRAMES=[
- "M1","M5","M15","M30","H1","H4"
-];
-
-const INTERVALS={
- M1:"1min",
- M5:"5min",
- M15:"15min",
- M30:"30min",
- H1:"1h",
- H4:"4h"
-};
-
-const SYMBOLS={
- BTCUSD:"BTC/USD",
- XAUUSD:"XAU/USD"
-};
+const TIMEFRAMES=["M1","M5","M15","M30","H1","H4"];
+const INTERVALS={M1:"1min",M5:"5min",M15:"15min",M30:"30min",H1:"1h",H4:"4h"};
+const SYMBOLS={BTCUSD:"BTC/USD",XAUUSD:"XAU/USD"};
 
 let homeAsset="BTCUSD";
-let signalAsset="BTCUSD";
-let signalTF="M15";
-let chartAsset="BTCUSD";
-let chartTF="M15";
+let signalAsset="BTCUSD",signalTF="M15";
+let chartAsset="BTCUSD",chartTF="M15";
 let historyAsset="BTCUSD";
-
-let chartCandles=[];
-let chartZoom=1;
-let chartOffset=0;
-let pointerStartX=null;
+let chartCandles=[],chartSignalData=null,chartZoom=1,chartOffset=0,pointerStartX=null;
 let signalCache={};
+let signalPromises={};
+let candleCache={};
+let apiRequestTimes=[];
+let apiGate=Promise.resolve();
 
+const API_CREDIT_LIMIT=8;
+const API_WINDOW_MS=60000;
 
-/* STORAGE */
+const CACHE_TTL={
+  M1:45000,
+  M5:90000,
+  M15:180000,
+  M30:300000,
+  H1:600000,
+  H4:1800000
+};
 
-function getHistory(){
-
- try{
-
-  const saved=
-  localStorage.getItem("bitAdamsHistoryV4");
-
-  if(!saved){
-   return{
-    BTCUSD:[],
-    XAUUSD:[]
-   };
-  }
-
-  const data=JSON.parse(saved);
-
-  return{
-   BTCUSD:Array.isArray(data.BTCUSD)?data.BTCUSD:[],
-   XAUUSD:Array.isArray(data.XAUUSD)?data.XAUUSD:[]
-  };
-
- }catch(error){
-
-  return{
-   BTCUSD:[],
-   XAUUSD:[]
-  };
-
- }
-
+function sleep(ms){
+  return new Promise(resolve=>setTimeout(resolve,ms));
 }
 
-function saveHistory(data){
- localStorage.setItem(
-  "bitAdamsHistoryV4",
-  JSON.stringify(data)
- );
-}
+async function reserveApiCredit(){
+  const run=apiGate.then(async()=>{
+    while(true){
+      const now=Date.now();
 
+      apiRequestTimes=apiRequestTimes.filter(
+        time=>now-time<API_WINDOW_MS
+      );
 
-/* API */
+      if(apiRequestTimes.length<API_CREDIT_LIMIT){
+        apiRequestTimes.push(Date.now());
+        return;
+      }
 
-async function rawFetchCandles(
- asset,
- timeframe,
- outputsize=120
-){
+      const wait=
+      Math.max(
+        500,
+        API_WINDOW_MS-(now-apiRequestTimes[0])+350
+      );
 
- const symbol=SYMBOLS[asset];
- const interval=INTERVALS[timeframe];
-
- const url=
- "https://api.twelvedata.com/time_series"+
- "?symbol="+encodeURIComponent(symbol)+
- "&interval="+encodeURIComponent(interval)+
- "&outputsize="+outputsize+
- "&apikey="+API_KEY;
-
- const response=await fetch(url);
- const data=await response.json();
-
- if(
-  !response.ok ||
-  data.status==="error" ||
-  !Array.isArray(data.values)
- ){
-  throw new Error(
-   data.message ||
-   "Market data could not be loaded."
-  );
- }
-
- const candles=data.values
- .map(item=>({
-  datetime:item.datetime,
-  open:Number(item.open),
-  high:Number(item.high),
-  low:Number(item.low),
-  close:Number(item.close)
- }))
- .filter(c=>
-  Number.isFinite(c.open) &&
-  Number.isFinite(c.high) &&
-  Number.isFinite(c.low) &&
-  Number.isFinite(c.close)
- )
- .reverse();
-
- if(candles.length<20){
-  throw new Error("Not enough candle data.");
- }
-
- return candles;
-}
-
-function aggregateH4(hourly){
-
- const result=[];
-
- for(
-  let i=0;
-  i+3<hourly.length;
-  i+=4
- ){
-
-  const group=hourly.slice(i,i+4);
-
-  result.push({
-   datetime:group[0].datetime,
-   open:group[0].open,
-   high:Math.max(...group.map(c=>c.high)),
-   low:Math.min(...group.map(c=>c.low)),
-   close:group[group.length-1].close
+      await sleep(wait);
+    }
   });
 
- }
-
- return result;
+  apiGate=run.catch(()=>{});
+  return run;
 }
 
-async function fetchCandles(
- asset,
- timeframe,
- outputsize=120
-){
+function getHistory(){
+  try{
+    const saved=localStorage.getItem("bitAdamsHistoryV4");
+    if(!saved)return{BTCUSD:[],XAUUSD:[]};
+    const d=JSON.parse(saved);
+    return{BTCUSD:Array.isArray(d.BTCUSD)?d.BTCUSD:[],XAUUSD:Array.isArray(d.XAUUSD)?d.XAUUSD:[]};
+  }catch(e){return{BTCUSD:[],XAUUSD:[]}}
+}
+function saveHistory(data){localStorage.setItem("bitAdamsHistoryV4",JSON.stringify(data))}
 
- try{
-  return await rawFetchCandles(
-   asset,
-   timeframe,
-   outputsize
-  );
- }
- catch(error){
+async function fetchSeries(symbol,interval,outputsize){
+  const url="https://api.twelvedata.com/time_series?symbol="+encodeURIComponent(symbol)+
+    "&interval="+encodeURIComponent(interval)+"&outputsize="+outputsize+"&apikey="+API_KEY;
+  await reserveApiCredit();
+  const r=await fetch(url);
+  const data=await r.json();
+  if(!r.ok||data.status==="error"||!Array.isArray(data.values)){
+    throw new Error(data.message||"Market data could not be loaded.");
+  }
+  return data.values.map(x=>({
+    datetime:x.datetime,open:Number(x.open),high:Number(x.high),low:Number(x.low),close:Number(x.close)
+  })).filter(c=>[c.open,c.high,c.low,c.close].every(Number.isFinite)).reverse();
+}
+
+function parseMarketDateTime(value){
+  if(!value)return null;
+  const normalized=value.includes("T")?value:value.replace(" ","T");
+  const d=new Date(normalized+"Z");
+  return Number.isNaN(d.getTime())?null:d;
+}
+
+function aggregate4h(oneHour){
+  const buckets=new Map();
+
+  for(const candle of oneHour){
+    const d=parseMarketDateTime(candle.datetime);
+
+    if(!d){
+      continue;
+    }
+
+    const hour=d.getUTCHours();
+    const bucketHour=Math.floor(hour/4)*4;
+
+    const bucket=new Date(Date.UTC(
+      d.getUTCFullYear(),
+      d.getUTCMonth(),
+      d.getUTCDate(),
+      bucketHour,
+      0,0,0
+    ));
+
+    const key=bucket.toISOString();
+
+    if(!buckets.has(key)){
+      buckets.set(key,[]);
+    }
+
+    buckets.get(key).push(candle);
+  }
+
+  return [...buckets.entries()]
+    .sort((a,b)=>a[0].localeCompare(b[0]))
+    .map(([key,g])=>({
+      datetime:key.replace("T"," ").slice(0,19),
+      open:g[0].open,
+      high:Math.max(...g.map(x=>x.high)),
+      low:Math.min(...g.map(x=>x.low)),
+      close:g[g.length-1].close
+    }))
+    .filter(c=>Number.isFinite(c.open)&&Number.isFinite(c.high)&&Number.isFinite(c.low)&&Number.isFinite(c.close));
+}
+
+async function fetchCandles(asset,timeframe,outputsize=120){
+  const now=Date.now();
+  const cacheKey=asset+"_"+timeframe;
+  const ttl=CACHE_TTL[timeframe]||90000;
+  const cached=candleCache[cacheKey];
+
+  if(
+    cached &&
+    now-cached.time<ttl &&
+    cached.candles.length>=Math.min(outputsize,120)
+  ){
+    return cached.candles.slice(-outputsize);
+  }
+
+  const symbol=SYMBOLS[asset];
 
   if(timeframe!=="H4"){
-   throw error;
+    /*
+      H1 is intentionally loaded with extra candles because
+      the same data can be reused to build H4 without spending
+      another API credit.
+    */
+    const requestSize=
+      timeframe==="H1"
+      ? Math.max(outputsize,520)
+      : outputsize;
+
+    const candles=await fetchSeries(
+      symbol,
+      INTERVALS[timeframe],
+      requestSize
+    );
+
+    if(candles.length<30){
+      throw new Error("Not enough candle data.");
+    }
+
+    candleCache[cacheKey]={
+      time:Date.now(),
+      candles
+    };
+
+    return candles.slice(-outputsize);
   }
 
-  const hourly=
-  await rawFetchCandles(
-   asset,
-   "H1",
-   Math.min(500,outputsize*4)
-  );
+  try{
+    const direct=await fetchSeries(
+      symbol,
+      "4h",
+      outputsize
+    );
 
-  const h4=aggregateH4(hourly);
-
-  if(h4.length<20){
-   throw error;
+    if(direct.length>=30){
+      candleCache[cacheKey]={
+        time:Date.now(),
+        candles:direct
+      };
+      return direct.slice(-outputsize);
+    }
+  }catch(e){
+    console.log(
+      "Direct H4 unavailable, using cached H1 fallback.",
+      e
+    );
   }
+
+  const h1Key=asset+"_H1";
+  let h1Cached=candleCache[h1Key];
+
+  if(
+    !h1Cached ||
+    Date.now()-h1Cached.time>(CACHE_TTL.H1||600000) ||
+    h1Cached.candles.length<120
+  ){
+    const h1=await fetchSeries(
+      symbol,
+      "1h",
+      Math.min(520,Math.max(160,outputsize*4+32))
+    );
+
+    h1Cached={
+      time:Date.now(),
+      candles:h1
+    };
+
+    candleCache[h1Key]=h1Cached;
+  }
+
+  const h4=aggregate4h(h1Cached.candles);
+
+  if(h4.length<30){
+    throw new Error("H4 data unavailable.");
+  }
+
+  candleCache[cacheKey]={
+    time:Date.now(),
+    candles:h4
+  };
 
   return h4.slice(-outputsize);
- }
 }
 
 async function fetchPrice(asset){
-
- const symbol=SYMBOLS[asset];
-
- const url=
- "https://api.twelvedata.com/price"+
- "?symbol="+encodeURIComponent(symbol)+
- "&apikey="+API_KEY;
-
- const response=await fetch(url);
- const data=await response.json();
-
- if(
-  !response.ok ||
-  data.status==="error"
- ){
-  throw new Error(
-   data.message ||
-   "Price unavailable."
-  );
- }
-
- const price=Number(data.price);
-
- if(!Number.isFinite(price)){
-  throw new Error("Invalid price.");
- }
-
- return price;
+  const url="https://api.twelvedata.com/price?symbol="+encodeURIComponent(SYMBOLS[asset])+"&apikey="+API_KEY;
+  await reserveApiCredit();
+  const r=await fetch(url);const data=await r.json();
+  if(!r.ok||data.status==="error")throw new Error(data.message||"Price unavailable.");
+  const p=Number(data.price);if(!Number.isFinite(p))throw new Error("Invalid price.");return p;
 }
 
-
-/* INDICATORS */
-
-function ema(values,period){
-
- if(!values.length){
-  return[];
- }
-
- const multiplier=
- 2/(period+1);
-
- const result=[values[0]];
-
- for(let i=1;i<values.length;i++){
-
-  result.push(
-   values[i]*multiplier+
-   result[i-1]*(1-multiplier)
-  );
-
- }
-
- return result;
+function ema(v,p){
+  if(!v.length)return[];
+  const k=2/(p+1),out=[v[0]];
+  for(let i=1;i<v.length;i++)out.push(v[i]*k+out[i-1]*(1-k));
+  return out;
+}
+function rsi(v,p=14){
+  if(v.length<=p)return 50;
+  let g=0,l=0;
+  for(let i=v.length-p;i<v.length;i++){
+    const d=v[i]-v[i-1];if(d>0)g+=d;else l+=Math.abs(d);
+  }
+  const ag=g/p,al=l/p;if(al===0)return 100;
+  const rs=ag/al;return 100-100/(1+rs);
+}
+function atr(c,p=14){
+  if(c.length<p+1)return 0;const tr=[];
+  for(let i=1;i<c.length;i++){
+    const a=c[i],b=c[i-1];
+    tr.push(Math.max(a.high-a.low,Math.abs(a.high-b.close),Math.abs(a.low-b.close)));
+  }
+  const x=tr.slice(-p);return x.reduce((s,n)=>s+n,0)/x.length;
 }
 
-function rsi(values,period=14){
+function analyzeSignal(asset,timeframe,candles){
+  const closes=candles.map(c=>c.close),e9=ema(closes,9),e21=ema(closes,21);
+  const cur=candles.at(-1),prev=candles.at(-2),f=e9.at(-1),s=e21.at(-1);
+  const R=rsi(closes),A=atr(candles),lb=Math.min(6,closes.length-1),old=closes[closes.length-1-lb];
+  const mom=((cur.close-old)/old)*100;
+  let buy=0,sell=0;
+  if(f>s)buy+=30;else sell+=30;
+  if(cur.close>f)buy+=15;else sell+=15;
+  if(R>=52&&R<=72)buy+=20; else if(R<=48&&R>=28)sell+=20; else if(R>72)sell+=10; else if(R<28)buy+=10;
+  if(mom>0)buy+=20;else sell+=20;
+  if(cur.close>cur.open)buy+=10;else sell+=10;
+  if(prev.close>prev.open)buy+=5;else sell+=5;
 
- if(values.length<=period){
-  return 50;
- }
+  const side=buy>=sell?"BUY":"SELL";
+  const dominant=Math.max(buy,sell);
+  let confidence=Math.round(Math.max(55,Math.min(96,55+dominant*.42)));
+  const entry=cur.close;
 
- let gains=0;
- let losses=0;
+  /* Slightly more selective risk placement than old version */
+  const atrFloor=entry*(asset==="BTCUSD"?0.0010:0.0008);
+  const risk=Math.max(A*1.15,atrFloor);
 
- for(
-  let i=values.length-period;
-  i<values.length;
-  i++
- ){
-
-  const diff=
-  values[i]-values[i-1];
-
-  if(diff>0){
-   gains+=diff;
+  let sl,tp1,tp2,tp3;
+  if(side==="BUY"){
+    sl=entry-risk;tp1=entry+risk*1.15;tp2=entry+risk*1.85;tp3=entry+risk*2.65;
   }else{
-   losses+=Math.abs(diff);
+    sl=entry+risk;tp1=entry-risk*1.15;tp2=entry-risk*1.85;tp3=entry-risk*2.65;
+  }
+  const quality=confidence>=90?"PREMIUM":confidence>=80?"STRONG":confidence>=70?"NORMAL":"LOW";
+  return{asset,timeframe,side,confidence,quality,entry,sl,tp1,tp2,tp3,rsi:R,momentum:mom,atr:A,emaFast:f,emaSlow:s,candles};
+}
+
+async function getSignal(asset,tf){
+  const key=asset+"_"+tf;
+
+  if(signalCache[key]){
+    return signalCache[key];
   }
 
- }
-
- const avgGain=gains/period;
- const avgLoss=losses/period;
-
- if(avgLoss===0){
-  return 100;
- }
-
- const rs=avgGain/avgLoss;
-
- return 100-100/(1+rs);
-}
-
-function atr(candles,period=14){
-
- if(candles.length<period+1){
-  return 0;
- }
-
- const trs=[];
-
- for(let i=1;i<candles.length;i++){
-
-  const current=candles[i];
-  const previous=candles[i-1];
-
-  trs.push(
-   Math.max(
-    current.high-current.low,
-    Math.abs(current.high-previous.close),
-    Math.abs(current.low-previous.close)
-   )
-  );
-
- }
-
- const last=trs.slice(-period);
-
- return last.reduce(
-  (sum,value)=>sum+value,
-  0
- )/last.length;
-}
-
-
-/* SIGNAL ENGINE */
-
-function analyzeSignal(
- asset,
- timeframe,
- candles
-){
-
- const closes=
- candles.map(c=>c.close);
-
- const ema9=ema(closes,9);
- const ema21=ema(closes,21);
-
- const current=
- candles[candles.length-1];
-
- const previous=
- candles[candles.length-2];
-
- const lastEMA9=
- ema9[ema9.length-1];
-
- const lastEMA21=
- ema21[ema21.length-1];
-
- const RSI=
- rsi(closes,14);
-
- const ATR=
- atr(candles,14);
-
- const lookback=
- Math.min(6,closes.length-1);
-
- const oldClose=
- closes[closes.length-1-lookback];
-
- const momentum=
- ((current.close-oldClose)/oldClose)*100;
-
- let buyScore=0;
- let sellScore=0;
-
- if(lastEMA9>lastEMA21){
-  buyScore+=30;
- }else{
-  sellScore+=30;
- }
-
- if(current.close>lastEMA9){
-  buyScore+=15;
- }else{
-  sellScore+=15;
- }
-
- if(RSI>=52 && RSI<=72){
-  buyScore+=20;
- }
- else if(RSI<=48 && RSI>=28){
-  sellScore+=20;
- }
- else if(RSI>72){
-  sellScore+=10;
- }
- else if(RSI<28){
-  buyScore+=10;
- }
-
- if(momentum>0){
-  buyScore+=20;
- }else{
-  sellScore+=20;
- }
-
- if(current.close>current.open){
-  buyScore+=10;
- }else{
-  sellScore+=10;
- }
-
- if(previous.close>previous.open){
-  buyScore+=5;
- }else{
-  sellScore+=5;
- }
-
- const side=
- buyScore>=sellScore
- ? "BUY"
- : "SELL";
-
- const dominantScore=
- Math.max(buyScore,sellScore);
-
- let confidence=
- 55+dominantScore*.42;
-
- confidence=
- Math.round(
-  Math.max(
-   55,
-   Math.min(96,confidence)
-  )
- );
-
- const entry=current.close;
-
- const riskDistance=
- Math.max(
-  ATR*1.35,
-  entry*.0012
- );
-
- let sl,tp1,tp2,tp3;
-
- if(side==="BUY"){
-
-  sl=entry-riskDistance;
-
-  tp1=
-  entry+riskDistance*1.10;
-
-  tp2=
-  entry+riskDistance*1.80;
-
-  tp3=
-  entry+riskDistance*2.60;
-
- }else{
-
-  sl=entry+riskDistance;
-
-  tp1=
-  entry-riskDistance*1.10;
-
-  tp2=
-  entry-riskDistance*1.80;
-
-  tp3=
-  entry-riskDistance*2.60;
-
- }
-
- let quality="LOW";
-
- if(confidence>=90){
-  quality="PREMIUM";
- }
- else if(confidence>=80){
-  quality="STRONG";
- }
- else if(confidence>=70){
-  quality="NORMAL";
- }
-
- return{
-  asset,
-  timeframe,
-  side,
-  confidence,
-  quality,
-  entry,
-  sl,
-  tp1,
-  tp2,
-  tp3,
-  rsi:RSI,
-  momentum,
-  atr:ATR,
-  emaFast:lastEMA9,
-  emaSlow:lastEMA21,
-  candles
- };
-}
-
-/* =========================================
-   FORMAT
-========================================= */
-
-function formatPrice(asset,price){
-
- if(!Number.isFinite(price)){
-  return "--";
- }
-
- if(asset==="BTCUSD"){
-
-  return price.toLocaleString(
-   undefined,
-   {
-    minimumFractionDigits:0,
-    maximumFractionDigits:2
-   }
-  );
-
- }
-
- return price.toLocaleString(
-  undefined,
-  {
-   minimumFractionDigits:2,
-   maximumFractionDigits:2
+  if(signalPromises[key]){
+    return signalPromises[key];
   }
- );
 
+  signalPromises[key]=(async()=>{
+    try{
+      const c=await fetchCandles(asset,tf,120);
+      const s=analyzeSignal(asset,tf,c);
+      signalCache[key]=s;
+      return s;
+    }finally{
+      delete signalPromises[key];
+    }
+  })();
+
+  return signalPromises[key];
 }
 
-
-function signalColor(side){
-
- return side==="BUY"
- ? "green"
- : "red";
-
+async function getMTF(asset){
+  const results=[];
+  for(const tf of TIMEFRAMES){
+    try{results.push(await getSignal(asset,tf))}
+    catch(e){results.push({asset,timeframe:tf,error:true})}
+    await new Promise(r=>setTimeout(r,90));
+  }
+  return results;
 }
 
-
-function qualityColor(quality){
-
- if(quality==="PREMIUM"){
-  return "gold";
- }
-
- if(quality==="STRONG"){
-  return "green";
- }
-
- return "muted";
-
+function mtfStats(results){
+  const ok=results.filter(x=>!x.error);
+  const buys=ok.filter(x=>x.side==="BUY").length,sells=ok.filter(x=>x.side==="SELL").length;
+  const direction=buys>=sells?"BUY":"SELL";
+  const aligned=Math.max(buys,sells),pct=ok.length?Math.round(aligned/ok.length*100):0;
+  return{ok,buys,sells,direction,aligned,pct};
 }
 
-
-/* =========================================
-   CACHE / GET SIGNAL
-========================================= */
-
-async function getSignal(asset,timeframe){
-
- const key=
- asset+"_"+timeframe;
-
- if(signalCache[key]){
-  return signalCache[key];
- }
-
- const candles=
- await fetchCandles(
-  asset,
-  timeframe,
-  120
- );
-
- const signal=
- analyzeSignal(
-  asset,
-  timeframe,
-  candles
- );
-
- signalCache[key]=signal;
-
- return signal;
-
+function formatPrice(asset,p){
+  if(!Number.isFinite(p))return"--";
+  return p.toLocaleString(undefined,asset==="BTCUSD"?{maximumFractionDigits:2}:{minimumFractionDigits:2,maximumFractionDigits:2});
 }
+function signalColor(side){return side==="BUY"?"green":"red"}
+function qualityColor(q){return q==="PREMIUM"?"gold":q==="STRONG"?"green":"muted"}
 
-
-/* =========================================
-   SIGNAL CARD
-========================================= */
-
-function renderSignalCard(signal){
-
- const color=
- signalColor(signal.side);
-
- const qColor=
- qualityColor(signal.quality);
-
- return `
-
- <div class="signalCard">
-
-  <div class="signalHeader">
-
-   <div>
-
-    <div class="side ${color}">
-     ${signal.side}
+function renderSignalCard(s){
+  setTimeout(()=>notifyBitAdamsSignal(s),0);
+  const color=signalColor(s.side),q=qualityColor(s.quality);
+  return `<div class="signalCard">
+    <div class="signalHeader">
+      <div><div class="side ${color}">${s.side}</div><div class="signalSymbol">${s.asset} • ${s.timeframe}</div></div>
+      <div class="confidence ${color}">${s.confidence}%</div>
     </div>
-
-    <div class="signalSymbol">
-     ${signal.asset}
-     •
-     ${signal.timeframe}
+    <div class="levels">
+      <div class="level"><label>ENTRY</label><strong>${formatPrice(s.asset,s.entry)}</strong></div>
+      <div class="level"><label>STOP LOSS</label><strong class="red">${formatPrice(s.asset,s.sl)}</strong></div>
+      <div class="level"><label>TP1</label><strong class="green">${formatPrice(s.asset,s.tp1)}</strong></div>
+      <div class="level"><label>TP2</label><strong class="green">${formatPrice(s.asset,s.tp2)}</strong></div>
+      <div class="level"><label>TP3</label><strong class="green">${formatPrice(s.asset,s.tp3)}</strong></div>
     </div>
-
-   </div>
-
-   <div class="confidence ${color}">
-    ${signal.confidence}%
-   </div>
-
-  </div>
-
-
-  <div class="levels">
-
-   <div class="level">
-    <label>ENTRY</label>
-    <strong>
-     ${formatPrice(
-      signal.asset,
-      signal.entry
-     )}
-    </strong>
-   </div>
-
-   <div class="level">
-    <label>STOP LOSS</label>
-    <strong class="red">
-     ${formatPrice(
-      signal.asset,
-      signal.sl
-     )}
-    </strong>
-   </div>
-
-   <div class="level">
-    <label>TP1</label>
-    <strong class="green">
-     ${formatPrice(
-      signal.asset,
-      signal.tp1
-     )}
-    </strong>
-   </div>
-
-   <div class="level">
-    <label>TP2</label>
-    <strong class="green">
-     ${formatPrice(
-      signal.asset,
-      signal.tp2
-     )}
-    </strong>
-   </div>
-
-   <div class="level">
-    <label>TP3</label>
-    <strong class="green">
-     ${formatPrice(
-      signal.asset,
-      signal.tp3
-     )}
-    </strong>
-   </div>
-
-  </div>
-
-
-  <div class="signalInfo">
-
-   <div>
-
-    <span class="mini muted">
-     RSI
-    </span>
-
-    <strong>
-     ${signal.rsi.toFixed(1)}
-    </strong>
-
-    <span class="mini muted">
-     • Momentum
-    </span>
-
-    <strong class="${signal.momentum>=0 ? "green":"red"}">
-     ${signal.momentum.toFixed(2)}%
-    </strong>
-
-   </div>
-
-   <span class="quality ${qColor}">
-    ${signal.quality}
-   </span>
-
-  </div>
-
-
-  <button
-   class="trackBtn"
-   data-track="1">
-   TRACK THIS SIGNAL
-  </button>
-
- </div>
-
- `;
-
+    <div class="signalInfo">
+      <div><span class="mini muted">RSI </span><strong>${s.rsi.toFixed(1)}</strong>
+      <span class="mini muted"> • Momentum </span><strong class="${s.momentum>=0?"green":"red"}">${s.momentum.toFixed(2)}%</strong></div>
+      <span class="quality ${q}">${s.quality}</span>
+    </div>
+    <button class="trackBtn" data-track="1">TRACK THIS SIGNAL</button>
+  </div>`;
 }
-
-
-/* =========================================
-   TIMEFRAME BUTTONS
-========================================= */
 
 function buildTimeframeButtons(){
-
- const signalButtons=
- document.getElementById(
-  "signalTFButtons"
- );
-
- const chartButtons=
- document.getElementById(
-  "chartTFButtons"
- );
-
-
- signalButtons.innerHTML=
- TIMEFRAMES
- .map(tf=>`
-
-  <button
-   class="tf ${tf===signalTF ? "active":""}"
-   data-signal-tf="${tf}">
-   ${tf}
-  </button>
-
- `)
- .join("");
-
-
- chartButtons.innerHTML=
- TIMEFRAMES
- .map(tf=>`
-
-  <button
-   class="tf ${tf===chartTF ? "active":""}"
-   data-chart-tf="${tf}">
-   ${tf}
-  </button>
-
- `)
- .join("");
-
-
- document
- .querySelectorAll(
-  "[data-signal-tf]"
- )
- .forEach(button=>{
-
-  button.addEventListener(
-   "click",
-   async()=>{
-
-    signalTF=
-    button.dataset.signalTf;
-
-    buildTimeframeButtons();
-
-    await loadSelectedSignal();
-
-   }
-  );
-
- });
-
-
- document
- .querySelectorAll(
-  "[data-chart-tf]"
- )
- .forEach(button=>{
-
-  button.addEventListener(
-   "click",
-   async()=>{
-
-    chartTF=
-    button.dataset.chartTf;
-
-    buildTimeframeButtons();
-
-    await loadChart();
-
-   }
-  );
-
- });
-
+  signalTFButtons.innerHTML=TIMEFRAMES.map(tf=>`<button class="tf ${tf===signalTF?"active":""}" data-signal-tf="${tf}">${tf}</button>`).join("");
+  chartTFButtons.innerHTML=TIMEFRAMES.map(tf=>`<button class="tf ${tf===chartTF?"active":""}" data-chart-tf="${tf}">${tf}</button>`).join("");
+  document.querySelectorAll("[data-signal-tf]").forEach(b=>b.onclick=async()=>{signalTF=b.dataset.signalTf;buildTimeframeButtons();await loadSelectedSignal()});
+  document.querySelectorAll("[data-chart-tf]").forEach(b=>b.onclick=async()=>{chartTF=b.dataset.chartTf;buildTimeframeButtons();await loadChart()});
 }
-
-
-/* =========================================
-   MULTI TIMEFRAME
-========================================= */
-
-async function loadMultiTimeframe(asset){
-
- const box=
- document.getElementById(
-  "multiTFBox"
- );
-
- box.innerHTML=`
-
- <div class="loading">
-  Checking M1 → H4...
- </div>
-
- `;
-
-
- const results=[];
-
-
- for(const tf of TIMEFRAMES){
-
-  try{
-
-   const signal=
-   await getSignal(
-    asset,
-    tf
-   );
-
-   results.push(signal);
-
-  }
-
-  catch(error){
-
-   results.push({
-    asset,
-    timeframe:tf,
-    error:true
-   });
-
-  }
-
- }
-
-
- const valid=
- results.filter(
-  item=>!item.error
- );
-
-
- const buys=
- valid.filter(
-  item=>item.side==="BUY"
- ).length;
-
-
- const sells=
- valid.filter(
-  item=>item.side==="SELL"
- ).length;
-
-
- if(!valid.length){
-
-  box.innerHTML=`
-
-  <div class="errorBox">
-   Multi-timeframe data unavailable.
-  </div>
-
-  `;
-
-  return;
-
- }
-
-
- const direction=
- buys>=sells
- ? "BUY"
- : "SELL";
-
-
- const aligned=
- Math.max(
-  buys,
-  sells
- );
-
-
- const percentage=
- Math.round(
-  aligned /
-  valid.length *
-  100
- );
-
-
- box.innerHTML=`
-
- <div class="mtfTop">
-
-  <div>
-
-   <strong>
-    MULTI-TF CONFIRMATION
-   </strong>
-
-   <div class="mini muted">
-    ${aligned}/${valid.length}
-    timeframes aligned
-   </div>
-
-  </div>
-
-  <strong class="${signalColor(direction)}">
-   ${direction}
-   •
-   ${percentage}%
-  </strong>
-
- </div>
-
-
- <div class="mtfBar">
-
-  <div
-   class="mtfFill"
-   style="width:${percentage}%">
-  </div>
-
- </div>
-
-
- <div class="mtfList">
-
-  ${results.map(item=>{
-
-   if(item.error){
-
-    return `
-
-    <span class="mtfPill muted">
-     ${item.timeframe}: --
-    </span>
-
-    `;
-
-   }
-
-   return `
-
-   <span class="mtfPill ${signalColor(item.side)}">
-    ${item.timeframe}: ${item.side}
-   </span>
-
-   `;
-
-  }).join("")}
-
- </div>
-
- `;
-
-}
-
-
-/* =========================================
-   SELECTED SIGNAL
-========================================= */
 
 async function loadSelectedSignal(){
-
- const container=
- document.getElementById(
-  "signalContent"
- );
-
-
- container.innerHTML=`
-
- <div class="loading">
-  Analyzing
-  ${signalAsset}
-  ${signalTF}...
- </div>
-
- `;
-
-
- try{
-
-  const signal=
-  await getSignal(
-   signalAsset,
-   signalTF
-  );
-
-
-  container.innerHTML=
-  renderSignalCard(signal);
-
-
-  const button=
-  container.querySelector(
-   "[data-track]"
-  );
-
-
-  if(button){
-
-   button.addEventListener(
-    "click",
-    ()=>{
-
-     trackSignal(signal);
-
-    }
-   );
-
+  signalContent.innerHTML=`<div class="loading">Analyzing ${signalAsset} ${signalTF}...</div>`;
+  mtfSummary.innerHTML=`<div class="loading">Checking multi-timeframe confirmation...</div>`;
+  try{
+    const [signal,all]=await Promise.all([getSignal(signalAsset,signalTF),getMTF(signalAsset)]);
+    const m=mtfStats(all);
+    const alignedSelected=m.direction===signal.side;
+    mtfSummary.innerHTML=`<div class="mtfBox">
+      <div class="mtfTop"><div><b>MULTI-TF CONFIRMATION</b><div class="mini muted">${m.aligned}/${m.ok.length} timeframes aligned</div></div>
+      <b class="${signalColor(m.direction)}">${m.direction} • ${m.pct}%</b></div>
+      <div class="mtfBar"><div class="mtfFill" style="width:${m.pct}%"></div></div>
+      <div class="mtfList">${all.map(x=>x.error?`<span class="mtfPill muted">${x.timeframe}: --</span>`:`<span class="mtfPill ${signalColor(x.side)}">${x.timeframe}: ${x.side}</span>`).join("")}</div>
+      <div class="mini ${alignedSelected?"green":"gold"}" style="margin-top:9px">${alignedSelected?"Selected timeframe agrees with the majority.":"Selected timeframe differs from the majority — use extra caution."}</div>
+    </div>`;
+    signalContent.innerHTML=renderSignalCard(signal);
+    signalContent.querySelector("[data-track]").onclick=()=>trackSignal(signal);
+  }catch(e){
+    signalContent.innerHTML=`<div class="errorBox">${e.message}</div>`;
+    mtfSummary.innerHTML="";
   }
-
-
-  loadMultiTimeframe(
-   signalAsset
-  );
-
- }
-
- catch(error){
-
-  container.innerHTML=`
-
-  <div class="errorBox">
-   ${error.message}
-  </div>
-
-  `;
-
- }
-
 }
-
-
-/* =========================================
-   HOME
-========================================= */
 
 async function loadHome(){
+  updateHomeWinRates();
 
- updateHomeWinRates();
-
- loadPrices();
-
- loadHomeM15Signals();
-
- loadHomeTimeframes();
-
+  /*
+    Important for the 8-credit/minute plan:
+    M15 is loaded first and reused for the top price cards,
+    then the visible asset timeframes are loaded.
+    This prevents duplicate requests.
+  */
+  await loadHomeM15Signals();
+  await loadHomeTimeframes();
 }
-
-
 async function loadPrices(){
-
- const btc=
- document.getElementById(
-  "btcPrice"
- );
-
- const gold=
- document.getElementById(
-  "goldPrice"
- );
-
-
- try{
-
-  const value=
-  await fetchPrice(
-   "BTCUSD"
-  );
-
-  btc.textContent=
-  "$"+
-  formatPrice(
-   "BTCUSD",
-   value
-  );
-
- }
- catch(error){
-
-  btc.textContent=
-  "Unavailable";
-
- }
-
-
- try{
-
-  const value=
-  await fetchPrice(
-   "XAUUSD"
-  );
-
-  gold.textContent=
-  "$"+
-  formatPrice(
-   "XAUUSD",
-   value
-  );
-
- }
- catch(error){
-
-  gold.textContent=
-  "Unavailable";
-
- }
-
+  try{btcPrice.textContent="$"+formatPrice("BTCUSD",await fetchPrice("BTCUSD"))}catch(e){btcPrice.textContent="Unavailable"}
+  try{goldPrice.textContent="$"+formatPrice("XAUUSD",await fetchPrice("XAUUSD"))}catch(e){goldPrice.textContent="Unavailable"}
 }
-
-
 async function loadHomeM15Signals(){
-
- const btcLabel=
- document.getElementById(
-  "homeBTCSignal"
- );
-
- const goldLabel=
- document.getElementById(
-  "homeGoldSignal"
- );
-
-
- try{
-
-  const signal=
-  await getSignal(
-   "BTCUSD",
-   "M15"
-  );
-
-
-  btcLabel.textContent=
-  signal.side+
-  " • "+
-  signal.confidence+
-  "%";
-
-
-  btcLabel.className=
-  "statusValue "+
-  signalColor(
-   signal.side
-  );
-
-
-  const trend=
-  document.getElementById(
-   "btcTrend"
-  );
-
-
-  trend.textContent=
-  signal.side==="BUY"
-  ?
-  "▲ BULLISH"
-  :
-  "▼ BEARISH";
-
-
-  trend.className=
-  "trendText "+
-  signalColor(
-   signal.side
-  );
-
- }
- catch(error){
-
-  btcLabel.textContent=
-  "ERROR";
-
- }
-
-
- try{
-
-  const signal=
-  await getSignal(
-   "XAUUSD",
-   "M15"
-  );
-
-
-  goldLabel.textContent=
-  signal.side+
-  " • "+
-  signal.confidence+
-  "%";
-
-
-  goldLabel.className=
-  "statusValue "+
-  signalColor(
-   signal.side
-  );
-
-
-  const trend=
-  document.getElementById(
-   "goldTrend"
-  );
-
-
-  trend.textContent=
-  signal.side==="BUY"
-  ?
-  "▲ BULLISH"
-  :
-  "▼ BEARISH";
-
-
-  trend.className=
-  "trendText "+
-  signalColor(
-   signal.side
-  );
-
- }
- catch(error){
-
-  goldLabel.textContent=
-  "ERROR";
-
- }
-
-}
-
-
-/* =========================================
-   HOME TIMEFRAMES BTC/GOLD
-========================================= */
-
-async function loadHomeTimeframes(){
-
- const box=
- document.getElementById(
-  "homeTFList"
- );
-
-
- box.innerHTML=`
-
- <div class="loading">
-  Loading ${homeAsset} signals...
- </div>
-
- `;
-
-
- const rows=[];
-
-
- for(const tf of TIMEFRAMES){
-
   try{
-
-   const signal=
-   await getSignal(
-    homeAsset,
-    tf
-   );
-
-
-   rows.push(`
-
-   <div class="statusLine">
-
-    <span class="statusName">
-     ${homeAsset}
-     •
-     ${tf}
-    </span>
-
-    <span class="statusValue ${signalColor(signal.side)}">
-
-     ${signal.side}
-     •
-     ${signal.confidence}%
-
-    </span>
-
-   </div>
-
-   `);
-
-  }
-
-  catch(error){
-
-   rows.push(`
-
-   <div class="statusLine">
-
-    <span class="statusName">
-     ${homeAsset}
-     •
-     ${tf}
-    </span>
-
-    <span class="statusValue muted">
-     unavailable
-    </span>
-
-   </div>
-
-   `);
-
-  }
-
- }
-
-
- box.innerHTML=
- rows.join("");
-
+    const s=await getSignal("BTCUSD","M15");
+    btcPrice.textContent="$"+formatPrice("BTCUSD",s.entry);homeBTCSignal.textContent=`${s.side} • ${s.confidence}%`;homeBTCSignal.className="statusValue "+signalColor(s.side);
+    btcTrend.textContent=s.side==="BUY"?"▲ BULLISH":"▼ BEARISH";btcTrend.className="trendText "+signalColor(s.side);
+  }catch(e){btcPrice.textContent="Unavailable";homeBTCSignal.textContent="ERROR"}
+  try{
+    const s=await getSignal("XAUUSD","M15");
+    goldPrice.textContent="$"+formatPrice("XAUUSD",s.entry);homeGoldSignal.textContent=`${s.side} • ${s.confidence}%`;homeGoldSignal.className="statusValue "+signalColor(s.side);
+    goldTrend.textContent=s.side==="BUY"?"▲ BULLISH":"▼ BEARISH";goldTrend.className="trendText "+signalColor(s.side);
+  }catch(e){goldPrice.textContent="Unavailable";homeGoldSignal.textContent="ERROR"}
 }
-
-
-/* =========================================
-   CHART
-========================================= */
+async function loadHomeTimeframes(){
+  homeTFList.innerHTML=`<div class="loading">Loading ${homeAsset} signals...</div>`;
+  const rows=[];
+  for(const tf of TIMEFRAMES){
+    try{
+      const s=await getSignal(homeAsset,tf);
+      rows.push(`<div class="statusLine"><span class="statusName">${homeAsset} • ${tf}</span><span class="statusValue ${signalColor(s.side)}">${s.side} • ${s.confidence}%</span></div>`);
+    }catch(e){
+      rows.push(`<div class="statusLine"><span class="statusName">${homeAsset} • ${tf}</span><span class="statusValue muted">unavailable</span></div>`);
+    }
+    await new Promise(r=>setTimeout(r,90));
+  }
+  homeTFList.innerHTML=rows.join("");
+}
 
 async function loadChart(){
-
- document.getElementById(
-  "chartTitle"
- ).textContent=
- chartAsset;
-
-
- document.getElementById(
-  "chartTimeframe"
- ).textContent=
- chartTF;
-
-
- document.getElementById(
-  "chartSignal"
- ).textContent=
- "Loading...";
-
-
- try{
-
-  const candles=
-  await fetchCandles(
-   chartAsset,
-   chartTF,
-   160
-  );
-
-
-  chartCandles=
-  candles;
-
-
-  const signal=
-  analyzeSignal(
-   chartAsset,
-   chartTF,
-   candles
-  );
-
-
-  signalCache[
-   chartAsset+
-   "_"+
-   chartTF
-  ]=
-  signal;
-
-
-  const label=
-  document.getElementById(
-   "chartSignal"
-  );
-
-
-  label.textContent=
-  signal.side+
-  " • "+
-  signal.confidence+
-  "%";
-
-
-  label.className=
-  "statusValue "+
-  signalColor(
-   signal.side
-  );
-
-
-  document.getElementById(
-   "chartEntry"
-  ).textContent=
-  formatPrice(
-   chartAsset,
-   signal.entry
-  );
-
-
-  document.getElementById(
-   "chartSL"
-  ).textContent=
-  formatPrice(
-   chartAsset,
-   signal.sl
-  );
-
-
-  document.getElementById(
-   "chartTP1"
-  ).textContent=
-  formatPrice(
-   chartAsset,
-   signal.tp1
-  );
-
-
-  document.getElementById(
-   "chartTP2"
-  ).textContent=
-  formatPrice(
-   chartAsset,
-   signal.tp2
-  );
-
-
-  document.getElementById(
-   "chartTP3"
-  ).textContent=
-  formatPrice(
-   chartAsset,
-   signal.tp3
-  );
-
-
-  chartZoom=1;
-
-  chartOffset=0;
-
-  drawChart();
-
- }
-
- catch(error){
-
-  document.getElementById(
-   "chartSignal"
-  ).textContent=
-  "ERROR";
-
-
-  drawChartError(
-   error.message
-  );
-
- }
-
+  chartTitle.textContent=chartAsset;chartTimeframe.textContent=chartTF;chartSignal.textContent="Loading...";
+  try{
+    const c=await fetchCandles(chartAsset,chartTF,160);chartCandles=c;
+    const s=analyzeSignal(chartAsset,chartTF,c);chartSignalData=s;signalCache[chartAsset+"_"+chartTF]=s;
+    chartSignal.textContent=`${s.side} • ${s.confidence}%`;chartSignal.className="statusValue "+signalColor(s.side);
+    chartEntry.textContent=formatPrice(chartAsset,s.entry);chartSL.textContent=formatPrice(chartAsset,s.sl);
+    chartTP1.textContent=formatPrice(chartAsset,s.tp1);chartTP2.textContent=formatPrice(chartAsset,s.tp2);chartTP3.textContent=formatPrice(chartAsset,s.tp3);
+    chartZoom=1;chartOffset=0;drawChart();
+  }catch(e){chartSignalData=null;chartSignal.textContent="ERROR";drawChartError(e.message)}
 }
-
-
-/* =========================================
-   CANVAS
-========================================= */
 
 function resizeCanvas(){
-
- const canvas=
- document.getElementById(
-  "chartCanvas"
- );
-
- const rect=
- canvas.getBoundingClientRect();
-
- const ratio=
- window.devicePixelRatio ||
- 1;
-
-
- canvas.width=
- Math.max(
-  1,
-  Math.floor(
-   rect.width*
-   ratio
-  )
- );
-
-
- canvas.height=
- Math.max(
-  1,
-  Math.floor(
-   rect.height*
-   ratio
-  )
- );
-
-
- const ctx=
- canvas.getContext(
-  "2d"
- );
-
-
- ctx.setTransform(
-  ratio,
-  0,
-  0,
-  ratio,
-  0,
-  0
- );
-
-
- return{
-  canvas,
-  ctx,
-  width:rect.width,
-  height:rect.height
- };
-
+  const c=chartCanvas,r=c.getBoundingClientRect(),ratio=devicePixelRatio||1;
+  c.width=Math.max(1,Math.floor(r.width*ratio));c.height=Math.max(1,Math.floor(r.height*ratio));
+  const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);
+  return{ctx,width:r.width,height:r.height}
 }
-
-
 function drawChart(){
-
- if(!chartCandles.length){
-  return;
- }
-
-
- const {
-  ctx,
-  width,
-  height
- }=
- resizeCanvas();
-
-
- ctx.clearRect(
-  0,
-  0,
-  width,
-  height
- );
-
-
- const baseVisible=48;
-
-
- const visibleCount=
- Math.max(
-  14,
-  Math.floor(
-   baseVisible/
-   chartZoom
-  )
- );
-
-
- const maxOffset=
- Math.max(
-  0,
-  chartCandles.length-
-  visibleCount
- );
-
-
- chartOffset=
- Math.max(
-  0,
-  Math.min(
-   maxOffset,
-   chartOffset
-  )
- );
-
-
- const endIndex=
- chartCandles.length-
- chartOffset;
-
-
- const startIndex=
- Math.max(
-  0,
-  endIndex-
-  visibleCount
- );
-
-
- const visible=
- chartCandles.slice(
-  startIndex,
-  endIndex
- );
-
-
- if(!visible.length){
-  return;
- }
-
-
- const highs=
- visible.map(c=>c.high);
-
- const lows=
- visible.map(c=>c.low);
-
-
- let maxPrice=
- Math.max(...highs);
-
- let minPrice=
- Math.min(...lows);
-
-
- const range=
- Math.max(
-  maxPrice-minPrice,
-  maxPrice*.0001
- );
-
-
- maxPrice+=
- range*.08;
-
- minPrice-=
- range*.08;
-
-
- const paddingLeft=10;
- const paddingRight=58;
- const paddingTop=14;
- const paddingBottom=22;
-
-
- const plotWidth=
- width-
- paddingLeft-
- paddingRight;
-
-
- const plotHeight=
- height-
- paddingTop-
- paddingBottom;
-
-
- function y(price){
-
-  return(
-   paddingTop+
-   (
-    maxPrice-price
-   )/
-   (
-    maxPrice-minPrice
-   )*
-   plotHeight
-  );
-
- }
-
-
- ctx.strokeStyle=
- "#163426";
-
- ctx.fillStyle=
- "#81958b";
-
- ctx.font=
- "10px Arial";
-
-
- for(let i=0;i<=5;i++){
-
-  const yy=
-  paddingTop+
-  plotHeight*
-  i/5;
-
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-   paddingLeft,
-   yy
-  );
-
-  ctx.lineTo(
-   width-paddingRight,
-   yy
-  );
-
-  ctx.stroke();
-
-
-  const price=
-  maxPrice-
-  (
-   maxPrice-minPrice
-  )*
-  i/5;
-
-
-  ctx.fillText(
-   formatPrice(
-    chartAsset,
-    price
-   ),
-   width-
-   paddingRight+
-   6,
-   yy+3
-  );
-
- }
-
-
- const step=
- plotWidth/
- visible.length;
-
-
- const bodyWidth=
- Math.max(
-  3,
-  Math.min(
-   10,
-   step*.58
-  )
- );
-
-
- visible.forEach(
-  (candle,index)=>{
-
-   const x=
-   paddingLeft+
-   step*
-   index+
-   step/2;
-
-
-   const isUp=
-   candle.close>=
-   candle.open;
-
-
-   const color=
-   isUp
-   ?
-   "#20f28a"
-   :
-   "#ff5b6e";
-
-
-   ctx.strokeStyle=
-   color;
-
-   ctx.fillStyle=
-   color;
-
-
-   ctx.beginPath();
-
-   ctx.moveTo(
-    x,
-    y(candle.high)
-   );
-
-   ctx.lineTo(
-    x,
-    y(candle.low)
-   );
-
-   ctx.stroke();
-
-
-   const openY=
-   y(candle.open);
-
-   const closeY=
-   y(candle.close);
-
-
-   const top=
-   Math.min(
-    openY,
-    closeY
-   );
-
-
-   const bodyHeight=
-   Math.max(
-    2,
-    Math.abs(
-     closeY-openY
-    )
-   );
-
-
-   ctx.fillRect(
-    x-bodyWidth/2,
-    top,
-    bodyWidth,
-    bodyHeight
-   );
-
+  if(!chartCandles.length)return;
+  const {ctx,width,height}=resizeCanvas();ctx.clearRect(0,0,width,height);
+  const visibleCount=Math.max(14,Math.floor(48/chartZoom));
+  const maxOffset=Math.max(0,chartCandles.length-visibleCount);
+  chartOffset=Math.max(0,Math.min(maxOffset,chartOffset));
+  const end=chartCandles.length-chartOffset,start=Math.max(0,end-visibleCount),v=chartCandles.slice(start,end);
+  if(!v.length)return;
+  let max=Math.max(...v.map(c=>c.high)),min=Math.min(...v.map(c=>c.low)),range=Math.max(max-min,max*.0001);
+  max+=range*.08;min-=range*.08;
+  const L=10,R=58,T=14,B=22,W=width-L-R,H=height-T-B;
+  const y=p=>T+(max-p)/(max-min)*H;
+  ctx.strokeStyle="#163426";ctx.fillStyle="#81958b";ctx.font="10px Arial";
+  for(let i=0;i<=5;i++){
+    const yy=T+H*i/5;ctx.beginPath();ctx.moveTo(L,yy);ctx.lineTo(width-R,yy);ctx.stroke();
+    ctx.fillText(formatPrice(chartAsset,max-(max-min)*i/5),width-R+6,yy+3);
   }
- );
+  if(chartSignalData){
+    const levels=[
+      {label:"ENTRY",price:chartSignalData.entry,color:"#f4c95d"},
+      {label:"SL",price:chartSignalData.sl,color:"#ff5b6e"},
+      {label:"TP1",price:chartSignalData.tp1,color:"#20f28a"},
+      {label:"TP2",price:chartSignalData.tp2,color:"#20f28a"},
+      {label:"TP3",price:chartSignalData.tp3,color:"#20f28a"}
+    ];
 
+    ctx.save();
+    ctx.font="10px Arial";
+    ctx.setLineDash([5,4]);
+
+    for(const level of levels){
+      if(level.price<min||level.price>max)continue;
+
+      const yy=y(level.price);
+      ctx.strokeStyle=level.color;
+      ctx.fillStyle=level.color;
+
+      ctx.beginPath();
+      ctx.moveTo(L,yy);
+      ctx.lineTo(width-R,yy);
+      ctx.stroke();
+
+      ctx.fillText(
+        level.label+" "+formatPrice(chartAsset,level.price),
+        L+4,
+        Math.max(T+10,yy-4)
+      );
+    }
+
+    ctx.restore();
+  }
+
+  const step=W/v.length,bw=Math.max(3,Math.min(10,step*.58));
+  v.forEach((c,i)=>{
+    const x=L+step*i+step/2,up=c.close>=c.open,col=up?"#20f28a":"#ff5b6e";
+    ctx.strokeStyle=col;ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(x,y(c.high));ctx.lineTo(x,y(c.low));ctx.stroke();
+    const oy=y(c.open),cy=y(c.close),top=Math.min(oy,cy),bh=Math.max(2,Math.abs(cy-oy));
+    ctx.fillRect(x-bw/2,top,bw,bh);
+  });
+}
+function drawChartError(msg){
+  const {ctx,width,height}=resizeCanvas();ctx.clearRect(0,0,width,height);
+  ctx.fillStyle="#ff8c98";ctx.font="13px Arial";ctx.textAlign="center";ctx.fillText(msg,width/2,height/2);ctx.textAlign="left";
 }
 
-
-function drawChartError(message){
-
- const {
-  ctx,
-  width,
-  height
- }=
- resizeCanvas();
+function eventExists(trade,label){return Array.isArray(trade.events)&&trade.events.some(e=>e.label===label)}
+function pushEvent(trade,label,text){if(!eventExists(trade,label))trade.events.push({label,text})}
 
 
- ctx.clearRect(
-  0,
-  0,
-  width,
-  height
- );
+function marketTimeToMs(value){
+  if(!value)return NaN;
 
+  const normalized=value.includes("T")
+    ? value
+    : value.replace(" ","T");
 
- ctx.fillStyle=
- "#ff8c98";
+  const utc=new Date(normalized.endsWith("Z")?normalized:normalized+"Z");
 
- ctx.font=
- "13px Arial";
+  if(!Number.isNaN(utc.getTime())){
+    return utc.getTime();
+  }
 
- ctx.textAlign=
- "center";
+  const local=new Date(normalized);
 
-
- ctx.fillText(
-  message,
-  width/2,
-  height/2
- );
-
-
- ctx.textAlign=
- "left";
-
+  return local.getTime();
 }
 
+function formatDuration(ms){
+  if(!Number.isFinite(ms) || ms<0){
+    return "--";
+  }
 
-/* =========================================
-   TRACK SIGNAL
-========================================= */
+  const totalMinutes=Math.floor(ms/60000);
+  const days=Math.floor(totalMinutes/1440);
+  const hours=Math.floor((totalMinutes%1440)/60);
+  const minutes=totalMinutes%60;
 
-function trackSignal(signal){
+  if(days>0){
+    return `${days}d ${hours}h`;
+  }
 
- const history=
- getHistory();
+  if(hours>0){
+    return `${hours}h ${minutes}m`;
+  }
 
+  return `${minutes}m`;
+}
 
- const now=
- new Date();
+function tradeIsActive(trade){
+  return ["OPEN","TP1","TP2"].includes(trade.status);
+}
 
+function addTradeEventOnce(trade,label,text){
+  if(!Array.isArray(trade.events)){
+    trade.events=[];
+  }
 
- const recentDuplicate=
- history[
-  signal.asset
- ]
- .find(item=>
+  if(!trade.events.some(event=>event.label===label)){
+    trade.events.push({label,text});
+  }
+}
 
-  item.timeframe===
-  signal.timeframe
+function reachedTargetStatus(trade){
+  if(trade.status==="WIN")return 3;
+  if(trade.status==="TP2")return 2;
+  if(trade.status==="TP1")return 1;
+  return 0;
+}
 
-  &&
+function trackSignal(s){
+  const history=getHistory();
+  const now=Date.now();
 
-  item.side===
-  signal.side
-
-  &&
-
-  (
-   now.getTime()-
-   item.timestamp
-  )<60000
-
- );
-
-
- if(recentDuplicate){
-
-  alert(
-   "This signal is already tracked."
+  const duplicate=history[s.asset].find(item=>
+    item.timeframe===s.timeframe &&
+    item.side===s.side &&
+    tradeIsActive(item) &&
+    now-item.timestamp<60000
   );
 
-  return;
+  if(duplicate){
+    alert("This signal is already tracked.");
+    return;
+  }
 
- }
+  const item={
+    id:[s.asset,s.timeframe,s.side,now].join("_"),
+    asset:s.asset,
+    timeframe:s.timeframe,
+    side:s.side,
+    confidence:s.confidence,
+    quality:s.quality,
+    entry:s.entry,
+    sl:s.sl,
+    tp1:s.tp1,
+    tp2:s.tp2,
+    tp3:s.tp3,
+    status:"OPEN",
+    timestamp:now,
+    created:new Date(now).toLocaleString(),
+    lastChecked:now,
+    lastPrice:s.entry,
+    highestPrice:s.entry,
+    lowestPrice:s.entry,
+    reachedTP1:false,
+    reachedTP2:false,
+    reachedTP3:false,
+    closedAt:null,
+    events:[
+      {
+        label:"Signal created",
+        text:new Date(now).toLocaleTimeString()
+      }
+    ]
+  };
 
+  history[s.asset].unshift(item);
+  saveHistory(history);
+  updateHomeWinRates();
+  renderHistory();
 
- const item={
-
-  id:
-  signal.asset+
-  "_"+
-  signal.timeframe+
-  "_"+
-  signal.side+
-  "_"+
-  now.getTime(),
-
-  asset:
-  signal.asset,
-
-  timeframe:
-  signal.timeframe,
-
-  side:
-  signal.side,
-
-  confidence:
-  signal.confidence,
-
-  quality:
-  signal.quality,
-
-  entry:
-  signal.entry,
-
-  sl:
-  signal.sl,
-
-  tp1:
-  signal.tp1,
-
-  tp2:
-  signal.tp2,
-
-  tp3:
-  signal.tp3,
-
-  status:
-  "OPEN",
-
-  timestamp:
-  now.getTime(),
-
-  created:
-  now.toLocaleString(),
-
-  events:[
-   {
-    label:
-    "Signal created",
-
-    text:
-    now.toLocaleTimeString()
-   }
-  ]
-
- };
-
-
- history[
-  signal.asset
- ].unshift(item);
-
-
- saveHistory(history);
-
- updateHomeWinRates();
-
-
- alert(
-  signal.asset+
-  " "+
-  signal.timeframe+
-  " signal added to History."
- );
-
+  alert(`${s.asset} ${s.timeframe} signal added to History.`);
 }
-
-
-/* =========================================
-   CHECK OPEN TRADES
-========================================= */
 
 async function checkOpenTrades(){
+  const history=getHistory();
+  let changed=false;
+  let checked=0;
 
- const history=
- getHistory();
+  const statusEl=document.getElementById("historyCheckStatus");
+  const buttonEl=document.getElementById("historyCheckNow");
+  const dotEl=document.getElementById("historyLiveDot");
 
+  if(statusEl)statusEl.textContent="Checking open trades…";
+  if(buttonEl){
+    buttonEl.disabled=true;
+    buttonEl.textContent="CHECKING…";
+  }
+  if(dotEl)dotEl.style.opacity=".45";
 
- for(
-  const asset
-  of
-  [
-   "BTCUSD",
-   "XAUUSD"
-  ]
- ){
+  const groups=new Map();
 
-  const trades=
-  history[
-   asset
-  ].filter(item=>
-
-   item.status==="OPEN" ||
-   item.status==="TP1" ||
-   item.status==="TP2"
-
-  );
-
-
-  for(const trade of trades){
-
-   try{
-
-    const candles=
-    await fetchCandles(
-     asset,
-     trade.timeframe,
-     40
-    );
-
-
-    evaluateTrade(
-     trade,
-     candles
-    );
-
-   }
-
-   catch(error){
-
-    console.log(
-     "Trade check error",
-     error
-    );
-
-   }
-
+  for(const asset of ["BTCUSD","XAUUSD"]){
+    for(const trade of history[asset].filter(trade=>tradeIsActive(trade))){
+      const key=`${asset}|${trade.timeframe}`;
+      if(!groups.has(key)){
+        groups.set(key,{asset,timeframe:trade.timeframe,trades:[]});
+      }
+      groups.get(key).trades.push(trade);
+    }
   }
 
- }
+  for(const group of groups.values()){
+    try{
+      /*
+        Fetch enough candles to cover trades created earlier in the day,
+        but the candle cache + API guard prevents excessive requests.
+      */
+      const candles=await fetchCandles(group.asset,group.timeframe,180);
 
+      for(const trade of group.trades){
+        checked++;
 
- saveHistory(history);
+        if(evaluateTradeV3(trade,candles)){
+          changed=true;
+        }
+      }
+    }catch(error){
+      console.log("Trade check error",error);
+    }
+  }
 
- renderHistory();
+  if(changed){
+    saveHistory(history);
+  }
 
- updateHomeWinRates();
+  renderHistory();
+  updateHomeWinRates();
 
-}
-
-
-/* =========================================
-   TRADE EVALUATION
-========================================= */
-
-function addTradeEvent(
- trade,
- label,
- text
-){
-
- if(!Array.isArray(trade.events)){
-  trade.events=[];
- }
-
-
- const exists=
- trade.events.some(
-  event=>
-  event.label===label
- );
-
-
- if(!exists){
-
-  trade.events.push({
-   label,
-   text
+  const timeText=new Date().toLocaleTimeString([], {
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit"
   });
 
- }
-
-}
-
-
-function evaluateTrade(
- trade,
- candles
-){
-
- let tp1Hit=
- trade.status==="TP1" ||
- trade.status==="TP2";
-
- let tp2Hit=
- trade.status==="TP2";
-
- let tp3Hit=false;
-
-
- for(const candle of candles){
-
-  if(trade.side==="BUY"){
-
-   if(
-    candle.low<=
-    trade.sl
-   ){
-
-    trade.status=
-    "LOST";
-
-    addTradeEvent(
-     trade,
-     "Stop Loss reached",
-     candle.datetime
-    );
-
-    return;
-
-   }
-
-
-   if(
-    candle.high>=
-    trade.tp1
-   ){
-    tp1Hit=true;
-   }
-
-
-   if(
-    candle.high>=
-    trade.tp2
-   ){
-    tp2Hit=true;
-   }
-
-
-   if(
-    candle.high>=
-    trade.tp3
-   ){
-    tp3Hit=true;
-   }
-
+  if(statusEl){
+    statusEl.textContent=checked
+      ? `Last check ${timeText} • ${checked} open trade${checked===1?"":"s"} checked`
+      : `Last check ${timeText} • No open trades`;
   }
 
-  else{
-
-   if(
-    candle.high>=
-    trade.sl
-   ){
-
-    trade.status=
-    "LOST";
-
-    addTradeEvent(
-     trade,
-     "Stop Loss reached",
-     candle.datetime
-    );
-
-    return;
-
-   }
-
-
-   if(
-    candle.low<=
-    trade.tp1
-   ){
-    tp1Hit=true;
-   }
-
-
-   if(
-    candle.low<=
-    trade.tp2
-   ){
-    tp2Hit=true;
-   }
-
-
-   if(
-    candle.low<=
-    trade.tp3
-   ){
-    tp3Hit=true;
-   }
-
+  if(buttonEl){
+    buttonEl.disabled=false;
+    buttonEl.textContent="CHECK NOW";
   }
 
- }
+  if(dotEl)dotEl.style.opacity="1";
 
-
- if(tp1Hit){
-
-  addTradeEvent(
-   trade,
-   "TP1 reached",
-   "Target 1 reached"
-  );
-
- }
-
-
- if(tp2Hit){
-
-  addTradeEvent(
-   trade,
-   "TP2 reached",
-   "Target 2 reached"
-  );
-
- }
-
-
- if(tp3Hit){
-
-  addTradeEvent(
-   trade,
-   "TP3 reached",
-   "Trade completed"
-  );
-
-  trade.status=
-  "WIN";
-
- }
- else if(tp2Hit){
-
-  trade.status=
-  "TP2";
-
- }
- else if(tp1Hit){
-
-  trade.status=
-  "TP1";
-
- }
-
+  return {checked,changed};
 }
 
+function timeframeMinutes(tf){
+  return {
+    M1:1,
+    M5:5,
+    M15:15,
+    M30:30,
+    H1:60,
+    H4:240
+  }[tf] || 15;
+}
 
-/* =========================================
-   HISTORY
-========================================= */
+function evaluateTradeV3(trade,candles){
+  let changed=false;
+
+  if(!Array.isArray(candles) || !candles.length){
+    return false;
+  }
+
+  const tolerance=timeframeMinutes(trade.timeframe)*60*1000;
+
+  let relevant=candles.filter(candle=>{
+    const t=marketTimeToMs(candle.datetime);
+
+    if(!Number.isFinite(t)){
+      return false;
+    }
+
+    return t>=trade.timestamp-tolerance;
+  });
+
+  /*
+    On some mobile/WebView environments, Twelve Data candle timestamps
+    and device time can differ by timezone interpretation. If strict
+    timestamp filtering leaves no candles, use the most recent candles
+    rather than freezing Current/High/Low at Entry.
+  */
+  if(!relevant.length){
+    relevant=candles.slice(-Math.min(candles.length,12));
+  }
+
+  for(const candle of relevant){
+    const close=Number(candle.close);
+    const high=Number(candle.high);
+    const low=Number(candle.low);
+
+    if(Number.isFinite(close) && trade.lastPrice!==close){
+      trade.lastPrice=close;
+      changed=true;
+    }
+
+    if(Number.isFinite(high)){
+      const previousHigh=Number.isFinite(trade.highestPrice)
+        ? trade.highestPrice
+        : trade.entry;
+
+      const nextHigh=Math.max(previousHigh,high);
+
+      if(nextHigh!==trade.highestPrice){
+        trade.highestPrice=nextHigh;
+        changed=true;
+      }
+    }
+
+    if(Number.isFinite(low)){
+      const previousLow=Number.isFinite(trade.lowestPrice)
+        ? trade.lowestPrice
+        : trade.entry;
+
+      const nextLow=Math.min(previousLow,low);
+
+      if(nextLow!==trade.lowestPrice){
+        trade.lowestPrice=nextLow;
+        changed=true;
+      }
+    }
+
+    trade.lastChecked=Date.now();
+
+    const isBuy=trade.side==="BUY";
+
+    const slHit=isBuy
+      ? low<=trade.sl
+      : high>=trade.sl;
+
+    const tp1Hit=isBuy
+      ? high>=trade.tp1
+      : low<=trade.tp1;
+
+    const tp2Hit=isBuy
+      ? high>=trade.tp2
+      : low<=trade.tp2;
+
+    const tp3Hit=isBuy
+      ? high>=trade.tp3
+      : low<=trade.tp3;
+
+    if(slHit && (tp1Hit || tp2Hit || tp3Hit)){
+      trade.status="LOST";
+      trade.closedAt=Date.now();
+
+      addTradeEventOnce(
+        trade,
+        "Ambiguous candle → LOST",
+        `${candle.datetime} • SL and TP were inside the same candle`
+      );
+
+      changed=true;
+      return changed;
+    }
+
+    if(slHit){
+      trade.status="LOST";
+      trade.closedAt=Date.now();
+
+      addTradeEventOnce(
+        trade,
+        "Stop Loss reached",
+        candle.datetime
+      );
+
+      changed=true;
+      return changed;
+    }
+
+    if(tp1Hit && !trade.reachedTP1){
+      trade.reachedTP1=true;
+      trade.status="TP1";
+
+      addTradeEventOnce(
+        trade,
+        "TP1 reached",
+        candle.datetime
+      );
+
+      changed=true;
+    }
+
+    if(tp2Hit && !trade.reachedTP2){
+      trade.reachedTP1=true;
+      trade.reachedTP2=true;
+      trade.status="TP2";
+
+      addTradeEventOnce(
+        trade,
+        "TP2 reached",
+        candle.datetime
+      );
+
+      changed=true;
+    }
+
+    if(tp3Hit && !trade.reachedTP3){
+      trade.reachedTP1=true;
+      trade.reachedTP2=true;
+      trade.reachedTP3=true;
+      trade.status="WIN";
+      trade.closedAt=Date.now();
+
+      addTradeEventOnce(
+        trade,
+        "TP3 reached",
+        candle.datetime
+      );
+
+      addTradeEventOnce(
+        trade,
+        "Trade completed",
+        "WIN"
+      );
+
+      changed=true;
+      return changed;
+    }
+  }
+
+  return changed;
+}
+
+function evaluateTradeV2(trade,candles){
+  let changed=false;
+
+  const relevant=candles.filter(candle=>{
+    const t=marketTimeToMs(candle.datetime);
+
+    if(!Number.isFinite(t)){
+      return false;
+    }
+
+    /*
+      Small tolerance because the signal can be created during
+      the currently-open candle.
+    */
+    return t>=trade.timestamp-(5*60*1000);
+  });
+
+  if(!relevant.length){
+    return false;
+  }
+
+  for(const candle of relevant){
+    trade.lastPrice=candle.close;
+    trade.highestPrice=Math.max(
+      Number.isFinite(trade.highestPrice)?trade.highestPrice:trade.entry,
+      candle.high
+    );
+    trade.lowestPrice=Math.min(
+      Number.isFinite(trade.lowestPrice)?trade.lowestPrice:trade.entry,
+      candle.low
+    );
+    trade.lastChecked=Date.now();
+
+    const isBuy=trade.side==="BUY";
+
+    const slHit=isBuy
+      ? candle.low<=trade.sl
+      : candle.high>=trade.sl;
+
+    const tp1Hit=isBuy
+      ? candle.high>=trade.tp1
+      : candle.low<=trade.tp1;
+
+    const tp2Hit=isBuy
+      ? candle.high>=trade.tp2
+      : candle.low<=trade.tp2;
+
+    const tp3Hit=isBuy
+      ? candle.high>=trade.tp3
+      : candle.low<=trade.tp3;
+
+    /*
+      If SL and a TP are both inside the same candle, we cannot
+      know the intrabar order from OHLC alone. Use the conservative
+      result instead of claiming a win.
+    */
+    if(slHit && (tp1Hit || tp2Hit || tp3Hit)){
+      trade.status="LOST";
+      trade.closedAt=Date.now();
+
+      addTradeEventOnce(
+        trade,
+        "Ambiguous candle → LOST",
+        `${candle.datetime} • SL and TP were inside the same candle`
+      );
+
+      changed=true;
+      return changed;
+    }
+
+    if(slHit){
+      trade.status="LOST";
+      trade.closedAt=Date.now();
+
+      addTradeEventOnce(
+        trade,
+        "Stop Loss reached",
+        candle.datetime
+      );
+
+      changed=true;
+      return changed;
+    }
+
+    if(tp1Hit && !trade.reachedTP1){
+      trade.reachedTP1=true;
+      trade.status="TP1";
+
+      addTradeEventOnce(
+        trade,
+        "TP1 reached",
+        candle.datetime
+      );
+
+      changed=true;
+    }
+
+    if(tp2Hit && !trade.reachedTP2){
+      trade.reachedTP1=true;
+      trade.reachedTP2=true;
+      trade.status="TP2";
+
+      addTradeEventOnce(
+        trade,
+        "TP2 reached",
+        candle.datetime
+      );
+
+      changed=true;
+    }
+
+    if(tp3Hit && !trade.reachedTP3){
+      trade.reachedTP1=true;
+      trade.reachedTP2=true;
+      trade.reachedTP3=true;
+      trade.status="WIN";
+      trade.closedAt=Date.now();
+
+      addTradeEventOnce(
+        trade,
+        "TP3 reached",
+        candle.datetime
+      );
+
+      addTradeEventOnce(
+        trade,
+        "Trade completed",
+        "WIN"
+      );
+
+      changed=true;
+      return changed;
+    }
+  }
+
+  return changed;
+}
 
 function renderHistory(){
-
- const history=
- getHistory();
-
-
- const data=
- history[
-  historyAsset
- ];
-
-
- const wins=
- data.filter(
-  item=>
-  item.status==="WIN"
- ).length;
-
-
- const lost=
- data.filter(
-  item=>
-  item.status==="LOST"
- ).length;
-
-
- const closed=
- wins+lost;
-
-
- const winRate=
- closed>0
- ?
- Math.round(
-  wins/
-  closed*
-  100
- )
- :
- 0;
-
-
- document.getElementById(
-  "historySignals"
- ).textContent=
- data.length;
-
-
- document.getElementById(
-  "historyWinRate"
- ).textContent=
- closed>0
- ?
- winRate+"%"
- :
- "--%";
-
-
- document.getElementById(
-  "historyLost"
- ).textContent=
- lost;
-
-
- const list=
- document.getElementById(
-  "historyList"
- );
-
-
- if(data.length===0){
-
-  list.innerHTML=`
-
-  <div class="loading">
-   No ${historyAsset} signals tracked yet.
-  </div>
-
-  `;
-
-  return;
-
- }
-
-
- list.innerHTML=
- data.map(
-  (trade,index)=>{
-
-   let badgeClass=
-   "gold";
-
-
-   if(
-    trade.status==="WIN" ||
-    trade.status==="TP1" ||
-    trade.status==="TP2"
-   ){
-
-    badgeClass=
-    "green";
-
-   }
-   else if(
-    trade.status==="LOST"
-   ){
-
-    badgeClass=
-    "red";
-
-   }
-
-
-   return `
-
-   <div class="tradeRow">
-
-    <button
-     class="tradeBtn"
-     data-trade-index="${index}">
-
-     <div>
-
-      <strong>
-
-       <span class="${signalColor(trade.side)}">
-        ${trade.side}
-       </span>
-
-       ${trade.asset}
-
-       •
-
-       ${trade.timeframe}
-
-      </strong>
-
-      <div class="tradeMeta">
-
-       ${trade.created}
-
-       •
-
-       ${trade.confidence}%
-
-      </div>
-
-     </div>
-
-     <span class="badge ${badgeClass}">
-      ${trade.status}
-     </span>
-
-    </button>
-
-   </div>
-
-   `;
-
-  }
- )
- .join("");
-
-
- list
- .querySelectorAll(
-  "[data-trade-index]"
- )
- .forEach(button=>{
-
-  button.addEventListener(
-   "click",
-   ()=>{
-
-    const index=
-    Number(
-     button.dataset.tradeIndex
-    );
-
-
-    showTradeDetails(
-     data[index]
-    );
-
-   }
+  const data=getHistory()[historyAsset];
+  const wins=data.filter(x=>x.status==="WIN").length,lost=data.filter(x=>x.status==="LOST").length,closed=wins+lost;
+  historySignals.textContent=data.length;historyWinRate.textContent=closed?Math.round(wins/closed*100)+"%":"--%";historyLost.textContent=lost;
+  if(!data.length){historyList.innerHTML=`<div class="loading">No ${historyAsset} signals tracked yet.</div>`;return}
+  historyList.innerHTML=data.map((t,i)=>{
+    const cls=t.status==="LOST"?"red":t.status==="OPEN"?"gold":"green";
+    return `<div class="tradeRow"><button class="tradeBtn" data-trade-index="${i}">
+      <div><strong><span class="${signalColor(t.side)}">${t.side}</span> ${t.asset} • ${t.timeframe}</strong>
+      <div class="tradeMeta">${t.created} • ${t.confidence}%</div></div><span class="badge ${cls}">${t.status}</span>
+    </button></div>`
+  }).join("");
+  historyList.querySelectorAll("[data-trade-index]").forEach(b=>b.onclick=()=>showTradeDetails(data[Number(b.dataset.tradeIndex)]));
+}
+
+function showTradeDetails(t){
+  detailTitle.innerHTML=`<span class="${signalColor(t.side)}">${t.side}</span> ${t.asset} • ${t.timeframe} • ${t.status}`;
+  detailDate.textContent=t.created;detailEntry.textContent=formatPrice(t.asset,t.entry);detailSL.textContent=formatPrice(t.asset,t.sl);
+  detailTP1.textContent=formatPrice(t.asset,t.tp1);detailTP2.textContent=formatPrice(t.asset,t.tp2);detailTP3.textContent=formatPrice(t.asset,t.tp3);
+
+  detailCurrent.textContent=formatPrice(
+    t.asset,
+    Number.isFinite(t.lastPrice)?t.lastPrice:t.entry
   );
 
- });
+  detailHigh.textContent=formatPrice(
+    t.asset,
+    Number.isFinite(t.highestPrice)?t.highestPrice:t.entry
+  );
 
+  detailLow.textContent=formatPrice(
+    t.asset,
+    Number.isFinite(t.lowestPrice)?t.lowestPrice:t.entry
+  );
+
+  detailDuration.textContent=formatDuration(
+    (t.closedAt||Date.now())-t.timestamp
+  );
+
+  const events=Array.isArray(t.events)?t.events:[];
+  detailTimeline.innerHTML=events.map(e=>`<div class="timelineItem"><div class="timelineDot"></div><div><strong>${e.label}</strong><div class="mini muted">${e.text}</div></div></div>`).join("");
+  tradeOverlay.classList.add("open");
 }
-
-
-/* =========================================
-   TRADE DETAILS
-========================================= */
-
-function showTradeDetails(trade){
-
- document.getElementById(
-  "detailTitle"
- ).innerHTML=`
-
- <span class="${signalColor(trade.side)}">
-  ${trade.side}
- </span>
-
- ${trade.asset}
-
- •
-
- ${trade.timeframe}
-
- •
-
- ${trade.status}
-
- `;
-
-
- document.getElementById(
-  "detailDate"
- ).textContent=
- trade.created;
-
-
- document.getElementById(
-  "detailEntry"
- ).textContent=
- formatPrice(
-  trade.asset,
-  trade.entry
- );
-
-
- document.getElementById(
-  "detailSL"
- ).textContent=
- formatPrice(
-  trade.asset,
-  trade.sl
- );
-
-
- document.getElementById(
-  "detailTP1"
- ).textContent=
- formatPrice(
-  trade.asset,
-  trade.tp1
- );
-
-
- document.getElementById(
-  "detailTP2"
- ).textContent=
- formatPrice(
-  trade.asset,
-  trade.tp2
- );
-
-
- document.getElementById(
-  "detailTP3"
- ).textContent=
- formatPrice(
-  trade.asset,
-  trade.tp3
- );
-
-
- const events=
- Array.isArray(
-  trade.events
- )
- ?
- trade.events
- :
- [];
-
-
- document.getElementById(
-  "detailTimeline"
- ).innerHTML=
- events
- .map(event=>`
-
- <div class="timelineItem">
-
-  <div class="timelineDot"></div>
-
-  <div>
-
-   <strong>
-    ${event.label}
-   </strong>
-
-   <div class="mini muted">
-    ${event.text}
-   </div>
-
-  </div>
-
- </div>
-
- `)
- .join("");
-
-
- document.getElementById(
-  "tradeOverlay"
- ).classList.add(
-  "open"
- );
-
-}
-
-
-/* =========================================
-   WIN RATE
-========================================= */
 
 function calculateAssetStats(asset){
-
- const history=
- getHistory()[
-  asset
- ];
-
-
- const wins=
- history.filter(
-  item=>
-  item.status==="WIN"
- ).length;
-
-
- const lost=
- history.filter(
-  item=>
-  item.status==="LOST"
- ).length;
-
-
- const closed=
- wins+lost;
-
-
- const winRate=
- closed
- ?
- Math.round(
-  wins/
-  closed*
-  100
- )
- :
- 0;
-
-
- return{
-  total:history.length,
-  wins,
-  lost,
-  closed,
-  winRate
- };
-
+  const h=getHistory()[asset],wins=h.filter(x=>x.status==="WIN").length,lost=h.filter(x=>x.status==="LOST").length,closed=wins+lost;
+  return{total:h.length,wins,lost,closed,winRate:closed?Math.round(wins/closed*100):0};
 }
-
-
 function updateHomeWinRates(){
-
- const btc=
- calculateAssetStats(
-  "BTCUSD"
- );
-
-
- const gold=
- calculateAssetStats(
-  "XAUUSD"
- );
-
-
- const btcText=
- document.getElementById(
-  "btcWinRate"
- );
-
-
- const goldText=
- document.getElementById(
-  "goldWinRate"
- );
-
-
- const btcRing=
- document.getElementById(
-  "btcRing"
- );
-
-
- const goldRing=
- document.getElementById(
-  "goldRing"
- );
-
-
- btcText.textContent=
- btc.closed
- ?
- btc.winRate+"%"
- :
- "--%";
-
-
- goldText.textContent=
- gold.closed
- ?
- gold.winRate+"%"
- :
- "--%";
-
-
- btcRing.style.setProperty(
-  "--p",
-  btc.winRate
- );
-
-
- goldRing.style.setProperty(
-  "--p",
-  gold.winRate
- );
-
-
- const best=
- document.getElementById(
-  "bestPerformer"
- );
-
-
- if(
-  !btc.closed &&
-  !gold.closed
- ){
-
-  best.textContent=
-  "NO DATA";
-
- }
- else if(
-  btc.winRate>
-  gold.winRate
- ){
-
-  best.textContent=
-  "BITCOIN";
-
- }
- else if(
-  gold.winRate>
-  btc.winRate
- ){
-
-  best.textContent=
-  "GOLD";
-
- }
- else{
-
-  best.textContent=
-  "EQUAL";
-
- }
-
+  const b=calculateAssetStats("BTCUSD"),g=calculateAssetStats("XAUUSD");
+  btcWinRate.textContent=b.closed?b.winRate+"%":"--%";goldWinRate.textContent=g.closed?g.winRate+"%":"--%";
+  btcRing.style.setProperty("--p",b.winRate);goldRing.style.setProperty("--p",g.winRate);
+  bestPerformer.textContent=!b.closed&&!g.closed?"NO DATA":b.winRate>g.winRate?"BITCOIN":g.winRate>b.winRate?"GOLD":"EQUAL";
 }
-
-
-/* =========================================
-   NEWS
-========================================= */
 
 const NEWS_ITEMS=[
-
- {
-  type:"BTC",
-  impact:"HIGH",
-  time:"BTC",
-  title:
-  "Bitcoin live news will appear here when a dedicated news API is connected."
- },
-
- {
-  type:"GOLD",
-  impact:"HIGH",
-  time:"GOLD",
-  title:
-  "Gold macroeconomic news will appear here when a dedicated news API is connected."
- },
-
- {
-  type:"BTC",
-  impact:"MEDIUM",
-  time:"BTC",
-  title:
-  "Important crypto market events can be filtered separately."
- },
-
- {
-  type:"GOLD",
-  impact:"MEDIUM",
-  time:"GOLD",
-  title:
-  "Dollar, inflation and interest-rate headlines can be filtered for Gold."
- }
-
+  {type:"BTC",impact:"HIGH",time:"BTC",title:"Bitcoin live news feed will appear here when a dedicated news API is connected."},
+  {type:"GOLD",impact:"HIGH",time:"GOLD",title:"Gold macroeconomic news will appear here when a dedicated news API is connected."},
+  {type:"BTC",impact:"MEDIUM",time:"BTC",title:"Important crypto market events can be filtered separately."},
+  {type:"GOLD",impact:"MEDIUM",time:"GOLD",title:"Dollar, inflation and interest-rate headlines can be filtered for Gold."}
 ];
-
-
 function renderNews(filter="ALL"){
-
- const news=
- NEWS_ITEMS.filter(
-  item=>
-  filter==="ALL" ||
-  item.type===filter
- );
-
-
- document.getElementById(
-  "newsList"
- ).innerHTML=
- news.map(item=>`
-
- <div class="newsRow">
-
-  <div class="newsHead">
-
-   <div>
-
-    <div class="newsTime">
-     ${item.time}
-    </div>
-
-    <div class="newsTitle">
-     ${item.title}
-    </div>
-
-   </div>
-
-   <span class="impact ${item.impact==="HIGH" ? "red":"gold"}">
-    ${item.impact}
-   </span>
-
-  </div>
-
- </div>
-
- `)
- .join("");
-
+  newsList.innerHTML=NEWS_ITEMS.filter(x=>filter==="ALL"||x.type===filter).map(x=>`<div class="newsRow"><div class="newsHead"><div><div class="newsTime">${x.time}</div><div class="newsTitle">${x.title}</div></div><span class="impact ${x.impact==="HIGH"?"red":"gold"}">${x.impact}</span></div></div>`).join("");
 }
 
-
-/* =========================================
-   NAVIGATION
-========================================= */
-
-document
-.querySelectorAll(
- ".nav"
-)
-.forEach(button=>{
-
- button.addEventListener(
-  "click",
-  ()=>{
-
-   document
-   .querySelectorAll(
-    ".nav"
-   )
-   .forEach(item=>{
-
-    item.classList.remove(
-     "active"
-    );
-
-   });
-
-
-   button.classList.add(
-    "active"
-   );
-
-
-   document
-   .querySelectorAll(
-    ".screen"
-   )
-   .forEach(screen=>{
-
-    screen.classList.remove(
-     "active"
-    );
-
-   });
-
-
-   const screen=
-   button.dataset.screen;
-
-
-   document.getElementById(
-    screen
-   ).classList.add(
-    "active"
-   );
-
-
-   window.scrollTo(
-    0,
-    0
-   );
-
-
-   if(screen==="signals"){
-
-    loadSelectedSignal();
-
-   }
-
-
-   if(screen==="chart"){
-
-    setTimeout(
-     loadChart,
-     50
-    );
-
-   }
-
-
-   if(screen==="history"){
-
-    checkOpenTrades();
-
-   }
-
-  }
- );
-
+document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+  document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
+  document.getElementById(b.dataset.screen).classList.add("active");
+  if(b.dataset.screen==="signals")loadSelectedSignal();
+  if(b.dataset.screen==="chart")setTimeout(loadChart,50);
+  if(b.dataset.screen==="history")checkOpenTrades();
 });
 
+document.querySelectorAll("[data-home-asset]").forEach(b=>b.onclick=()=>{
+  homeAsset=b.dataset.homeAsset;
+  document.querySelectorAll("[data-home-asset]").forEach(x=>x.classList.toggle("active",x===b));
+  loadHomeTimeframes();
+});
+document.querySelectorAll("[data-signal-asset]").forEach(b=>b.onclick=()=>{
+  signalAsset=b.dataset.signalAsset;
+  document.querySelectorAll("[data-signal-asset]").forEach(x=>x.classList.toggle("active",x===b));
+  loadSelectedSignal();
+});
+document.querySelectorAll("[data-chart-asset]").forEach(b=>b.onclick=()=>{
+  chartAsset=b.dataset.chartAsset;
+  document.querySelectorAll("[data-chart-asset]").forEach(x=>x.classList.toggle("active",x===b));
+  loadChart();
+});
+const historyCheckNowBtn=document.getElementById("historyCheckNow");
+if(historyCheckNowBtn){
+  historyCheckNowBtn.onclick=async()=>{
+    if(historyWatcherBusy)return;
 
-/* =========================================
-   HOME ASSET
-========================================= */
+    historyWatcherBusy=true;
 
-document
-.querySelectorAll(
- "[data-home-asset]"
-)
-.forEach(button=>{
+    try{
+      await checkOpenTrades();
 
- button.addEventListener(
-  "click",
-  ()=>{
+      const history=getHistory();
+      const activeTrade=history[historyAsset].find(trade=>tradeIsActive(trade));
 
-   homeAsset=
-   button.dataset.homeAsset;
+      if(activeTrade){
+        showTradeDetails(activeTrade);
+      }else{
+        const statusEl=document.getElementById("historyCheckStatus");
+        if(statusEl){
+          statusEl.textContent="No open trade to display.";
+        }
+      }
+    }finally{
+      historyWatcherBusy=false;
+    }
+  };
+}
 
-
-   document
-   .querySelectorAll(
-    "[data-home-asset]"
-   )
-   .forEach(item=>{
-
-    item.classList.toggle(
-     "active",
-     item===button
-    );
-
-   });
-
-
-   loadHomeTimeframes();
-
-  }
- );
-
+document.querySelectorAll("[data-history-asset]").forEach(b=>b.onclick=()=>{
+  historyAsset=b.dataset.historyAsset;
+  document.querySelectorAll("[data-history-asset]").forEach(x=>x.classList.toggle("active",x===b));
+  renderHistory();
+});
+document.querySelectorAll("[data-news-filter]").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("[data-news-filter]").forEach(x=>x.classList.toggle("active",x===b));
+  renderNews(b.dataset.newsFilter);
 });
 
+zoomInBtn.onclick=()=>{chartZoom=Math.min(3,chartZoom+.25);drawChart()};
+zoomOutBtn.onclick=()=>{chartZoom=Math.max(.7,chartZoom-.25);drawChart()};
+resetChartBtn.onclick=()=>{chartZoom=1;chartOffset=0;drawChart()};
 
-/* =========================================
-   SIGNAL ASSET
-========================================= */
-
-document
-.querySelectorAll(
- "[data-signal-asset]"
-)
-.forEach(button=>{
-
- button.addEventListener(
-  "click",
-  ()=>{
-
-   signalAsset=
-   button.dataset.signalAsset;
-
-
-   document
-   .querySelectorAll(
-    "[data-signal-asset]"
-   )
-   .forEach(item=>{
-
-    item.classList.toggle(
-     "active",
-     item===button
-    );
-
-   });
-
-
-   loadSelectedSignal();
-
-  }
- );
-
+chartArea.addEventListener("wheel",e=>{
+  e.preventDefault();chartZoom=e.deltaY<0?Math.min(3,chartZoom+.15):Math.max(.7,chartZoom-.15);drawChart()
+},{passive:false});
+chartArea.addEventListener("pointerdown",e=>{pointerStartX=e.clientX;chartArea.setPointerCapture(e.pointerId)});
+chartArea.addEventListener("pointermove",e=>{
+  if(pointerStartX===null)return;const d=e.clientX-pointerStartX;if(Math.abs(d)<18)return;
+  chartOffset+=d>0?2:-2;pointerStartX=e.clientX;drawChart()
 });
+chartArea.addEventListener("pointerup",()=>pointerStartX=null);
+chartArea.addEventListener("pointercancel",()=>pointerStartX=null);
 
+closeTradeBtn.onclick=()=>tradeOverlay.classList.remove("open");
+tradeOverlay.onclick=e=>{if(e.target===tradeOverlay)tradeOverlay.classList.remove("open")};
 
-/* =========================================
-   CHART ASSET
-========================================= */
+refreshAllBtn.onclick=async()=>{
+  signalCache={};signalPromises={};candleCache={};await loadHome();
+  if(signals.classList.contains("active"))await loadSelectedSignal();
+  if(chart.classList.contains("active"))await loadChart();
+};
 
-document
-.querySelectorAll(
- "[data-chart-asset]"
-)
-.forEach(button=>{
+window.addEventListener("resize",()=>{if(chartCandles.length)drawChart()});
+window.addEventListener("load",()=>{setTimeout(()=>window.scrollTo(0,0),60)});
 
- button.addEventListener(
-  "click",
-  ()=>{
+/*
+  History V2 auto-check:
+  only while the app is open and visible, once per minute.
+  The existing API guard still enforces max 8 credits/min.
+*/
+let historyWatcherBusy=false;
 
-   chartAsset=
-   button.dataset.chartAsset;
-
-
-   document
-   .querySelectorAll(
-    "[data-chart-asset]"
-   )
-   .forEach(item=>{
-
-    item.classList.toggle(
-     "active",
-     item===button
-    );
-
-   });
-
-
-   loadChart();
-
+setInterval(async()=>{
+  if(document.hidden || historyWatcherBusy){
+    return;
   }
- );
 
-});
-
-
-/* =========================================
-   HISTORY ASSET
-========================================= */
-
-document
-.querySelectorAll(
- "[data-history-asset]"
-)
-.forEach(button=>{
-
- button.addEventListener(
-  "click",
-  ()=>{
-
-   historyAsset=
-   button.dataset.historyAsset;
-
-
-   document
-   .querySelectorAll(
-    "[data-history-asset]"
-   )
-   .forEach(item=>{
-
-    item.classList.toggle(
-     "active",
-     item===button
-    );
-
-   });
-
-
-   renderHistory();
-
-  }
- );
-
-});
-
-
-/* =========================================
-   NEWS FILTER
-========================================= */
-
-document
-.querySelectorAll(
- "[data-news-filter]"
-)
-.forEach(button=>{
-
- button.addEventListener(
-  "click",
-  ()=>{
-
-   document
-   .querySelectorAll(
-    "[data-news-filter]"
-   )
-   .forEach(item=>{
-
-    item.classList.toggle(
-     "active",
-     item===button
-    );
-
-   });
-
-
-   renderNews(
-    button.dataset.newsFilter
-   );
-
-  }
- );
-
-});
-
-
-/* =========================================
-   CHART CONTROLS
-========================================= */
-
-document.getElementById(
- "zoomInBtn"
-)
-.addEventListener(
- "click",
- ()=>{
-
-  chartZoom=
-  Math.min(
-   3,
-   chartZoom+.25
+  const history=getHistory();
+  const hasOpen=["BTCUSD","XAUUSD"].some(asset=>
+    history[asset].some(trade=>tradeIsActive(trade))
   );
 
-  drawChart();
-
- }
-);
-
-
-document.getElementById(
- "zoomOutBtn"
-)
-.addEventListener(
- "click",
- ()=>{
-
-  chartZoom=
-  Math.max(
-   .7,
-   chartZoom-.25
-  );
-
-  drawChart();
-
- }
-);
-
-
-document.getElementById(
- "resetChartBtn"
-)
-.addEventListener(
- "click",
- ()=>{
-
-  chartZoom=1;
-
-  chartOffset=0;
-
-  drawChart();
-
- }
-);
-
-
-const chartArea=
-document.getElementById(
- "chartArea"
-);
-
-
-chartArea.addEventListener(
- "wheel",
- event=>{
-
-  event.preventDefault();
-
-
-  if(event.deltaY<0){
-
-   chartZoom=
-   Math.min(
-    3,
-    chartZoom+.15
-   );
-
-  }
-  else{
-
-   chartZoom=
-   Math.max(
-    .7,
-    chartZoom-.15
-   );
-
+  if(!hasOpen){
+    return;
   }
 
+  historyWatcherBusy=true;
 
-  drawChart();
-
- },
- {
-  passive:false
- }
-);
-
-
-chartArea.addEventListener(
- "pointerdown",
- event=>{
-
-  pointerStartX=
-  event.clientX;
-
-
-  chartArea.setPointerCapture(
-   event.pointerId
-  );
-
- }
-);
-
-
-chartArea.addEventListener(
- "pointermove",
- event=>{
-
-  if(pointerStartX===null){
-   return;
+  try{
+    await checkOpenTrades();
+  }finally{
+    historyWatcherBusy=false;
   }
-
-
-  const diff=
-  event.clientX-
-  pointerStartX;
-
-
-  if(Math.abs(diff)<18){
-   return;
-  }
-
-
-  if(diff>0){
-
-   chartOffset+=2;
-
-  }
-  else{
-
-   chartOffset-=2;
-
-  }
-
-
-  pointerStartX=
-  event.clientX;
-
-
-  drawChart();
-
- }
-);
-
-
-chartArea.addEventListener(
- "pointerup",
- ()=>{
-
-  pointerStartX=null;
-
- }
-);
-
-
-chartArea.addEventListener(
- "pointercancel",
- ()=>{
-
-  pointerStartX=null;
-
- }
-);
-
-
-/* =========================================
-   TRADE OVERLAY
-========================================= */
-
-document.getElementById(
- "closeTradeBtn"
-)
-.addEventListener(
- "click",
- ()=>{
-
-  document.getElementById(
-   "tradeOverlay"
-  ).classList.remove(
-   "open"
-  );
-
- }
-);
-
-
-document.getElementById(
- "tradeOverlay"
-)
-.addEventListener(
- "click",
- event=>{
-
-  if(
-   event.target.id===
-   "tradeOverlay"
-  ){
-
-   event.currentTarget
-   .classList.remove(
-    "open"
-   );
-
-  }
-
- }
-);
-
-
-/* =========================================
-   REFRESH
-========================================= */
-
-document.getElementById(
- "refreshAllBtn"
-)
-.addEventListener(
- "click",
- async()=>{
-
-  signalCache={};
-
-
-  await loadHome();
-
-
-  if(
-   document.getElementById(
-    "signals"
-   ).classList.contains(
-    "active"
-   )
-  ){
-
-   await loadSelectedSignal();
-
-  }
-
-
-  if(
-   document.getElementById(
-    "chart"
-   ).classList.contains(
-    "active"
-   )
-  ){
-
-   await loadChart();
-
-  }
-
- }
-);
-
-
-/* =========================================
-   WINDOW
-========================================= */
-
-window.addEventListener(
- "resize",
- ()=>{
-
-  if(chartCandles.length){
-
-   drawChart();
-
-  }
-
- }
-);
-
-
-/* =========================================
-   INITIALIZE
-========================================= */
+},60000);
 
 buildTimeframeButtons();
-
 renderNews();
-
 renderHistory();
-
 updateHomeWinRates();
-
 loadHome();
+</script>
 
+<script>
+const BIT_ADAMS_NOTIF_KEY="bitAdamsNotifications";
+const BIT_ADAMS_LAST_SIGNAL_KEY="bitAdamsLastSignalNotification";
+
+function refreshNotificationButton(){
+  const btn=document.getElementById("enableNotificationsBtn");
+  if(!btn)return;
+  const enabled=("Notification" in window) &&
+    Notification.permission==="granted" &&
+    localStorage.getItem(BIT_ADAMS_NOTIF_KEY)==="on";
+  btn.textContent=enabled?"ON":"ENABLE";
+}
+
+async function showBitAdamsNotification(title,body,tag){
+  if(!("Notification" in window) || Notification.permission!=="granted")return;
+  const options={
+    body,
+    icon:"./icon-192.png",
+    badge:"./icon-192.png",
+    tag:tag||"bit-adams",
+    renotify:false
+  };
+  try{
+    if("serviceWorker" in navigator){
+      const reg=await navigator.serviceWorker.ready;
+      await reg.showNotification(title,options);
+      return;
+    }
+  }catch(e){}
+  new Notification(title,options);
+}
+
+async function enableBitAdamsNotifications(){
+  if(!("Notification" in window)){
+    alert("Notifications are not supported on this device/browser.");
+    return;
+  }
+  if(Notification.permission!=="granted"){
+    const p=await Notification.requestPermission();
+    if(p!=="granted"){
+      localStorage.setItem(BIT_ADAMS_NOTIF_KEY,"off");
+      refreshNotificationButton();
+      alert("Notification permission was not enabled.");
+      return;
+    }
+  }
+  localStorage.setItem(BIT_ADAMS_NOTIF_KEY,"on");
+  refreshNotificationButton();
+  await showBitAdamsNotification("BIT ADAMS","Signal notifications are enabled.","bit-adams-enabled");
+}
+
+async function testBitAdamsNotification(){
+  if(localStorage.getItem(BIT_ADAMS_NOTIF_KEY)!=="on" || Notification.permission!=="granted"){
+    await enableBitAdamsNotifications();
+  }
+  if("Notification" in window && Notification.permission==="granted"){
+    await showBitAdamsNotification("BIT ADAMS • TEST","Notifications are working on this phone.","bit-adams-test");
+  }
+}
+
+function notifyBitAdamsSignal(signal){
+  if(!signal || !("Notification" in window) || Notification.permission!=="granted" ||
+     localStorage.getItem(BIT_ADAMS_NOTIF_KEY)!=="on")return;
+
+  const entry=Number(signal.entry);
+  const key=[signal.asset,signal.timeframe,signal.side,Number.isFinite(entry)?entry.toFixed(2):"na"].join("|");
+  if(localStorage.getItem(BIT_ADAMS_LAST_SIGNAL_KEY)===key)return;
+  localStorage.setItem(BIT_ADAMS_LAST_SIGNAL_KEY,key);
+
+  const f=(v)=>{
+    try{return formatPrice(signal.asset,v)}catch(e){return String(v??"--")}
+  };
+
+  const body=`${signal.asset} • ${signal.timeframe}\nEntry ${f(signal.entry)} • SL ${f(signal.sl)}\nTP1 ${f(signal.tp1)} • ${signal.confidence??"--"}%`;
+  showBitAdamsNotification(`BIT ADAMS • ${signal.side}`,body,key);
+}
+
+document.getElementById("enableNotificationsBtn")?.addEventListener("click",enableBitAdamsNotifications);
+document.getElementById("testNotificationBtn")?.addEventListener("click",testBitAdamsNotification);
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(refreshNotificationButton)
+      .catch(()=>refreshNotificationButton());
+  });
+}else{
+  window.addEventListener("load",refreshNotificationButton);
+}
 </script>
 
 </body>
