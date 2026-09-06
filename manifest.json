@@ -1,0 +1,15 @@
+{
+  "name": "BIT ADAMS LIVE",
+  "short_name": "BIT ADAMS",
+  "description": "AI Trading Signal Terminal for Bitcoin and Gold",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#040705",
+  "theme_color": "#040705",
+  "categories": [
+    "finance",
+    "business"
+  ]
+}
