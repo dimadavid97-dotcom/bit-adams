@@ -8,17 +8,28 @@
 
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
-window.OneSignalDeferred=window.OneSignalDeferred||[];
-OneSignalDeferred.push(async function(OneSignal){
-  try{
-    await OneSignal.init({
-      appId:"cda9b6dc-b0a8-4171-8e7d-c47bd35b6ba0"
-    });
-  }catch(e){
-    console.log("OneSignal:",e);
-  }
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
+    appId: "cda9b6dc-b0a8-4171-8e7d-c47bd35b6ba0",
+    serviceWorkerPath: "OneSignalSDKWorker.js",
+    serviceWorkerParam: {
+      scope: "/bit-adams/"
+    }
+  });
 });
 </script>
+
+
+  
+    
+      
+    
+  
+    
+
+
+
 
 <style>
 *{box-sizing:border-box}
