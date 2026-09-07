@@ -3508,8 +3508,16 @@ riskPercent.addEventListener(
 updateRisk
 );
 
-notificationBtn.onclick=
-enableNotifications;
+notificationBtn.onclick = async function(){
+  alert("BUTTON WORKS");
+
+  try{
+    await enableNotifications();
+  }catch(e){
+    alert("ERROR: " + e.message);
+    console.log(e);
+  }
+};
 
 checkTrades.onclick=
 checkTradesNow;
