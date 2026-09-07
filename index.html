@@ -14,7 +14,7 @@ OneSignalDeferred.push(async function(OneSignal) {
   try {
     await OneSignal.init({
       appId: "cda9b6dc-b0a8-4171-8e7d-c47bd35b6ba0",
-      serviceWorkerPath: "OneSignalSDKWorker.js",
+      serviceWorkerPath: "/bit-adams/OneSignalSDKWorker.js",
       serviceWorkerParam: {
         scope: "/bit-adams/"
       }
@@ -59,7 +59,6 @@ padding-bottom:82px
 }
 
 button,input{font:inherit}
-
 button{cursor:pointer}
 
 .app{
@@ -119,25 +118,17 @@ color:#fff;
 font-size:20px
 }
 
-main{
-padding:14px
-}
+main{padding:14px}
 
-.screen{
-display:none
-}
-
-.screen.active{
-display:block
-}
+.screen{display:none}
+.screen.active{display:block}
 
 .card,
 .assetCard,
 .signalCard,
 .chartCard,
 .stat{
-background:
-linear-gradient(145deg,#0a1510,#07100c);
+background:linear-gradient(145deg,#0a1510,#07100c);
 border:1px solid var(--line)
 }
 
@@ -166,9 +157,7 @@ padding:12px;
 min-width:0
 }
 
-.goldCard{
-border-color:#59471f
-}
+.goldCard{border-color:#59471f}
 
 .assetTitle{
 display:flex;
@@ -219,29 +208,12 @@ font-size:15px;
 margin:0
 }
 
-.mini{
-font-size:10px
-}
-
-.small{
-font-size:12px
-}
-
-.muted{
-color:var(--muted)
-}
-
-.green{
-color:var(--green)
-}
-
-.red{
-color:var(--red)
-}
-
-.gold{
-color:var(--gold)
-}
+.mini{font-size:10px}
+.small{font-size:12px}
+.muted{color:var(--muted)}
+.green{color:var(--green)}
+.red{color:var(--red)}
+.gold{color:var(--gold)}
 
 .statusLine{
 display:flex;
@@ -252,9 +224,7 @@ padding:10px 0;
 border-bottom:1px solid #11251b
 }
 
-.statusLine:last-child{
-border-bottom:0
-}
+.statusLine:last-child{border-bottom:0}
 
 .statusName{
 font-size:11px;
@@ -273,9 +243,7 @@ grid-template-columns:1fr 1fr;
 gap:7px
 }
 
-.tab,
-.tf,
-.smallBtn{
+.tab,.tf,.smallBtn{
 min-height:44px;
 border-radius:11px;
 border:1px solid var(--line);
@@ -284,8 +252,7 @@ color:var(--muted);
 font-weight:900
 }
 
-.tab.active,
-.tf.active{
+.tab.active,.tf.active{
 border-color:var(--green);
 color:#fff
 }
@@ -325,13 +292,8 @@ padding:14px;
 margin-top:10px
 }
 
-.signalCard.buy{
-border-color:var(--green)
-}
-
-.signalCard.sell{
-border-color:var(--red)
-}
+.signalCard.buy{border-color:var(--green)}
+.signalCard.sell{border-color:var(--red)}
 
 .signalHeader{
 display:flex;
@@ -474,9 +436,7 @@ padding:11px 0;
 border-bottom:1px solid #11251b
 }
 
-.trade:last-child{
-border-bottom:0
-}
+.trade:last-child{border-bottom:0}
 
 .trade button{
 border:0;
@@ -503,9 +463,7 @@ padding:11px 0;
 border-bottom:1px solid #11251b
 }
 
-.news:last-child{
-border-bottom:0
-}
+.news:last-child{border-bottom:0}
 
 .newsTop{
 display:flex;
@@ -600,9 +558,7 @@ color:#6c7d74;
 font-size:8px
 }
 
-.nav.active{
-color:var(--gold)
-}
+.nav.active{color:var(--gold)}
 
 .navIcon{
 display:block;
@@ -619,9 +575,7 @@ display:none;
 align-items:flex-end
 }
 
-.overlay.open{
-display:flex
-}
+.overlay.open{display:flex}
 
 .sheet{
 width:100%;
@@ -646,26 +600,12 @@ color:#fff
 }
 
 @media(max-width:420px){
-
-.tfTabs{
-grid-template-columns:repeat(3,1fr)
-}
-
-.levels{
-grid-template-columns:repeat(2,1fr)
-}
-
-.chartArea{
-height:390px
-}
-
-.stats{
-grid-template-columns:repeat(2,1fr)
-}
-
+.tfTabs{grid-template-columns:repeat(3,1fr)}
+.levels{grid-template-columns:repeat(2,1fr)}
+.chartArea{height:390px}
+.stats{grid-template-columns:repeat(2,1fr)}
 }
 </style>
-
 </head>
 
 <body>
@@ -673,29 +613,15 @@ grid-template-columns:repeat(2,1fr)
 <div class="app">
 
 <header class="topbar">
-
 <div class="brand">
-
 <div class="logo">♛</div>
-
 <div>
-
-<div class="brandTitle">
-BIT ADAMS
+<div class="brandTitle">BIT ADAMS</div>
+<div class="brandSub">AI MARKET ANALYSIS</div>
+</div>
 </div>
 
-<div class="brandSub">
-AI MARKET ANALYSIS
-</div>
-
-</div>
-
-</div>
-
-<button class="refresh" id="refreshBtn">
-↻
-</button>
-
+<button class="refresh" id="refreshBtn">↻</button>
 </header>
 
 <main>
@@ -703,57 +629,37 @@ AI MARKET ANALYSIS
 <section class="screen active" id="home">
 
 <div class="hero">
-
 <div class="assetGrid">
 
 <div class="assetCard goldCard">
-
 <div class="assetTitle">
 <span>◆ GOLD</span>
 <span class="symbol">XAUUSD</span>
 </div>
 
-<div class="price gold" id="goldPrice">
-Loading...
-</div>
+<div class="price gold" id="goldPrice">Loading...</div>
+<div class="trend" id="goldTrend">ANALYZING...</div>
 
-<div class="trend" id="goldTrend">
-ANALYZING...
-</div>
-
-<button
-class="analyze"
-data-analyze="XAUUSD">
+<button class="analyze" data-analyze="XAUUSD">
 ANALYZE GOLD
 </button>
-
 </div>
 
 <div class="assetCard">
-
 <div class="assetTitle">
 <span>₿ BITCOIN</span>
 <span class="symbol">BTCUSD</span>
 </div>
 
-<div class="price" id="btcPrice">
-Loading...
-</div>
+<div class="price" id="btcPrice">Loading...</div>
+<div class="trend" id="btcTrend">ANALYZING...</div>
 
-<div class="trend" id="btcTrend">
-ANALYZING...
-</div>
-
-<button
-class="analyze"
-data-analyze="BTCUSD">
+<button class="analyze" data-analyze="BTCUSD">
 ANALYZE BITCOIN
 </button>
-
 </div>
 
 </div>
-
 </div>
 
 <div class="sectionTitle">
@@ -765,23 +671,17 @@ ANALYZE BITCOIN
 
 <div class="statusLine">
 <span class="statusName">Gold M15</span>
-<span class="statusValue" id="goldStatus">
-Loading...
-</span>
+<span class="statusValue" id="goldStatus">Loading...</span>
 </div>
 
 <div class="statusLine">
 <span class="statusName">Bitcoin M15</span>
-<span class="statusValue" id="btcStatus">
-Loading...
-</span>
+<span class="statusValue" id="btcStatus">Loading...</span>
 </div>
 
 <div class="statusLine">
 <span class="statusName">News Safety</span>
-<span class="statusValue" id="homeNewsSafety">
-Checking...
-</span>
+<span class="statusValue" id="homeNewsSafety">Checking...</span>
 </div>
 
 </div>
@@ -791,25 +691,11 @@ Checking...
 </div>
 
 <div class="tabs">
-
-<button
-class="tab active"
-data-homeasset="XAUUSD">
-XAUUSD
-</button>
-
-<button
-class="tab"
-data-homeasset="BTCUSD">
-BTCUSD
-</button>
-
+<button class="tab active" data-homeasset="XAUUSD">XAUUSD</button>
+<button class="tab" data-homeasset="BTCUSD">BTCUSD</button>
 </div>
 
-<div
-class="card"
-id="homeTF"
-style="margin-top:9px">
+<div class="card" id="homeTF" style="margin-top:9px">
 Loading...
 </div>
 
@@ -819,34 +705,16 @@ Loading...
 
 <div class="sectionTitle">
 <h2>SIGNALS</h2>
-<span class="mini muted">
-STRICT + MULTI TF
-</span>
+<span class="mini muted">STRICT + MULTI TF</span>
 </div>
 
 <div class="tabs">
-
-<button
-class="tab active"
-data-signalasset="XAUUSD">
-XAUUSD
-</button>
-
-<button
-class="tab"
-data-signalasset="BTCUSD">
-BTCUSD
-</button>
-
+<button class="tab active" data-signalasset="XAUUSD">XAUUSD</button>
+<button class="tab" data-signalasset="BTCUSD">BTCUSD</button>
 </div>
 
-<div
-class="tfTabs"
-id="signalTFButtons">
-</div>
-
+<div class="tfTabs" id="signalTFButtons"></div>
 <div id="mtfBox"></div>
-
 <div id="signalContent"></div>
 
 </section>
@@ -855,78 +723,34 @@ id="signalTFButtons">
 
 <div class="sectionTitle">
 <h2>CANDLESTICK CHART</h2>
-<span class="mini muted">
-ENTRY / SL / TP1 / TP2 / TP3
-</span>
+<span class="mini muted">ENTRY / SL / TP1 / TP2 / TP3</span>
 </div>
 
 <div class="tabs">
-
-<button
-class="tab active"
-data-chartasset="XAUUSD">
-XAUUSD
-</button>
-
-<button
-class="tab"
-data-chartasset="BTCUSD">
-BTCUSD
-</button>
-
+<button class="tab active" data-chartasset="XAUUSD">XAUUSD</button>
+<button class="tab" data-chartasset="BTCUSD">BTCUSD</button>
 </div>
 
-<div
-class="tfTabs"
-id="chartTFButtons">
-</div>
+<div class="tfTabs" id="chartTFButtons"></div>
 
 <div class="chartCard">
 
 <div class="chartTop">
-
 <div>
-
-<strong id="chartTitle">
-XAUUSD
-</strong>
-
-<div
-class="mini muted"
-id="chartTfText">
-M15
+<strong id="chartTitle">XAUUSD</strong>
+<div class="mini muted" id="chartTfText">M15</div>
+</div>
+<strong id="chartSignal">--</strong>
 </div>
 
-</div>
-
-<strong id="chartSignal">
---
-</strong>
-
-</div>
-
-<div
-class="chartArea"
-id="chartArea">
-
+<div class="chartArea" id="chartArea">
 <canvas id="chartCanvas"></canvas>
-
 </div>
 
 <div class="zoom">
-
-<button id="zoomOut">
-− Zoom
-</button>
-
-<button id="zoomReset">
-Reset
-</button>
-
-<button id="zoomIn">
-+ Zoom
-</button>
-
+<button id="zoomOut">− Zoom</button>
+<button id="zoomReset">Reset</button>
+<button id="zoomIn">+ Zoom</button>
 </div>
 
 </div>
@@ -934,48 +758,28 @@ Reset
 <div class="card">
 
 <div class="statusLine">
-<span class="statusName">
-ENTRY
-</span>
-<strong class="gold" id="chartEntry">
---
-</strong>
+<span class="statusName">ENTRY</span>
+<strong class="gold" id="chartEntry">--</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-STOP LOSS
-</span>
-<strong class="red" id="chartSL">
---
-</strong>
+<span class="statusName">STOP LOSS</span>
+<strong class="red" id="chartSL">--</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-TAKE PROFIT 1
-</span>
-<strong class="green" id="chartTP1">
---
-</strong>
+<span class="statusName">TAKE PROFIT 1</span>
+<strong class="green" id="chartTP1">--</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-TAKE PROFIT 2
-</span>
-<strong class="green" id="chartTP2">
---
-</strong>
+<span class="statusName">TAKE PROFIT 2</span>
+<strong class="green" id="chartTP2">--</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-TAKE PROFIT 3
-</span>
-<strong class="green" id="chartTP3">
---
-</strong>
+<span class="statusName">TAKE PROFIT 3</span>
+<strong class="green" id="chartTP3">--</strong>
 </div>
 
 </div>
@@ -986,72 +790,43 @@ TAKE PROFIT 3
 
 <div class="sectionTitle">
 <h2>ECONOMIC CALENDAR</h2>
-<span class="mini muted">
-UK TIME
-</span>
+<span class="mini muted">UK TIME</span>
 </div>
 
 <div class="card">
 
 <div class="statusLine">
-<span class="statusName">
-Calendar
-</span>
-<span
-class="statusValue"
-id="calendarStatus">
-Loading...
-</span>
+<span class="statusName">Calendar</span>
+<span class="statusValue" id="calendarStatus">Loading...</span>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-Alert
-</span>
-<strong class="gold">
-5 MIN BEFORE
-</strong>
+<span class="statusName">Alert</span>
+<strong class="gold">5 MIN BEFORE</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-Gold protection
-</span>
-<strong>
-USD HIGH IMPACT
-</strong>
+<span class="statusName">Gold protection</span>
+<strong>USD HIGH IMPACT</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-Next High USD
-</span>
-<span
-class="statusValue gold"
-id="nextHighNews">
-Checking...
-</span>
+<span class="statusName">Next High USD</span>
+<span class="statusValue gold" id="nextHighNews">Checking...</span>
 </div>
 
 </div>
 
 <div class="card">
-
-<strong class="gold">
-NEWS SAFETY MODE
-</strong>
-
+<strong class="gold">NEWS SAFETY MODE</strong>
 <p class="note">
 New tracked signals are blocked from
 10 minutes before until 15 minutes after
 a HIGH-impact USD event.
 </p>
-
 </div>
 
-<div
-class="card"
-id="newsList">
+<div class="card" id="newsList">
 Loading live calendar...
 </div>
 
@@ -1061,25 +836,12 @@ Loading live calendar...
 
 <div class="sectionTitle">
 <h2>TRADE HISTORY</h2>
-<span class="mini muted">
-WIN / LOST / TP
-</span>
+<span class="mini muted">WIN / LOST / TP</span>
 </div>
 
 <div class="tabs">
-
-<button
-class="tab active"
-data-historyasset="XAUUSD">
-XAUUSD
-</button>
-
-<button
-class="tab"
-data-historyasset="BTCUSD">
-BTCUSD
-</button>
-
+<button class="tab active" data-historyasset="XAUUSD">XAUUSD</button>
+<button class="tab" data-historyasset="BTCUSD">BTCUSD</button>
 </div>
 
 <div class="stats">
@@ -1091,56 +853,34 @@ BTCUSD
 
 <div class="stat">
 <small>WIN</small>
-<strong
-class="green"
-id="historyWins">
-0
-</strong>
+<strong class="green" id="historyWins">0</strong>
 </div>
 
 <div class="stat">
 <small>LOST</small>
-<strong
-class="red"
-id="historyLost">
-0
-</strong>
+<strong class="red" id="historyLost">0</strong>
 </div>
 
 <div class="stat">
 <small>WIN RATE</small>
-<strong
-class="gold"
-id="historyRate">
---%
-</strong>
+<strong class="gold" id="historyRate">--%</strong>
 </div>
 
 </div>
 
 <div class="card">
-
 <div class="statusLine">
-
-<span
-class="statusName"
-id="historyCheckText">
+<span class="statusName" id="historyCheckText">
 Open trades are checked automatically
 </span>
 
-<button
-class="smallBtn"
-id="checkTrades">
+<button class="smallBtn" id="checkTrades">
 CHECK NOW
 </button>
-
+</div>
 </div>
 
-</div>
-
-<div
-class="card"
-id="historyList">
+<div class="card" id="historyList">
 No tracked signals yet.
 </div>
 
@@ -1155,48 +895,28 @@ No tracked signals yet.
 <div class="riskBox">
 
 <div class="statusLine">
-<span class="statusName">
-Recommended risk
-</span>
-<strong>
-0.5% – 1%
-</strong>
+<span class="statusName">Recommended risk</span>
+<strong>0.5% – 1%</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-Maximum open trades
-</span>
-<strong>
-2
-</strong>
+<span class="statusName">Maximum open trades</span>
+<strong>2</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-Daily loss limit
-</span>
-<strong class="red">
-2% – 3%
-</strong>
+<span class="statusName">Daily loss limit</span>
+<strong class="red">2% – 3%</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-After TP1
-</span>
-<strong class="green">
-MOVE SL → ENTRY
-</strong>
+<span class="statusName">After TP1</span>
+<strong class="green">MOVE SL → ENTRY</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-High impact news
-</span>
-<strong class="gold">
-AVOID NEW ENTRY
-</strong>
+<span class="statusName">High impact news</span>
+<strong class="gold">AVOID NEW ENTRY</strong>
 </div>
 
 <div class="riskInputs">
@@ -1222,9 +942,7 @@ placeholder="Risk %">
 
 </div>
 
-<div
-class="riskResult"
-id="riskResult">
+<div class="riskResult" id="riskResult">
 Risk amount: £1.00
 </div>
 
@@ -1236,9 +954,7 @@ Risk amount: £1.00
 
 <div class="card">
 
-<button
-class="track"
-id="notificationBtn">
+<button class="track" id="notificationBtn">
 ENABLE NOTIFICATIONS
 </button>
 
@@ -1259,9 +975,7 @@ completely closed require a remote sender/backend.
 
 <div class="sectionTitle">
 <h2>TERMS & CONDITIONS</h2>
-<span class="mini muted">
-RISK DISCLAIMER
-</span>
+<span class="mini muted">RISK DISCLAIMER</span>
 </div>
 
 <div class="card">
@@ -1305,79 +1019,46 @@ cannot afford to lose.
 </section>
 
 </main>
-
 </div>
 
 <nav class="bottom">
-
 <div class="bottomInner">
 
-<button
-class="nav active"
-data-screen="home">
-<span class="navIcon">⌂</span>
-Home
+<button class="nav active" data-screen="home">
+<span class="navIcon">⌂</span>Home
 </button>
 
-<button
-class="nav"
-data-screen="signals">
-<span class="navIcon">⌁</span>
-Signals
+<button class="nav" data-screen="signals">
+<span class="navIcon">⌁</span>Signals
 </button>
 
-<button
-class="nav"
-data-screen="chart">
-<span class="navIcon">▥</span>
-Chart
+<button class="nav" data-screen="chart">
+<span class="navIcon">▥</span>Chart
 </button>
 
-<button
-class="nav"
-data-screen="news">
-<span class="navIcon">▤</span>
-News
+<button class="nav" data-screen="news">
+<span class="navIcon">▤</span>News
 </button>
 
-<button
-class="nav"
-data-screen="history">
-<span class="navIcon">◷</span>
-History
+<button class="nav" data-screen="history">
+<span class="navIcon">◷</span>History
 </button>
 
-<button
-class="nav"
-data-screen="settings">
-<span class="navIcon">⚙</span>
-Settings
+<button class="nav" data-screen="settings">
+<span class="navIcon">⚙</span>Settings
 </button>
 
 </div>
-
 </nav>
 
-<div
-class="overlay"
-id="tradeOverlay">
+<div class="overlay" id="tradeOverlay">
 
 <div class="sheet">
 
-<button
-class="close"
-id="closeTrade">
-✕
-</button>
+<button class="close" id="closeTrade">✕</button>
 
-<h3 id="detailTitle">
-TRADE
-</h3>
-
-<div
-class="mini muted"
-id="detailDate">
-</div>
+<h3 id="detailTitle">TRADE</h3>
+<div class="mini muted" id="detailDate"></div>
 
 <div class="sectionTitle">
 <h2>LEVELS</h2>
@@ -1387,47 +1068,27 @@ id="detailDate">
 
 <div class="statusLine">
 <span>Entry</span>
-<strong
-class="gold"
-id="detailEntry">
---
-</strong>
+<strong class="gold" id="detailEntry">--</strong>
 </div>
 
 <div class="statusLine">
 <span>Stop Loss</span>
-<strong
-class="red"
-id="detailSL">
---
-</strong>
+<strong class="red" id="detailSL">--</strong>
 </div>
 
 <div class="statusLine">
 <span>TP1</span>
-<strong
-class="green"
-id="detailTP1">
---
-</strong>
+<strong class="green" id="detailTP1">--</strong>
 </div>
 
 <div class="statusLine">
 <span>TP2</span>
-<strong
-class="green"
-id="detailTP2">
---
-</strong>
+<strong class="green" id="detailTP2">--</strong>
 </div>
 
 <div class="statusLine">
 <span>TP3</span>
-<strong
-class="green"
-id="detailTP3">
---
-</strong>
+<strong class="green" id="detailTP3">--</strong>
 </div>
 
 </div>
@@ -1436,13 +1097,9 @@ id="detailTP3">
 <h2>PROGRESS</h2>
 </div>
 
-<div
-class="card"
-id="detailEvents">
-</div>
+<div class="card" id="detailEvents"></div>
 
 </div>
-
 </div>
 
 <script>
@@ -1453,14 +1110,7 @@ const API_KEY=
 const CALENDAR_URL=
 "https://nfs.faireconomy.media/ff_calendar_thisweek.json";
 
-const TIMEFRAMES=[
-"M1",
-"M5",
-"M15",
-"M30",
-"H1",
-"H4"
-];
+const TIMEFRAMES=["M1","M5","M15","M30","H1","H4"];
 
 const INTERVALS={
 M1:"1min",
@@ -1498,11 +1148,7 @@ let apiGate=Promise.resolve();
 const CACHE={};
 
 function sleep(ms){
-
-return new Promise(
-r=>setTimeout(r,ms)
-);
-
+return new Promise(r=>setTimeout(r,ms));
 }
 
 async function reserveCredit(){
@@ -1512,22 +1158,14 @@ apiGate.then(async()=>{
 
 while(true){
 
-const now=
-Date.now();
+const now=Date.now();
 
 apiTimes=
-apiTimes.filter(
-t=>now-t<60000
-);
+apiTimes.filter(t=>now-t<60000);
 
 if(apiTimes.length<8){
-
-apiTimes.push(
-Date.now()
-);
-
+apiTimes.push(Date.now());
 return;
-
 }
 
 await sleep(
@@ -1541,17 +1179,12 @@ Math.max(
 
 });
 
-apiGate=
-run.catch(()=>{});
-
+apiGate=run.catch(()=>{});
 return run;
 
 }
 
-function formatPrice(
-asset,
-p
-){
+function formatPrice(asset,p){
 
 if(!Number.isFinite(p))
 return "--";
@@ -1559,65 +1192,40 @@ return "--";
 return p.toLocaleString(
 undefined,
 asset==="BTCUSD"
-?
-{
-maximumFractionDigits:2
-}
-:
-{
-minimumFractionDigits:2,
-maximumFractionDigits:2
-}
+?{maximumFractionDigits:2}
+:{minimumFractionDigits:2,maximumFractionDigits:2}
 );
 
 }
 
 function signalColor(side){
-
 return side==="BUY"
 ?"green"
 :side==="SELL"
 ?"red"
 :"gold";
-
 }
 
-function ema(
-values,
-p
-){
+function ema(values,p){
 
 if(!values.length)
 return [];
 
-const k=
-2/(p+1);
+const k=2/(p+1);
+const out=[values[0]];
 
-const out=[
-values[0]
-];
-
-for(
-let i=1;
-i<values.length;
-i++
-){
-
+for(let i=1;i<values.length;i++){
 out.push(
 values[i]*k+
 out[i-1]*(1-k)
 );
-
 }
 
 return out;
 
 }
 
-function rsi(
-values,
-p=14
-){
+function rsi(values,p=14){
 
 if(values.length<=p)
 return 50;
@@ -1625,15 +1233,10 @@ return 50;
 let gain=0;
 let loss=0;
 
-for(
-let i=values.length-p;
-i<values.length;
-i++
-){
+for(let i=values.length-p;i<values.length;i++){
 
 const d=
-values[i]-
-values[i-1];
+values[i]-values[i-1];
 
 if(d>0)
 gain+=d;
@@ -1645,36 +1248,23 @@ loss+=Math.abs(d);
 if(loss===0)
 return 100;
 
-const rs=
-(gain/p)/
-(loss/p);
+const rs=(gain/p)/(loss/p);
 
-return 100-
-100/(1+rs);
+return 100-100/(1+rs);
 
 }
 
-function atr(
-candles,
-p=14
-){
+function atr(candles,p=14){
 
 if(candles.length<p+1)
 return 0;
 
 const tr=[];
 
-for(
-let i=1;
-i<candles.length;
-i++
-){
+for(let i=1;i<candles.length;i++){
 
-const a=
-candles[i];
-
-const b=
-candles[i-1];
+const a=candles[i];
+const b=candles[i-1];
 
 tr.push(
 Math.max(
@@ -1686,47 +1276,28 @@ Math.abs(a.low-b.close)
 
 }
 
-const last=
-tr.slice(-p);
+const last=tr.slice(-p);
 
-return last.reduce(
-(a,b)=>a+b,
-0
-)/last.length;
+return last.reduce((a,b)=>a+b,0)/last.length;
 
 }
 
-function momentum(
-values,
-n=6
-){
+function momentum(values,n=6){
 
 if(values.length<=n)
 return 0;
 
-const a=
-values.at(-1);
-
-const b=
-values[
-values.length-1-n
-];
+const a=values.at(-1);
+const b=values[values.length-1-n];
 
 return(
 (a-b)/
-Math.max(
-Math.abs(b),
-1
-)
+Math.max(Math.abs(b),1)
 )*100;
 
 }
 
-async function fetchSeries(
-symbol,
-interval,
-size=120
-){
+async function fetchSeries(symbol,interval,size=120){
 
 await reserveCredit();
 
@@ -1737,11 +1308,8 @@ const url=
 "&outputsize="+size+
 "&apikey="+API_KEY;
 
-const response=
-await fetch(url);
-
-const data=
-await response.json();
+const response=await fetch(url);
+const data=await response.json();
 
 if(
 !response.ok||
@@ -1765,12 +1333,7 @@ low:Number(x.low),
 close:Number(x.close)
 }))
 .filter(c=>
-[
-c.open,
-c.high,
-c.low,
-c.close
-]
+[c.open,c.high,c.low,c.close]
 .every(Number.isFinite)
 )
 .reverse();
@@ -1781,41 +1344,19 @@ function aggregateH4(h1){
 
 const groups=[];
 
-for(
-let i=0;
-i<h1.length;
-i+=4
-){
+for(let i=0;i<h1.length;i+=4){
 
-const g=
-h1.slice(i,i+4);
+const g=h1.slice(i,i+4);
 
 if(g.length<4)
 continue;
 
 groups.push({
-
 datetime:g[0].datetime,
-
 open:g[0].open,
-
-high:
-Math.max(
-...g.map(
-x=>x.high
-)
-),
-
-low:
-Math.min(
-...g.map(
-x=>x.low
-)
-),
-
-close:
-g.at(-1).close
-
+high:Math.max(...g.map(x=>x.high)),
+low:Math.min(...g.map(x=>x.low)),
+close:g.at(-1).close
 });
 
 }
@@ -1824,39 +1365,25 @@ return groups;
 
 }
 
-async function fetchCandles(
-asset,
-tf,
-size=120
-){
+async function fetchCandles(asset,tf,size=120){
 
-const key=
-asset+"_"+tf;
-
-const now=
-Date.now();
+const key=asset+"_"+tf;
+const now=Date.now();
 
 const ttl=
-tf==="M1"
-?45000
-:tf==="M5"
-?90000
-:tf==="M15"
-?180000
-:tf==="M30"
-?300000
-:tf==="H1"
-?600000
-:1800000;
+tf==="M1"?45000:
+tf==="M5"?90000:
+tf==="M15"?180000:
+tf==="M30"?300000:
+tf==="H1"?600000:
+1800000;
 
 if(
 CACHE[key]&&
 now-CACHE[key].time<ttl
 ){
 
-return CACHE[key]
-.data
-.slice(-size);
+return CACHE[key].data.slice(-size);
 
 }
 
@@ -1879,14 +1406,10 @@ const h1=
 await fetchSeries(
 SYMBOLS[asset],
 "1h",
-Math.min(
-480,
-size*4
-)
+Math.min(480,size*4)
 );
 
-data=
-aggregateH4(h1);
+data=aggregateH4(h1);
 
 }
 
@@ -1901,141 +1424,72 @@ size
 
 }
 
-if(data.length<30){
-
-throw new Error(
-"Not enough candle data"
-);
-
-}
+if(data.length<30)
+throw new Error("Not enough candle data");
 
 CACHE[key]={
 time:Date.now(),
 data
 };
 
-return data.slice(
--size
-);
+return data.slice(-size);
 
 }
 
-function analyze(
-asset,
-tf,
-candles
-){
+function analyze(asset,tf,candles){
 
-const closes=
-candles.map(
-c=>c.close
-);
+const closes=candles.map(c=>c.close);
 
-const e9=
-ema(closes,9);
+const e9=ema(closes,9);
+const e21=ema(closes,21);
+const e50=ema(closes,50);
 
-const e21=
-ema(closes,21);
+const cur=candles.at(-1);
+const prev=candles.at(-2);
 
-const e50=
-ema(closes,50);
+const fast=e9.at(-1);
+const medium=e21.at(-1);
+const slow=e50.at(-1);
 
-const cur=
-candles.at(-1);
-
-const prev=
-candles.at(-2);
-
-const fast=
-e9.at(-1);
-
-const medium=
-e21.at(-1);
-
-const slow=
-e50.at(-1);
-
-const R=
-rsi(closes);
-
-const A=
-atr(candles);
-
-const M=
-momentum(
-closes,
-6
-);
+const R=rsi(closes);
+const A=atr(candles);
+const M=momentum(closes,6);
 
 let buy=0;
 let sell=0;
 
-if(fast>medium)
-buy+=20;
-else
-sell+=20;
+if(fast>medium) buy+=20;
+else sell+=20;
 
-if(medium>slow)
-buy+=20;
-else
-sell+=20;
+if(medium>slow) buy+=20;
+else sell+=20;
 
-if(cur.close>fast)
-buy+=10;
-else
-sell+=10;
+if(cur.close>fast) buy+=10;
+else sell+=10;
 
-if(cur.close>medium)
-buy+=10;
-else
-sell+=10;
+if(cur.close>medium) buy+=10;
+else sell+=10;
 
-if(
-R>=53&&
-R<=68
-)
-buy+=15;
+if(R>=53&&R<=68) buy+=15;
+if(R<=47&&R>=32) sell+=15;
 
-if(
-R<=47&&
-R>=32
-)
-sell+=15;
+if(M>.02) buy+=10;
+if(M<-.02) sell+=10;
 
-if(M>.02)
-buy+=10;
+if(cur.close>cur.open) buy+=7;
+else sell+=7;
 
-if(M<-.02)
-sell+=10;
-
-if(cur.close>cur.open)
-buy+=7;
-else
-sell+=7;
-
-if(
-prev.close>prev.open&&
-cur.close>cur.open
-)
+if(prev.close>prev.open&&cur.close>cur.open)
 buy+=5;
 
-if(
-prev.close<prev.open&&
-cur.close<cur.open
-)
+if(prev.close<prev.open&&cur.close<cur.open)
 sell+=5;
 
 const body=
-Math.abs(
-cur.close-
-cur.open
-);
+Math.abs(cur.close-cur.open);
 
 const range=
-Math.max(
-cur.high-cur.low,
-.0000001
-);
+Math.max(cur.high-cur.low,.0000001);
 
 if(body/range>.55){
 
@@ -2047,12 +1501,9 @@ sell+=5;
 }
 
 const difference=
-Math.abs(
-buy-sell
-);
+Math.abs(buy-sell);
 
-let side=
-"WAIT";
+let side="WAIT";
 
 const buyTrend=
 fast>medium&&
@@ -2070,9 +1521,7 @@ difference>=22&&
 buyTrend&&
 R<72
 ){
-
 side="BUY";
-
 }
 
 if(
@@ -2081,29 +1530,16 @@ difference>=22&&
 sellTrend&&
 R>28
 ){
-
 side="SELL";
-
 }
 
 const dominant=
-Math.max(
-buy,
-sell
-);
+Math.max(buy,sell);
 
 const confidence=
 side==="WAIT"
-?
-Math.min(
-74,
-Math.round(
-48+
-dominant*.25
-)
-)
-:
-Math.min(
+?Math.min(74,Math.round(48+dominant*.25))
+:Math.min(
 96,
 Math.max(
 80,
@@ -2115,22 +1551,14 @@ difference*.08
 )
 );
 
-const entry=
-cur.close;
+const entry=cur.close;
 
 const floor=
 entry*
-(
-asset==="BTCUSD"
-?.0011
-:.0008
-);
+(asset==="BTCUSD"?.0011:.0008);
 
 const risk=
-Math.max(
-A*1.1,
-floor
-);
+Math.max(A*1.1,floor);
 
 let sl=null;
 let tp1=null;
@@ -2138,39 +1566,20 @@ let tp2=null;
 let tp3=null;
 
 if(side==="BUY"){
-
-sl=
-entry-risk;
-
-tp1=
-entry+risk*.85;
-
-tp2=
-entry+risk*1.45;
-
-tp3=
-entry+risk*2.2;
-
+sl=entry-risk;
+tp1=entry+risk*.85;
+tp2=entry+risk*1.45;
+tp3=entry+risk*2.2;
 }
 
 if(side==="SELL"){
-
-sl=
-entry+risk;
-
-tp1=
-entry-risk*.85;
-
-tp2=
-entry-risk*1.45;
-
-tp3=
-entry-risk*2.2;
-
+sl=entry+risk;
+tp1=entry-risk*.85;
+tp2=entry-risk*1.45;
+tp3=entry-risk*2.2;
 }
 
 return{
-
 asset,
 timeframe:tf,
 side,
@@ -2183,28 +1592,16 @@ tp3,
 rsi:R,
 momentum:M,
 candles
-
 };
 
 }
 
-async function getSignal(
-asset,
-tf
-){
+async function getSignal(asset,tf){
 
 const candles=
-await fetchCandles(
-asset,
-tf,
-120
-);
+await fetchCandles(asset,tf,120);
 
-return analyze(
-asset,
-tf,
-candles
-);
+return analyze(asset,tf,candles);
 
 }
 
@@ -2212,30 +1609,18 @@ async function getMTF(asset){
 
 const result=[];
 
-for(
-const tf
-of TIMEFRAMES
-){
+for(const tf of TIMEFRAMES){
 
 try{
-
 result.push(
-await getSignal(
-asset,
-tf
-)
+await getSignal(asset,tf)
 );
-
 }catch(e){
-
 result.push({
-
 timeframe:tf,
 side:"ERROR",
 error:true
-
 });
-
 }
 
 }
@@ -2247,22 +1632,15 @@ return result;
 function mtfDirection(list){
 
 const valid=
-list.filter(
-x=>!x.error
-);
+list.filter(x=>!x.error);
 
 const buys=
-valid.filter(
-x=>x.side==="BUY"
-).length;
+valid.filter(x=>x.side==="BUY").length;
 
 const sells=
-valid.filter(
-x=>x.side==="SELL"
-).length;
+valid.filter(x=>x.side==="SELL").length;
 
-let direction=
-"WAIT";
+let direction="WAIT";
 
 if(buys>=4)
 direction="BUY";
@@ -2271,12 +1649,10 @@ if(sells>=4)
 direction="SELL";
 
 return{
-
 direction,
 buys,
 sells,
 valid
-
 };
 
 }
@@ -2286,17 +1662,10 @@ async function loadHome(){
 try{
 
 const gold=
-await getSignal(
-"XAUUSD",
-"M15"
-);
+await getSignal("XAUUSD","M15");
 
 goldPrice.textContent=
-"$"+
-formatPrice(
-"XAUUSD",
-gold.entry
-);
+"$"+formatPrice("XAUUSD",gold.entry);
 
 goldTrend.textContent=
 gold.side==="BUY"
@@ -2306,47 +1675,28 @@ gold.side==="BUY"
 :"◆ WAIT";
 
 goldTrend.className=
-"trend "+
-signalColor(
-gold.side
-);
+"trend "+signalColor(gold.side);
 
 goldStatus.textContent=
-gold.side+
-" • "+
-gold.confidence+
-"%";
+gold.side+" • "+gold.confidence+"%";
 
 goldStatus.className=
-"statusValue "+
-signalColor(
-gold.side
-);
+"statusValue "+signalColor(gold.side);
 
 }catch(e){
 
-goldPrice.textContent=
-"Unavailable";
-
-goldStatus.textContent=
-"ERROR";
+goldPrice.textContent="Unavailable";
+goldStatus.textContent="ERROR";
 
 }
 
 try{
 
 const btc=
-await getSignal(
-"BTCUSD",
-"M15"
-);
+await getSignal("BTCUSD","M15");
 
 btcPrice.textContent=
-"$"+
-formatPrice(
-"BTCUSD",
-btc.entry
-);
+"$"+formatPrice("BTCUSD",btc.entry);
 
 btcTrend.textContent=
 btc.side==="BUY"
@@ -2356,35 +1706,22 @@ btc.side==="BUY"
 :"◆ WAIT";
 
 btcTrend.className=
-"trend "+
-signalColor(
-btc.side
-);
+"trend "+signalColor(btc.side);
 
 btcStatus.textContent=
-btc.side+
-" • "+
-btc.confidence+
-"%";
+btc.side+" • "+btc.confidence+"%";
 
 btcStatus.className=
-"statusValue "+
-signalColor(
-btc.side
-);
+"statusValue "+signalColor(btc.side);
 
 }catch(e){
 
-btcPrice.textContent=
-"Unavailable";
-
-btcStatus.textContent=
-"ERROR";
+btcPrice.textContent="Unavailable";
+btcStatus.textContent="ERROR";
 
 }
 
 updateNewsSafety();
-
 await loadHomeTF();
 
 }
@@ -2392,31 +1729,22 @@ await loadHomeTF();
 async function loadHomeTF(){
 
 homeTF.innerHTML=
-"Loading "+
-homeAsset+
-"...";
+"Loading "+homeAsset+"...";
 
 let html="";
 
-for(
-const tf
-of TIMEFRAMES
-){
+for(const tf of TIMEFRAMES){
 
 try{
 
 const s=
-await getSignal(
-homeAsset,
-tf
-);
+await getSignal(homeAsset,tf);
 
 html+=`
 <div class="statusLine">
 <span class="statusName">
 ${homeAsset} • ${tf}
 </span>
-
 <strong class="${signalColor(s.side)}">
 ${s.side} • ${s.confidence}%
 </strong>
@@ -2436,8 +1764,7 @@ html+=`
 
 }
 
-homeTF.innerHTML=
-html;
+homeTF.innerHTML=html;
 
 }
 
@@ -2466,18 +1793,13 @@ ${tf}
 ).join("");
 
 document
-.querySelectorAll(
-"[data-signaltf]"
-)
+.querySelectorAll("[data-signaltf]")
 .forEach(b=>{
 
 b.onclick=()=>{
 
-signalTF=
-b.dataset.signaltf;
-
+signalTF=b.dataset.signaltf;
 buildTF();
-
 loadSelectedSignal();
 
 };
@@ -2485,18 +1807,13 @@ loadSelectedSignal();
 });
 
 document
-.querySelectorAll(
-"[data-charttf]"
-)
+.querySelectorAll("[data-charttf]")
 .forEach(b=>{
 
 b.onclick=()=>{
 
-chartTF=
-b.dataset.charttf;
-
+chartTF=b.dataset.charttf;
 buildTF();
-
 loadChart();
 
 };
@@ -2520,43 +1837,31 @@ Checking multi-timeframe...
 try{
 
 const signal=
-await getSignal(
-signalAsset,
-signalTF
-);
+await getSignal(signalAsset,signalTF);
 
 const all=
-await getMTF(
-signalAsset
-);
+await getMTF(signalAsset);
 
 const mtf=
-mtfDirection(
-all
-);
+mtfDirection(all);
 
 const aligned=
 signal.side!=="WAIT"&&
-mtf.direction===
-signal.side;
+mtf.direction===signal.side;
 
 mtfBox.innerHTML=`
 <div class="mtf">
 
 <div class="statusLine">
-
 <span class="statusName">
 MULTI-TF CONFIRMATION
 </span>
-
 <strong class="${signalColor(mtf.direction)}">
 ${mtf.direction}
 </strong>
-
 </div>
 
 <div class="mtfPills">
-
 ${all.map(
 x=>`
 <span class="pill ${signalColor(x.side)}">
@@ -2564,7 +1869,6 @@ ${x.timeframe}: ${x.side}
 </span>
 `
 ).join("")}
-
 </div>
 
 <p class="note">
@@ -2594,15 +1898,10 @@ Multi-TF: ${mtf.direction}.
 </p>
 
 <div class="statusLine">
-
-<span>
-Confidence
-</span>
-
+<span>Confidence</span>
 <strong class="gold">
 ${signal.confidence}%
 </strong>
-
 </div>
 
 </div>
@@ -2614,9 +1913,7 @@ return;
 
 signalContent.innerHTML=`
 <div class="signalCard ${
-signal.side==="BUY"
-?"buy"
-:"sell"
+signal.side==="BUY"?"buy":"sell"
 }">
 
 <div class="signalHeader">
@@ -2646,76 +1943,51 @@ ${signal.confidence}%
 <div class="level">
 <label>ENTRY</label>
 <strong class="gold">
-${formatPrice(
-signal.asset,
-signal.entry
-)}
+${formatPrice(signal.asset,signal.entry)}
 </strong>
 </div>
 
 <div class="level">
 <label>STOP LOSS</label>
 <strong class="red">
-${formatPrice(
-signal.asset,
-signal.sl
-)}
+${formatPrice(signal.asset,signal.sl)}
 </strong>
 </div>
 
 <div class="level">
 <label>TP1</label>
 <strong class="green">
-${formatPrice(
-signal.asset,
-signal.tp1
-)}
+${formatPrice(signal.asset,signal.tp1)}
 </strong>
 </div>
 
 <div class="level">
 <label>TP2</label>
 <strong class="green">
-${formatPrice(
-signal.asset,
-signal.tp2
-)}
+${formatPrice(signal.asset,signal.tp2)}
 </strong>
 </div>
 
 <div class="level">
 <label>TP3</label>
 <strong class="green">
-${formatPrice(
-signal.asset,
-signal.tp3
-)}
+${formatPrice(signal.asset,signal.tp3)}
 </strong>
 </div>
 
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-RSI
-</span>
-<strong>
-${signal.rsi.toFixed(1)}
-</strong>
+<span class="statusName">RSI</span>
+<strong>${signal.rsi.toFixed(1)}</strong>
 </div>
 
 <div class="statusLine">
-<span class="statusName">
-After TP1
-</span>
-<strong class="green">
-SL → ENTRY
-</strong>
+<span class="statusName">After TP1</span>
+<strong class="green">SL → ENTRY</strong>
 </div>
 
-<button
-class="track"
-id="trackSignal">
+<button class="track" id="trackSignal">
 TRACK CONFIRMED ${signal.side}
 </button>
 
@@ -2723,13 +1995,9 @@ TRACK CONFIRMED ${signal.side}
 `;
 
 document
-.getElementById(
-"trackSignal"
-)
+.getElementById("trackSignal")
 .onclick=
-()=>trackSignal(
-signal
-);
+()=>trackSignal(signal);
 
 }catch(e){
 
@@ -2762,29 +2030,15 @@ BTCUSD:[]
 
 }
 
-const data=
-JSON.parse(
-saved
-);
+const data=JSON.parse(saved);
 
 return{
-
 XAUUSD:
-Array.isArray(
-data.XAUUSD
-)
-?
-data.XAUUSD
-:[],
-
+Array.isArray(data.XAUUSD)
+?data.XAUUSD:[],
 BTCUSD:
-Array.isArray(
-data.BTCUSD
-)
-?
-data.BTCUSD
-:[]
-
+Array.isArray(data.BTCUSD)
+?data.BTCUSD:[]
 };
 
 }catch(e){
@@ -2818,8 +2072,7 @@ return[
 
 function newsBlocked(){
 
-const now=
-Date.now();
+const now=Date.now();
 
 return economicEvents
 .some(event=>{
@@ -2887,8 +2140,7 @@ const duplicate=
 h[signal.asset]
 .some(t=>
 activeTrade(t)&&
-t.timeframe===
-signal.timeframe&&
+t.timeframe===signal.timeframe&&
 t.side===signal.side
 );
 
@@ -2916,9 +2168,7 @@ tp2:signal.tp2,
 tp3:signal.tp3,
 status:"OPEN",
 timestamp:now,
-created:
-new Date(now)
-.toLocaleString(),
+created:new Date(now).toLocaleString(),
 tp1Hit:false,
 tp2Hit:false,
 tp3Hit:false,
@@ -2926,18 +2176,14 @@ breakEven:false,
 events:[
 {
 label:"SIGNAL CREATED",
-text:
-new Date(now)
-.toLocaleTimeString()
+text:new Date(now).toLocaleTimeString()
 }
 ]
 };
 
-h[signal.asset]
-.unshift(trade);
+h[signal.asset].unshift(trade);
 
 saveHistory(h);
-
 renderHistory();
 
 notify(
@@ -2945,21 +2191,14 @@ notify(
 `Entry ${formatPrice(signal.asset,signal.entry)} | SL ${formatPrice(signal.asset,signal.sl)} | TP1 ${formatPrice(signal.asset,signal.tp1)} | TP2 ${formatPrice(signal.asset,signal.tp2)} | TP3 ${formatPrice(signal.asset,signal.tp3)}`
 );
 
-alert(
-"Signal added to History."
-);
+alert("Signal added to History.");
 
 }
 
-function addEvent(
-trade,
-label,
-text
-){
+function addEvent(trade,label,text){
 
 if(
-trade.events
-.some(e=>e.label===label)
+trade.events.some(e=>e.label===label)
 )
 return;
 
@@ -2973,7 +2212,6 @@ text
 async function checkTradesNow(){
 
 const h=getHistory();
-
 let checked=0;
 
 for(
@@ -2985,15 +2223,13 @@ const groups={};
 
 for(
 const trade of
-h[asset]
-.filter(activeTrade)
+h[asset].filter(activeTrade)
 ){
 
 if(!groups[trade.timeframe])
 groups[trade.timeframe]=[];
 
-groups[trade.timeframe]
-.push(trade);
+groups[trade.timeframe].push(trade);
 
 }
 
@@ -3027,8 +2263,7 @@ const candle of latest
 
 const high=candle.high;
 const low=candle.low;
-const buy=
-trade.side==="BUY";
+const buy=trade.side==="BUY";
 
 const tp1=
 buy
@@ -3091,8 +2326,7 @@ trade.tp1Hit=true;
 trade.tp2Hit=true;
 trade.tp3Hit=true;
 trade.status="WIN";
-trade.closedAt=
-Date.now();
+trade.closedAt=Date.now();
 
 addEvent(
 trade,
@@ -3126,8 +2360,7 @@ trade.status!=="WIN"
 
 if(trade.breakEven){
 
-trade.status=
-"BREAKEVEN";
+trade.status="BREAKEVEN";
 
 addEvent(
 trade,
@@ -3157,9 +2390,7 @@ notify(
 
 }
 
-trade.closedAt=
-Date.now();
-
+trade.closedAt=Date.now();
 break;
 
 }
@@ -3182,7 +2413,6 @@ e
 }
 
 saveHistory(h);
-
 renderHistory();
 
 historyCheckText.textContent=
@@ -3195,9 +2425,7 @@ checked
 function renderHistory(){
 
 const h=
-getHistory()[
-historyAsset
-];
+getHistory()[historyAsset];
 
 const wins=
 h.filter(
@@ -3209,23 +2437,15 @@ h.filter(
 t=>t.status==="LOST"
 ).length;
 
-const closed=
-wins+lost;
+const closed=wins+lost;
 
-historyTotal.textContent=
-h.length;
-
-historyWins.textContent=
-wins;
-
-historyLost.textContent=
-lost;
+historyTotal.textContent=h.length;
+historyWins.textContent=wins;
+historyLost.textContent=lost;
 
 historyRate.textContent=
 closed
-?Math.round(
-wins/closed*100
-)+"%"
+?Math.round(wins/closed*100)+"%"
 :"--%";
 
 if(!h.length){
@@ -3252,9 +2472,7 @@ return`
 <button data-trade="${i}">
 <div>
 <strong>
-<span class="${
-signalColor(t.side)
-}">
+<span class="${signalColor(t.side)}">
 ${t.side}
 </span>
 ${t.asset} • ${t.timeframe}
@@ -3273,19 +2491,13 @@ ${t.status}
 }).join("");
 
 historyList
-.querySelectorAll(
-"[data-trade]"
-)
+.querySelectorAll("[data-trade]")
 .forEach(b=>{
 
 b.onclick=()=>{
 
 const t=
-h[
-Number(
-b.dataset.trade
-)
-];
+h[Number(b.dataset.trade)];
 
 showTrade(t);
 
@@ -3300,14 +2512,10 @@ function showTrade(t){
 detailTitle.innerHTML=
 `<span class="${signalColor(t.side)}">${t.side}</span> ${t.asset} • ${t.status}`;
 
-detailDate.textContent=
-t.created;
+detailDate.textContent=t.created;
 
 detailEntry.textContent=
-formatPrice(
-t.asset,
-t.entry
-);
+formatPrice(t.asset,t.entry);
 
 detailSL.textContent=
 t.breakEven
@@ -3315,22 +2523,13 @@ t.breakEven
 :formatPrice(t.asset,t.sl);
 
 detailTP1.textContent=
-formatPrice(
-t.asset,
-t.tp1
-);
+formatPrice(t.asset,t.tp1);
 
 detailTP2.textContent=
-formatPrice(
-t.asset,
-t.tp2
-);
+formatPrice(t.asset,t.tp2);
 
 detailTP3.textContent=
-formatPrice(
-t.asset,
-t.tp3
-);
+formatPrice(t.asset,t.tp3);
 
 detailEvents.innerHTML=
 (t.events||[])
@@ -3346,18 +2545,14 @@ ${e.text}
 `)
 .join("");
 
-tradeOverlay
-.classList.add(
-"open"
-);
+tradeOverlay.classList.add("open");
 
 }
 
 function resizeCanvas(){
 
 const rect=
-chartCanvas
-.getBoundingClientRect();
+chartCanvas.getBoundingClientRect();
 
 const ratio=
 devicePixelRatio||1;
@@ -3365,22 +2560,17 @@ devicePixelRatio||1;
 chartCanvas.width=
 Math.max(
 1,
-Math.floor(
-rect.width*ratio
-)
+Math.floor(rect.width*ratio)
 );
 
 chartCanvas.height=
 Math.max(
 1,
-Math.floor(
-rect.height*ratio
-)
+Math.floor(rect.height*ratio)
 );
 
 const ctx=
-chartCanvas
-.getContext("2d");
+chartCanvas.getContext("2d");
 
 ctx.setTransform(
 ratio,
@@ -3420,9 +2610,7 @@ height
 const count=
 Math.max(
 15,
-Math.floor(
-48/chartZoom
-)
+Math.floor(48/chartZoom)
 );
 
 const maxOffset=
@@ -3446,10 +2634,7 @@ chartOffset;
 
 const visible=
 chartCandles.slice(
-Math.max(
-0,
-end-count
-),
+Math.max(0,end-count),
 end
 );
 
@@ -3476,17 +2661,8 @@ chartSignalData.tp2,
 chartSignalData.tp3
 ].filter(Number.isFinite);
 
-max=
-Math.max(
-max,
-...prices
-);
-
-min=
-Math.min(
-min,
-...prices
-);
+max=Math.max(max,...prices);
+min=Math.min(min,...prices);
 
 }
 
@@ -3504,11 +2680,8 @@ const R=72;
 const T=12;
 const B=20;
 
-const W=
-width-L-R;
-
-const H=
-height-T-B;
+const W=width-L-R;
+const H=height-T-B;
 
 const y=
 p=>
@@ -3517,14 +2690,9 @@ T+
 (max-min)*
 H;
 
-ctx.strokeStyle=
-"#163426";
-
-ctx.fillStyle=
-"#809188";
-
-ctx.font=
-"10px Arial";
+ctx.strokeStyle="#163426";
+ctx.fillStyle="#809188";
+ctx.font="10px Arial";
 
 for(let i=0;i<=5;i++){
 
@@ -3582,35 +2750,24 @@ ctx.stroke();
 
 const text=
 label+" "+
-formatPrice(
-chartAsset,
-price
-);
+formatPrice(chartAsset,price);
 
 const tw=
-ctx.measureText(text)
-.width+8;
+ctx.measureText(text).width+8;
 
 ctx.fillRect(
 L+3,
-Math.max(
-T,
-yy-15
-),
+Math.max(T,yy-15),
 tw,
 14
 );
 
-ctx.fillStyle=
-"#050807";
+ctx.fillStyle="#050807";
 
 ctx.fillText(
 text,
 L+6,
-Math.max(
-T+10,
-yy-5
-)
+Math.max(T+10,yy-5)
 );
 
 });
@@ -3651,21 +2808,12 @@ ctx.strokeStyle=color;
 ctx.fillStyle=color;
 
 ctx.beginPath();
-ctx.moveTo(
-x,
-y(c.high)
-);
-ctx.lineTo(
-x,
-y(c.low)
-);
+ctx.moveTo(x,y(c.high));
+ctx.lineTo(x,y(c.low));
 ctx.stroke();
 
-const oy=
-y(c.open);
-
-const cy=
-y(c.close);
+const oy=y(c.open);
+const cy=y(c.close);
 
 ctx.fillRect(
 x-bw/2,
@@ -3683,14 +2831,9 @@ Math.abs(cy-oy)
 
 async function loadChart(){
 
-chartTitle.textContent=
-chartAsset;
-
-chartTfText.textContent=
-chartTF;
-
-chartSignal.textContent=
-"Loading...";
+chartTitle.textContent=chartAsset;
+chartTfText.textContent=chartTF;
+chartSignal.textContent="Loading...";
 
 try{
 
@@ -3708,47 +2851,28 @@ chartTF,
 chartCandles
 );
 
-const s=
-chartSignalData;
+const s=chartSignalData;
 
 chartSignal.textContent=
-s.side+
-" • "+
-s.confidence+
-"%";
+s.side+" • "+s.confidence+"%";
 
 chartSignal.className=
 signalColor(s.side);
 
 chartEntry.textContent=
-formatPrice(
-chartAsset,
-s.entry
-);
+formatPrice(chartAsset,s.entry);
 
 chartSL.textContent=
-formatPrice(
-chartAsset,
-s.sl
-);
+formatPrice(chartAsset,s.sl);
 
 chartTP1.textContent=
-formatPrice(
-chartAsset,
-s.tp1
-);
+formatPrice(chartAsset,s.tp1);
 
 chartTP2.textContent=
-formatPrice(
-chartAsset,
-s.tp2
-);
+formatPrice(chartAsset,s.tp2);
 
 chartTP3.textContent=
-formatPrice(
-chartAsset,
-s.tp3
-);
+formatPrice(chartAsset,s.tp3);
 
 chartZoom=1;
 chartOffset=0;
@@ -3757,23 +2881,12 @@ drawChart();
 
 }catch(e){
 
-chartSignal.textContent=
-"ERROR";
-
-chartEntry.textContent=
-"--";
-
-chartSL.textContent=
-"--";
-
-chartTP1.textContent=
-"--";
-
-chartTP2.textContent=
-"--";
-
-chartTP3.textContent=
-"--";
+chartSignal.textContent="ERROR";
+chartEntry.textContent="--";
+chartSL.textContent="--";
+chartTP1.textContent="--";
+chartTP2.textContent="--";
+chartTP3.textContent="--";
 
 }
 
@@ -3792,10 +2905,7 @@ hour:"2-digit",
 minute:"2-digit",
 hour12:false
 }
-)
-.format(
-new Date(ms)
-);
+).format(new Date(ms));
 
 }
 
@@ -3813,11 +2923,8 @@ return;
 
 }
 
-calendarStatus.textContent=
-"Loading...";
-
-calendarStatus.className=
-"statusValue gold";
+calendarStatus.textContent="Loading...";
+calendarStatus.className="statusValue gold";
 
 try{
 
@@ -3829,8 +2936,7 @@ CALENDAR_URL,
 
 if(!response.ok)
 throw new Error(
-"HTTP "+
-response.status
+"HTTP "+response.status
 );
 
 const data=
@@ -3844,11 +2950,8 @@ throw new Error(
 economicEvents=data;
 calendarLoaded=Date.now();
 
-calendarStatus.textContent=
-"LIVE";
-
-calendarStatus.className=
-"statusValue green";
+calendarStatus.textContent="LIVE";
+calendarStatus.className="statusValue green";
 
 renderCalendar();
 checkNewsAlerts();
@@ -3856,11 +2959,8 @@ updateNewsSafety();
 
 }catch(e){
 
-calendarStatus.textContent=
-"UNAVAILABLE";
-
-calendarStatus.className=
-"statusValue red";
+calendarStatus.textContent="UNAVAILABLE";
+calendarStatus.className="statusValue red";
 
 newsList.innerHTML=
 `<div class="error">
@@ -3874,30 +2974,25 @@ ${e.message}
 
 function renderCalendar(){
 
-const now=
-Date.now();
+const now=Date.now();
 
 const events=
 economicEvents
 .map(e=>({
 e,
-t:new Date(e.date)
-.getTime()
+t:new Date(e.date).getTime()
 }))
 .filter(x=>
 Number.isFinite(x.t)&&
 x.t>=now-60*60000
 )
-.sort(
-(a,b)=>a.t-b.t
-);
+.sort((a,b)=>a.t-b.t);
 
 const high=
 events.find(x=>
 x.e.country==="USD"&&
-String(
-x.e.impact
-).toLowerCase()==="high"&&
+String(x.e.impact)
+.toLowerCase()==="high"&&
 x.t>=now
 );
 
@@ -3920,9 +3015,7 @@ events.slice(0,40)
 .map(({e,t})=>{
 
 const impact=
-String(
-e.impact||"Low"
-);
+String(e.impact||"Low");
 
 const cls=
 impact==="High"
@@ -3965,11 +3058,9 @@ ${impact.toUpperCase()}
 
 function checkNewsAlerts(){
 
-const now=
-Date.now();
+const now=Date.now();
 
-economicEvents
-.forEach(e=>{
+economicEvents.forEach(e=>{
 
 if(
 e.country!=="USD"||
@@ -3979,8 +3070,7 @@ String(e.impact)
 return;
 
 const t=
-new Date(e.date)
-.getTime();
+new Date(e.date).getTime();
 
 const minutes=
 (t-now)/60000;
@@ -3997,15 +3087,10 @@ const key=
 e.title+
 e.date;
 
-if(
-localStorage.getItem(key)
-)
+if(localStorage.getItem(key))
 return;
 
-localStorage.setItem(
-key,
-"1"
-);
+localStorage.setItem(key,"1");
 
 notify(
 `HIGH IMPACT USD NEWS IN ${Math.max(1,Math.ceil(minutes))} MIN`,
@@ -4041,6 +3126,8 @@ homeNewsSafety.className=
 
 }
 
+/* CORRECTED ONESIGNAL FUNCTION */
+
 async function enableNotifications(){
 
 try{
@@ -4051,30 +3138,29 @@ window.OneSignalDeferred || [];
 OneSignalDeferred.push(
 async function(OneSignal){
 
-const permission =
-await OneSignal.Notifications
-.requestPermission();
+await OneSignal.Notifications.requestPermission();
 
-if(!permission){
+await sleep(500);
+
+if(
+!("Notification" in window) ||
+Notification.permission !== "granted"
+){
 
 alert(
-"Notification permission was not granted."
+"Notification permission is still blocked."
 );
 
 return;
 
 }
 
-await OneSignal.User
-.PushSubscription
-.optIn();
+await OneSignal.User.PushSubscription.optIn();
 
-await sleep(1200);
+await sleep(1800);
 
 const subscriptionId =
-OneSignal.User
-.PushSubscription
-.id;
+OneSignal.User.PushSubscription.id;
 
 console.log(
 "OneSignal Subscription ID:",
@@ -4090,7 +3176,7 @@ alert(
 }else{
 
 alert(
-"Notifications allowed. OneSignal subscription is still being created."
+"Notifications are allowed. OneSignal is creating the subscription. Wait a few seconds and press ENABLE NOTIFICATIONS again."
 );
 
 }
@@ -4113,10 +3199,7 @@ alert(
 
 }
 
-function notify(
-title,
-body
-){
+function notify(title,body){
 
 try{
 
@@ -4165,25 +3248,17 @@ riskResult.textContent=
 function showScreen(name){
 
 document
-.querySelectorAll(
-".screen"
-)
+.querySelectorAll(".screen")
 .forEach(s=>
-s.classList.remove(
-"active"
-)
+s.classList.remove("active")
 );
 
 document
 .getElementById(name)
-.classList.add(
-"active"
-);
+.classList.add("active");
 
 document
-.querySelectorAll(
-".nav"
-)
+.querySelectorAll(".nav")
 .forEach(n=>
 n.classList.toggle(
 "active",
@@ -4195,27 +3270,20 @@ if(name==="signals")
 loadSelectedSignal();
 
 if(name==="chart")
-setTimeout(
-loadChart,
-50
-);
+setTimeout(loadChart,50);
 
 if(name==="news")
 loadCalendar();
 
 if(name==="history"){
-
 renderHistory();
 checkTradesNow();
-
 }
 
 }
 
 document
-.querySelectorAll(
-".nav"
-)
+.querySelectorAll(".nav")
 .forEach(b=>{
 
 b.onclick=
@@ -4226,55 +3294,40 @@ b.dataset.screen
 });
 
 document
-.querySelectorAll(
-"[data-analyze]"
-)
+.querySelectorAll("[data-analyze]")
 .forEach(b=>{
 
 b.onclick=()=>{
 
-signalAsset=
-b.dataset.analyze;
-
+signalAsset=b.dataset.analyze;
 signalTF="M15";
 
 document
-.querySelectorAll(
-"[data-signalasset]"
-)
+.querySelectorAll("[data-signalasset]")
 .forEach(x=>
 x.classList.toggle(
 "active",
-x.dataset.signalasset===
-signalAsset
+x.dataset.signalasset===signalAsset
 )
 );
 
 buildTF();
-
-showScreen(
-"signals"
-);
+showScreen("signals");
 
 };
 
 });
 
 document
-.querySelectorAll(
-"[data-homeasset]"
-)
+.querySelectorAll("[data-homeasset]")
 .forEach(b=>{
 
 b.onclick=()=>{
 
-homeAsset=
-b.dataset.homeasset;
+homeAsset=b.dataset.homeasset;
 
 document
-.querySelectorAll(
-"[data-homeasset]"
-)
+.querySelectorAll("[data-homeasset]")
 .forEach(x=>
 x.classList.toggle(
 "active",
@@ -4289,20 +3342,15 @@ loadHomeTF();
 });
 
 document
-.querySelectorAll(
-"[data-signalasset]"
-)
+.querySelectorAll("[data-signalasset]")
 .forEach(b=>{
 
 b.onclick=()=>{
 
-signalAsset=
-b.dataset.signalasset;
+signalAsset=b.dataset.signalasset;
 
 document
-.querySelectorAll(
-"[data-signalasset]"
-)
+.querySelectorAll("[data-signalasset]")
 .forEach(x=>
 x.classList.toggle(
 "active",
@@ -4317,20 +3365,15 @@ loadSelectedSignal();
 });
 
 document
-.querySelectorAll(
-"[data-chartasset]"
-)
+.querySelectorAll("[data-chartasset]")
 .forEach(b=>{
 
 b.onclick=()=>{
 
-chartAsset=
-b.dataset.chartasset;
+chartAsset=b.dataset.chartasset;
 
 document
-.querySelectorAll(
-"[data-chartasset]"
-)
+.querySelectorAll("[data-chartasset]")
 .forEach(x=>
 x.classList.toggle(
 "active",
@@ -4345,20 +3388,15 @@ loadChart();
 });
 
 document
-.querySelectorAll(
-"[data-historyasset]"
-)
+.querySelectorAll("[data-historyasset]")
 .forEach(b=>{
 
 b.onclick=()=>{
 
-historyAsset=
-b.dataset.historyasset;
+historyAsset=b.dataset.historyasset;
 
 document
-.querySelectorAll(
-"[data-historyasset]"
-)
+.querySelectorAll("[data-historyasset]")
 .forEach(x=>
 x.classList.toggle(
 "active",
@@ -4400,7 +3438,6 @@ zoomReset.onclick=()=>{
 
 chartZoom=1;
 chartOffset=0;
-
 drawChart();
 
 };
@@ -4410,16 +3447,10 @@ chartArea
 "pointerdown",
 e=>{
 
-dragStart=
-e.clientX;
+dragStart=e.clientX;
 
 try{
-
-chartArea
-.setPointerCapture(
-e.pointerId
-);
-
+chartArea.setPointerCapture(e.pointerId);
 }catch(err){}
 
 }
@@ -4448,8 +3479,7 @@ Math.max(
 chartOffset
 );
 
-dragStart=
-e.clientX;
+dragStart=e.clientX;
 
 drawChart();
 
@@ -4468,14 +3498,12 @@ chartArea
 ()=>dragStart=null
 );
 
-balance
-.addEventListener(
+balance.addEventListener(
 "input",
 updateRisk
 );
 
-riskPercent
-.addEventListener(
+riskPercent.addEventListener(
 "input",
 updateRisk
 );
@@ -4489,9 +3517,7 @@ checkTradesNow;
 closeTrade.onclick=()=>{
 
 tradeOverlay
-.classList.remove(
-"open"
-);
+.classList.remove("open");
 
 };
 
@@ -4499,10 +3525,7 @@ tradeOverlay.onclick=
 e=>{
 
 if(e.target===tradeOverlay)
-tradeOverlay
-.classList.remove(
-"open"
-);
+tradeOverlay.classList.remove("open");
 
 };
 
@@ -4512,9 +3535,7 @@ async()=>{
 refreshBtn.textContent="…";
 
 Object.keys(CACHE)
-.forEach(k=>
-delete CACHE[k]
-);
+.forEach(k=>delete CACHE[k]);
 
 try{
 
@@ -4545,8 +3566,7 @@ refreshBtn.textContent="↻";
 
 };
 
-window
-.addEventListener(
+window.addEventListener(
 "resize",
 ()=>{
 
@@ -4626,14 +3646,9 @@ Date.now()/
 const key=
 `signalNotify_${asset}_${m15.side}_${bucket}`;
 
-if(
-!localStorage.getItem(key)
-){
+if(!localStorage.getItem(key)){
 
-localStorage.setItem(
-key,
-"1"
-);
+localStorage.setItem(key,"1");
 
 notify(
 `${m15.side} SIGNAL — ${asset} M15`,
