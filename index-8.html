@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050807">
+<title>BIT ADAMS</title>
+<!-- BIT ADAMS v8.0 — mobile analysis + risk management + break-even + 5 minute news alerts -->
+
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+OneSignalDeferred.push(async function(OneSignal){
+  await OneSignal.init({ appId:"cda9b6dc-b0a8-4171-8e7d-c47bd35b6ba0" });
+});
+</script>
+
+<style>
+*{box-sizing:border-box}
+:root{
+  --bg:#050807;--panel:#08110d;--panel2:#0b1712;--line:#18372a;
+  --green:#20f28a;--red:#ff5b6e;--gold:#f4c95d;--text:#f6f8f7;--muted:#7f9188;
+}
+html,body{margin:0;padding:0;color:var(--text);font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at 50% -10%,#0b2b1b 0,transparent 28%),var(--bg)}
+body{min-height:100%;padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+button{font:inherit;cursor:pointer}
+.app{max-width:560px;margin:auto;min-height:100vh}
+.topbar{
+  position:sticky;top:0;z-index:30;min-height:74px;padding:14px 18px;
+  padding-top:calc(14px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;
+  background:rgba(5,8,7,.96);border-bottom:1px solid #10241a;backdrop-filter:blur(14px)
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#16281e,#08110d);border:1px solid #4f4021;color:var(--gold);font-size:27px}
+.brandTitle{font-weight:900;letter-spacing:1.5px}
+.brandSub{margin-top:3px;color:var(--muted);font-size:10px;letter-spacing:.7px}
+.headerBtn{width:44px;height:44px;border-radius:13px;border:1px solid var(--line);background:var(--panel);color:#fff;font-size:20px}
+main{padding:18px 16px 16px}
+.screen{display:none}.screen.active{display:block}
+.card,.assetCard,.signalCard,.chartCard,.statBox{background:linear-gradient(145deg,#0a1510,#07100c);border:1px solid var(--line)}
+.card{border-radius:20px;padding:14px;margin-bottom:11px}
+.sectionTitle{margin:23px 2px 11px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sectionTitle h2{margin:0;font-size:16px;letter-spacing:.9px}
+.muted{color:var(--muted)}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}
+.mini{font-size:11px}.small{font-size:12px}
+.hero{margin-top:4px;border:1px solid var(--line);border-radius:26px;padding:14px;background:linear-gradient(145deg,#07170f,#07100c)}
+.assetGrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.assetCard{min-width:0;padding:14px;border-radius:20px;overflow:hidden}
+.assetCard.goldCard{border-color:#4b3d20}
+.assetTitle{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12px;font-weight:900}
+.assetSymbol{color:var(--muted);font-size:10px}
+.price{font-weight:900;font-size:22px;margin:10px 0 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trendText{font-size:11px;font-weight:bold}
+.rateArea{display:flex;align-items:center;gap:11px;margin-top:12px}
+.ring{--p:0;width:67px;height:67px;min-width:67px;border-radius:50%;position:relative;display:grid;place-items:center;background:conic-gradient(var(--green) calc(var(--p)*1%),#132d20 0)}
+.ring:after{content:"";position:absolute;width:52px;height:52px;border-radius:50%;background:#09130e}
+.ring span{position:relative;z-index:2;font-size:14px;font-weight:900}
+.statusLine{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #11251b}
+.statusLine:last-child{border-bottom:0}
+.statusName{color:#aebbb5;font-size:12px}.statusValue{font-weight:bold;font-size:12px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tabs.three{grid-template-columns:repeat(3,1fr)}
+.tfTabs{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-top:10px}
+.tab,.tf,.smallBtn{min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--muted);font-weight:800;padding:8px 5px}
+.tab.active,.tf.active{border-color:var(--green);color:#fff;background:linear-gradient(145deg,#0d2117,#09130e);box-shadow:inset 0 0 0 1px rgba(32,242,138,.10)}
+.mtfBox{margin-top:11px;border:1px solid #264f3b;border-radius:16px;padding:12px;background:linear-gradient(145deg,#0b1d14,#08110d)}
+.mtfTop{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.mtfBar{height:8px;background:#10271c;border-radius:999px;overflow:hidden;margin-top:10px}.mtfFill{height:100%;background:var(--green);width:0}
+.mtfList{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.mtfPill{font-size:10px;border:1px solid var(--line);border-radius:999px;padding:5px 7px;background:#06100c}
+.signalCard{border-radius:22px;padding:16px;margin-top:11px;box-shadow:0 14px 40px rgba(0,0,0,.24)}.signalCard.buySignal{border-color:#20f28a}.signalCard.sellSignal{border-color:#ff5b6e}.signalHeader{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.side{font-size:30px;font-weight:900;letter-spacing:.8px}.signalSymbol{margin-top:2px;color:#c7d2cd;font-size:12px}
+.confidence{min-width:68px;text-align:center;padding:8px 10px;border-radius:999px;font-weight:900;font-size:12px;border:1px solid currentColor}
+.levels{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:13px}
+.level{min-width:0;padding:12px 8px;border-radius:13px;background:#06100c;border:1px solid #10271c;text-align:center}.level.entry{box-shadow:inset 0 0 18px rgba(244,201,93,.04)}.level.sl{box-shadow:inset 0 0 18px rgba(255,91,110,.04)}.level.tp{box-shadow:inset 0 0 18px rgba(32,242,138,.04)}
+.level label{display:block;font-size:9px;color:var(--muted);margin-bottom:6px;letter-spacing:.5px}.level strong{display:block;font-size:12px;overflow:hidden;text-overflow:ellipsis}
+.level.entry{border-color:#5e5128}.level.sl{border-color:#5f2931}.level.tp{border-color:#21563d}
+.signalInfo{margin-top:11px;padding-top:10px;border-top:1px solid #11251b;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.quality{font-size:11px;font-weight:900;padding:5px 8px;border-radius:999px;border:1px solid currentColor}
+.trackBtn{width:100%;margin-top:11px;min-height:44px;border-radius:12px;border:1px solid #24533c;background:#0b2016;color:var(--green);font-weight:900}
+.trackBtn:disabled{opacity:.45;cursor:not-allowed}
+.waitBox{border:1px solid #5f5127;background:linear-gradient(145deg,#191608,#0d100b);border-radius:18px;padding:16px;margin-top:11px}
+.chartCard{margin-top:11px;border-radius:20px;overflow:hidden;background:#06100c}
+.chartTop{display:flex;justify-content:space-between;gap:10px;padding:14px}.chartTitle{font-weight:900}
+.chartArea{position:relative;height:420px;background:linear-gradient(#0c1a13 1px,transparent 1px),linear-gradient(90deg,#0c1a13 1px,transparent 1px);background-size:100% 50px,60px 100%;touch-action:none}
+#chartCanvas{width:100%;height:100%;display:block}
+.zoomControls{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:11px}
+.zoomControls button{min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:#fff}
+.statsGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:11px}.statBox{min-width:0;border-radius:15px;padding:11px}
+.statBox small{color:var(--muted);font-size:10px}.statBox strong{display:block;margin-top:5px;font-size:20px}
+.tradeRow{padding:12px 2px;border-bottom:1px solid #11251b}.tradeRow:last-child{border-bottom:0}
+.tradeBtn{width:100%;border:0;background:transparent;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left}
+.tradeMeta{font-size:10px;color:var(--muted);margin-top:4px}.badge{flex-shrink:0;padding:6px 8px;border-radius:999px;border:1px solid currentColor;font-size:10px;font-weight:900}
+.newsRow{padding:13px 2px;border-bottom:1px solid #11251b}.newsRow:last-child{border-bottom:0}
+.newsHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.newsTime{color:var(--muted);font-size:10px}
+.newsTitle{margin-top:5px;font-size:13px;line-height:1.35;font-weight:bold}.impact{flex-shrink:0;border:1px solid currentColor;border-radius:999px;font-size:9px;font-weight:900;padding:5px 7px}
+.setting{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #11251b}.setting:last-child{border-bottom:0}
+.settingName,.settingValue{font-size:12px}.settingValue{font-weight:bold}
+.note{color:var(--muted);line-height:1.5;font-size:11px}.loading{text-align:center;padding:25px 10px;color:var(--muted)}
+.errorBox{padding:13px;border-radius:13px;border:1px solid #5f2931;background:#241014;color:#ff9aa5;font-size:12px;line-height:1.4}
+.riskBox{border:1px solid #4c3f20;border-radius:18px;padding:14px;background:linear-gradient(145deg,#171307,#0b0f0b)}
+.riskLine{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #2a2413}.riskLine:last-child{border-bottom:0}
+.overlay{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.74);display:none;align-items:flex-end}.overlay.open{display:flex}
+.sheet{width:100%;max-width:560px;margin:auto;max-height:88vh;overflow:auto;background:#07100c;border:1px solid var(--line);border-radius:25px 25px 0 0;padding:17px}
+.sheetHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.closeBtn{width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:#fff}
+.timeline{margin-top:17px}.timelineItem{display:flex;gap:11px;padding-bottom:15px}.timelineDot{width:11px;height:11px;margin-top:3px;border-radius:50%;background:var(--green)}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:40;display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom);background:rgba(5,8,7,.98);border-top:1px solid #10241a;backdrop-filter:blur(15px)}
+.bottomInner{width:100%;max-width:560px;display:grid;grid-template-columns:repeat(6,1fr)}.nav{min-height:68px;border:0;background:transparent;color:#697b72;font-size:9px;padding:8px 2px}
+.navIcon{display:block;font-size:19px;margin-bottom:4px}.nav.active{color:var(--gold)}
+
+.analyzeBtn{width:100%;margin-top:10px;min-height:42px;border-radius:12px;border:1px solid #4f4021;background:linear-gradient(145deg,#1a1609,#0b110d);color:var(--gold);font-weight:900;letter-spacing:.5px}
+.actionRow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.actionBtn{min-height:48px;border-radius:13px;font-weight:900;border:1px solid var(--line);background:var(--panel);color:#fff}.actionBtn.buy{border-color:#24533c;color:var(--green)}.actionBtn.sell{border-color:#5f2931;color:var(--red)}.actionBtn:disabled{opacity:.32}
+.riskInputs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.riskInput{width:100%;min-height:44px;border-radius:12px;border:1px solid var(--line);background:#06100c;color:#fff;padding:10px}.riskResult{margin-top:10px;padding:11px;border-radius:12px;border:1px solid #4c3f20;background:#100e07}
+.newsAlertBanner{border:1px solid #4c3f20;background:linear-gradient(145deg,#171307,#0b0f0b);border-radius:16px;padding:12px;margin-bottom:10px}
+@media(max-width:420px){
+  main{padding-left:12px;padding-right:12px}.hero{padding:10px}.assetGrid{gap:8px}.assetCard{padding:12px}.assetTitle{font-size:11px}
+  .price{font-size:18px}.rateArea{gap:8px}.ring{width:60px;height:60px;min-width:60px}.ring:after{width:46px;height:46px}
+  .levels{grid-template-columns:repeat(2,1fr)}.chartArea{height:390px}
+}
+@media(max-width:350px){.assetGrid{grid-template-columns:1fr}.tfTabs{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">♛</div>
+    <div><div class="brandTitle">BIT ADAMS</div><div class="brandSub">AI MARKET ANALYSIS</div></div>
+  </div>
+  <button class="headerBtn" id="refreshAllBtn">↻</button>
+</header>
+
+<main>
+
+<section class="screen active" id="home">
+  <div class="hero">
+    <div class="assetGrid">
+
+      <div class="assetCard goldCard">
+        <div class="assetTitle"><span>◆ GOLD</span><span class="assetSymbol">XAUUSD</span></div>
+        <div class="price gold" id="goldPrice">Loading...</div>
+        <div class="trendText" id="goldTrend">ANALYZING...</div>
+        <div class="rateArea">
+          <div class="ring" id="goldRing" style="--p:0"><span id="goldWinRate">--%</span></div>
+          <div><div class="small">WIN RATE</div><div class="mini muted">Closed tracked signals</div></div>
+        </div>
+        <button class="analyzeBtn" data-quick-analyze="XAUUSD">ANALYZE GOLD</button>
+      </div>
+
+      <div class="assetCard">
+        <div class="assetTitle"><span>₿ BITCOIN</span><span class="assetSymbol">BTCUSD</span></div>
+        <div class="price" id="btcPrice">Loading...</div>
+        <div class="trendText" id="btcTrend">ANALYZING...</div>
+        <div class="rateArea">
+          <div class="ring" id="btcRing" style="--p:0"><span id="btcWinRate">--%</span></div>
+          <div><div class="small">WIN RATE</div><div class="mini muted">Closed tracked signals</div></div>
+        </div>
+        <button class="analyzeBtn" data-quick-analyze="BTCUSD">ANALYZE BITCOIN</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="sectionTitle"><h2>MARKET OVERVIEW</h2><span class="mini muted">LIVE DATA</span></div>
+  <div class="card">
+    <div class="statusLine"><span class="statusName">Gold M15</span><span class="statusValue" id="homeGoldSignal">Loading...</span></div>
+    <div class="statusLine"><span class="statusName">Bitcoin M15</span><span class="statusValue" id="homeBTCSignal">Loading...</span></div>
+    <div class="statusLine"><span class="statusName">Best performer</span><span class="statusValue gold" id="bestPerformer">--</span></div>
+  </div>
+
+  <div class="sectionTitle"><h2>TIMEFRAMES</h2><span class="mini muted">GOLD / BTC</span></div>
+  <div class="tabs">
+    <button class="tab active" data-home-asset="XAUUSD">XAUUSD</button>
+    <button class="tab" data-home-asset="BTCUSD">BTCUSD</button>
+  </div>
+  <div class="card" id="homeTFList" style="margin-top:10px"><div class="loading">Loading signals...</div></div>
+</section>
+
+<section class="screen" id="signals">
+  <div class="sectionTitle"><h2>SIGNALS</h2><span class="mini muted">STRICT MODE</span></div>
+  <div class="tabs">
+    <button class="tab active" data-signal-asset="XAUUSD">XAUUSD</button>
+    <button class="tab" data-signal-asset="BTCUSD">BTCUSD</button>
+  </div>
+  <div class="tfTabs" id="signalTFButtons"></div>
+  <div id="mtfSummary"></div>
+  <div id="signalContent"><div class="loading">Select a timeframe</div></div>
+</section>
+
+<section class="screen" id="chart">
+  <div class="sectionTitle"><h2>CANDLESTICK CHART</h2><span class="mini muted">ENTRY / SL / TP</span></div>
+  <div class="tabs">
+    <button class="tab active" data-chart-asset="XAUUSD">XAUUSD</button>
+    <button class="tab" data-chart-asset="BTCUSD">BTCUSD</button>
+  </div>
+  <div class="tfTabs" id="chartTFButtons"></div>
+
+  <div class="chartCard">
+    <div class="chartTop">
+      <div><div class="chartTitle" id="chartTitle">XAUUSD</div><div class="mini muted" id="chartTimeframe">M15</div></div>
+      <div class="statusValue" id="chartSignal">--</div>
+    </div>
+    <div class="chartArea" id="chartArea"><canvas id="chartCanvas"></canvas></div>
+    <div class="zoomControls">
+      <button id="zoomOutBtn">− Zoom</button>
+      <button id="resetChartBtn">Reset</button>
+      <button id="zoomInBtn">+ Zoom</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="statusLine"><span class="statusName">ENTRY</span><span class="statusValue gold" id="chartEntry">--</span></div>
+    <div class="statusLine"><span class="statusName">STOP LOSS</span><span class="statusValue red" id="chartSL">--</span></div>
+    <div class="statusLine"><span class="statusName">TAKE PROFIT 1</span><span class="statusValue green" id="chartTP1">--</span></div>
+    <div class="statusLine"><span class="statusName">TAKE PROFIT 2</span><span class="statusValue green" id="chartTP2">--</span></div>
+    <div class="statusLine"><span class="statusName">TAKE PROFIT 3</span><span class="statusValue green" id="chartTP3">--</span></div>
+  </div>
+</section>
+
+<section class="screen" id="news">
+  <div class="sectionTitle"><h2>ECONOMIC CALENDAR</h2><span class="mini muted">UK TIME</span></div>
+
+  <div class="card">
+    <div class="statusLine"><span class="statusName">Timezone</span><span class="statusValue green">Europe/London</span></div>
+    <div class="statusLine"><span class="statusName">Gold focus</span><span class="statusValue">USD HIGH IMPACT</span></div>
+    <div class="statusLine"><span class="statusName">Alert rule</span><span class="statusValue gold">5 MIN BEFORE</span></div>
+  </div>
+
+  <div class="newsAlertBanner">
+    <strong class="gold">NEWS SAFETY MODE</strong>
+    <div class="note" style="margin-top:5px">High-impact USD events will trigger a warning 5 minutes before the event once a live economic-calendar feed is connected. New entries should be avoided around high-impact news.</div>
+  </div>
+  <div class="card">
+    <strong>Live calendar connection</strong>
+    <p class="note">The 5-minute alert logic is prepared. Real scheduled events still require a reliable economic-calendar API or backend feed. Browser-only alerts cannot be guaranteed while the app is fully closed.</p>
+  </div>
+
+  <div id="newsList" class="card">
+    <div class="newsRow">
+      <div class="newsHead">
+        <div><div class="newsTime">UK TIME</div><div class="newsTitle">No live calendar API connected yet.</div></div>
+        <span class="impact gold">READY</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="history">
+  <div class="sectionTitle"><h2>TRADE HISTORY</h2><span class="mini muted">Tap transaction</span></div>
+  <div class="tabs">
+    <button class="tab active" data-history-asset="XAUUSD">XAUUSD</button>
+    <button class="tab" data-history-asset="BTCUSD">BTCUSD</button>
+  </div>
+
+  <div class="card" style="margin-top:11px;padding:14px 16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;font-weight:800">
+          <span id="historyLiveDot" style="width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);display:inline-block"></span>
+          <span>LIVE TRACKING</span>
+        </div>
+        <div class="mini muted" id="historyCheckStatus" style="margin-top:4px">Open trades are checked automatically while the app is open.</div>
+      </div>
+      <button class="smallBtn" id="historyCheckNow">CHECK NOW</button>
+    </div>
+  </div>
+
+  <div class="statsGrid">
+    <div class="statBox"><small>Signals</small><strong id="historySignals">0</strong></div>
+    <div class="statBox"><small>Win Rate</small><strong class="green" id="historyWinRate">--%</strong></div>
+    <div class="statBox"><small>Lost</small><strong class="red" id="historyLost">0</strong></div>
+  </div>
+  <div class="card" id="historyList" style="margin-top:11px"><div class="loading">No signals tracked yet.</div></div>
+</section>
+
+<section class="screen" id="settings">
+  <div class="sectionTitle"><h2>SETTINGS</h2></div>
+
+  <div class="card">
+    <div class="setting"><span class="settingName">Market Data</span><span class="settingValue green">TWELVE DATA</span></div>
+    <div class="setting"><span class="settingName">Assets</span><span class="settingValue">GOLD + BTC</span></div>
+    <div class="setting"><span class="settingName">Timeframes</span><span class="settingValue">M1 → H4</span></div>
+    <div class="setting"><span class="settingName">Signal Mode</span><span class="settingValue green">STRICT + WAIT</span></div>
+    <div class="setting"><span class="settingName">TP1 Rule</span><span class="settingValue green">MOVE SL TO ENTRY</span></div>
+    <div class="setting"><span class="settingName">Timezone</span><span class="settingValue">EUROPE/LONDON</span></div>
+    <div class="setting"><span class="settingName">Theme</span><span class="settingValue gold">PREMIUM DARK</span></div>
+  </div>
+
+  <div class="sectionTitle"><h2>RISK MANAGEMENT</h2></div>
+  <div class="riskBox">
+    <div class="riskLine"><span class="statusName">Risk per trade</span><strong>0.5% – 1%</strong></div>
+    <div class="riskLine"><span class="statusName">Maximum open trades</span><strong>2</strong></div>
+    <div class="riskLine"><span class="statusName">After TP1</span><strong class="green">MOVE SL TO BREAK-EVEN</strong></div>
+    <div class="riskLine"><span class="statusName">High-impact news</span><strong class="gold">AVOID NEW TRADES</strong></div>
+    <div class="riskLine"><span class="statusName">Daily loss limit</span><strong class="red">2% – 3%</strong></div>
+    <div class="riskInputs">
+      <input class="riskInput" id="accountBalance" type="number" min="0" step="0.01" value="100" placeholder="Account balance">
+      <input class="riskInput" id="riskPercent" type="number" min="0.1" max="3" step="0.1" value="1" placeholder="Risk %">
+    </div>
+    <div class="riskResult" id="riskResult">Risk amount: £1.00 at 1% of £100.00</div>
+  </div>
+
+  <div class="card" style="margin-top:11px">
+    <button class="trackBtn" id="enableAlertsBtn">ENABLE NOTIFICATIONS</button>
+    <p class="note">Signal, TP1, TP2, TP3, Break-Even and 5-minute news alerts can be shown while the app is running. Reliable alerts while the app is fully closed require a server/backend to send push notifications through OneSignal.</p>
+  </div>
+
+  <div class="card">
+    <strong>Important</strong>
+    <p class="note">Signals are analysis tools, not guaranteed outcomes. WAIT means conditions are not strong enough for a trade. Confidence is an internal score, not a probability of profit.</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<nav class="bottom">
+  <div class="bottomInner">
+    <button class="nav active" data-screen="home"><span class="navIcon">⌂</span>Home</button>
+    <button class="nav" data-screen="signals"><span class="navIcon">⌁</span>Signals</button>
+    <button class="nav" data-screen="chart"><span class="navIcon">▥</span>Chart</button>
+    <button class="nav" data-screen="news"><span class="navIcon">▤</span>News</button>
+    <button class="nav" data-screen="history"><span class="navIcon">◷</span>History</button>
+    <button class="nav" data-screen="settings"><span class="navIcon">⚙</span>Settings</button>
+  </div>
+</nav>
+
+<div class="overlay" id="tradeOverlay">
+  <div class="sheet">
+    <div class="sheetHeader">
+      <div><strong id="detailTitle">TRADE</strong><div class="mini muted" id="detailDate">--</div></div>
+      <button class="closeBtn" id="closeTradeBtn">✕</button>
+    </div>
+    <div class="sectionTitle"><h2>LEVELS</h2></div>
+    <div class="levels">
+      <div class="level entry"><label>ENTRY</label><strong id="detailEntry">--</strong></div>
+      <div class="level sl"><label>STOP LOSS</label><strong class="red" id="detailSL">--</strong></div>
+      <div class="level tp"><label>TP1</label><strong class="green" id="detailTP1">--</strong></div>
+      <div class="level tp"><label>TP2</label><strong class="green" id="detailTP2">--</strong></div>
+      <div class="level tp"><label>TP3</label><strong class="green" id="detailTP3">--</strong></div>
+    </div>
+
+    <div class="sectionTitle"><h2>TRADE STATUS</h2></div>
+    <div class="card">
+      <div class="statusLine"><span class="statusName">Current / Last price</span><span class="statusValue" id="detailCurrent">--</span></div>
+      <div class="statusLine"><span class="statusName">Highest since signal</span><span class="statusValue green" id="detailHigh">--</span></div>
+      <div class="statusLine"><span class="statusName">Lowest since signal</span><span class="statusValue red" id="detailLow">--</span></div>
+      <div class="statusLine"><span class="statusName">Duration</span><span class="statusValue" id="detailDuration">--</span></div>
+    </div>
+
+    <div class="sectionTitle"><h2>TRANSACTION PROGRESS</h2></div>
+    <div class="timeline" id="detailTimeline"></div>
+  </div>
+</div>
+
+<script>
+const API_KEY="9ad169b63c6e40f1bb5dcdac9ec085b1";
+
+const TIMEFRAMES=["M1","M5","M15","M30","H1","H4"];
+const INTERVALS={M1:"1min",M5:"5min",M15:"15min",M30:"30min",H1:"1h",H4:"4h"};
+const SYMBOLS={XAUUSD:"XAU/USD",BTCUSD:"BTC/USD"};
+
+let homeAsset="XAUUSD";
+let signalAsset="XAUUSD",signalTF="M15";
+let chartAsset="XAUUSD",chartTF="M15";
+let historyAsset="XAUUSD";
+let chartCandles=[],chartSignalData=null,chartZoom=1,chartOffset=0,pointerStartX=null;
+let signalCache={},signalPromises={},candleCache={};
+let apiRequestTimes=[],apiGate=Promise.resolve();
+let historyWatcherBusy=false;
+
+const API_CREDIT_LIMIT=8,API_WINDOW_MS=60000;
+const CACHE_TTL={M1:45000,M5:90000,M15:180000,M30:300000,H1:600000,H4:1800000};
+
+function sleep(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+
+async function reserveApiCredit(){
+  const run=apiGate.then(async()=>{
+    while(true){
+      const now=Date.now();
+      apiRequestTimes=apiRequestTimes.filter(t=>now-t<API_WINDOW_MS);
+      if(apiRequestTimes.length<API_CREDIT_LIMIT){apiRequestTimes.push(Date.now());return}
+      await sleep(Math.max(500,API_WINDOW_MS-(now-apiRequestTimes[0])+350));
+    }
+  });
+  apiGate=run.catch(()=>{});
+  return run;
+}
+
+function getHistory(){
+  try{
+    const saved=localStorage.getItem("bitAdamsHistoryV4");
+    if(!saved)return{XAUUSD:[],BTCUSD:[]};
+    const d=JSON.parse(saved);
+    return{XAUUSD:Array.isArray(d.XAUUSD)?d.XAUUSD:[],BTCUSD:Array.isArray(d.BTCUSD)?d.BTCUSD:[]};
+  }catch(e){return{XAUUSD:[],BTCUSD:[]}}
+}
+function saveHistory(data){localStorage.setItem("bitAdamsHistoryV4",JSON.stringify(data))}
+
+async function fetchSeries(symbol,interval,outputsize){
+  const url="https://api.twelvedata.com/time_series?symbol="+encodeURIComponent(symbol)+"&interval="+encodeURIComponent(interval)+"&outputsize="+outputsize+"&apikey="+API_KEY;
+  await reserveApiCredit();
+  const r=await fetch(url),data=await r.json();
+  if(!r.ok||data.status==="error"||!Array.isArray(data.values))throw new Error(data.message||"Market data could not be loaded.");
+  return data.values.map(x=>({datetime:x.datetime,open:Number(x.open),high:Number(x.high),low:Number(x.low),close:Number(x.close)}))
+    .filter(c=>[c.open,c.high,c.low,c.close].every(Number.isFinite)).reverse();
+}
+
+function parseMarketDateTime(value){
+  if(!value)return null;
+  const normalized=value.includes("T")?value:value.replace(" ","T");
+  const d=new Date(normalized+"Z");
+  return Number.isNaN(d.getTime())?null:d;
+}
+
+function aggregate4h(oneHour){
+  const buckets=new Map();
+  for(const candle of oneHour){
+    const d=parseMarketDateTime(candle.datetime);if(!d)continue;
+    const bucketHour=Math.floor(d.getUTCHours()/4)*4;
+    const bucket=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),bucketHour,0,0,0));
+    const key=bucket.toISOString();
+    if(!buckets.has(key))buckets.set(key,[]);
+    buckets.get(key).push(candle);
+  }
+  return [...buckets.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([key,g])=>({
+    datetime:key.replace("T"," ").slice(0,19),open:g[0].open,high:Math.max(...g.map(x=>x.high)),low:Math.min(...g.map(x=>x.low)),close:g[g.length-1].close
+  }));
+}
+
+async function fetchCandles(asset,timeframe,outputsize=120){
+  const now=Date.now(),cacheKey=asset+"_"+timeframe,ttl=CACHE_TTL[timeframe]||90000,cached=candleCache[cacheKey];
+  if(cached&&now-cached.time<ttl&&cached.candles.length>=Math.min(outputsize,120))return cached.candles.slice(-outputsize);
+
+  const symbol=SYMBOLS[asset];
+  if(timeframe!=="H4"){
+    const requestSize=timeframe==="H1"?Math.max(outputsize,520):outputsize;
+    const candles=await fetchSeries(symbol,INTERVALS[timeframe],requestSize);
+    if(candles.length<30)throw new Error("Not enough candle data.");
+    candleCache[cacheKey]={time:Date.now(),candles};
+    return candles.slice(-outputsize);
+  }
+
+  try{
+    const direct=await fetchSeries(symbol,"4h",outputsize);
+    if(direct.length>=30){candleCache[cacheKey]={time:Date.now(),candles:direct};return direct.slice(-outputsize)}
+  }catch(e){console.log("Direct H4 unavailable. Using H1 fallback.",e)}
+
+  const h1Key=asset+"_H1";
+  let h1Cached=candleCache[h1Key];
+  if(!h1Cached||Date.now()-h1Cached.time>(CACHE_TTL.H1||600000)||h1Cached.candles.length<120){
+    const h1=await fetchSeries(symbol,"1h",Math.min(520,Math.max(160,outputsize*4+32)));
+    h1Cached={time:Date.now(),candles:h1};candleCache[h1Key]=h1Cached;
+  }
+  const h4=aggregate4h(h1Cached.candles);
+  if(h4.length<30)throw new Error("H4 data unavailable.");
+  candleCache[cacheKey]={time:Date.now(),candles:h4};
+  return h4.slice(-outputsize);
+}
+
+function ema(v,p){if(!v.length)return[];const k=2/(p+1),out=[v[0]];for(let i=1;i<v.length;i++)out.push(v[i]*k+out[i-1]*(1-k));return out}
+function rsi(v,p=14){
+  if(v.length<=p)return 50;
+  let g=0,l=0;
+  for(let i=v.length-p;i<v.length;i++){const d=v[i]-v[i-1];if(d>0)g+=d;else l+=Math.abs(d)}
+  const ag=g/p,al=l/p;if(al===0)return 100;const rs=ag/al;return 100-100/(1+rs)
+}
+function atr(c,p=14){
+  if(c.length<p+1)return 0;const tr=[];
+  for(let i=1;i<c.length;i++){const a=c[i],b=c[i-1];tr.push(Math.max(a.high-a.low,Math.abs(a.high-b.close),Math.abs(a.low-b.close)))}
+  const x=tr.slice(-p);return x.reduce((s,n)=>s+n,0)/x.length
+}
+function slope(values,lookback=5){
+  if(values.length<lookback+1)return 0;
+  const a=values.at(-1),b=values[values.length-1-lookback];
+  return (a-b)/Math.max(Math.abs(b),1)*100;
+}
+function macd(values){
+  if(values.length<35)return{line:0,signal:0,hist:0};
+  const e12=ema(values,12),e26=ema(values,26);
+  const line=values.map((_,i)=>e12[i]-e26[i]);
+  const sig=ema(line,9);
+  return{line:line.at(-1),signal:sig.at(-1),hist:line.at(-1)-sig.at(-1)};
+}
+function recentExtreme(candles,lookback=20){
+  const block=candles.slice(-(lookback+1),-1);
+  return{high:Math.max(...block.map(c=>c.high)),low:Math.min(...block.map(c=>c.low))};
+}
+
+function analyzeSignal(asset,timeframe,candles){
+  const closes=candles.map(c=>c.close),e9=ema(closes,9),e21=ema(closes,21),e50=ema(closes,50);
+  const cur=candles.at(-1),prev=candles.at(-2),f=e9.at(-1),s=e21.at(-1),slow=e50.at(-1);
+  const R=rsi(closes),A=atr(candles),mom=slope(closes,6),trendSlope=slope(e21,5),M=macd(closes),ext=recentExtreme(candles,20);
+  const body=Math.abs(cur.close-cur.open),range=Math.max(cur.high-cur.low,1e-9),bodyRatio=body/range;
+  const atrPct=A/Math.max(cur.close,1)*100;
+  let buy=0,sell=0;
+
+  // Trend structure: strongest part of the score.
+  if(f>s){buy+=18}else{sell+=18}
+  if(s>slow){buy+=16}else{sell+=16}
+  if(cur.close>f){buy+=9}else{sell+=9}
+  if(cur.close>s){buy+=7}else{sell+=7}
+  if(trendSlope>0.015){buy+=10}else if(trendSlope<-0.015){sell+=10}
+
+  // Momentum must agree with the trend; extreme RSI is treated cautiously.
+  if(R>=54&&R<=68)buy+=14;
+  else if(R<=46&&R>=32)sell+=14;
+  else if(R>72)sell+=4;
+  else if(R<28)buy+=4;
+
+  if(mom>0.025)buy+=10;
+  else if(mom<-0.025)sell+=10;
+
+  if(M.hist>0&&M.line>M.signal)buy+=10;
+  else if(M.hist<0&&M.line<M.signal)sell+=10;
+
+  // Price-action confirmation.
+  if(cur.close>cur.open&&prev.close>prev.open)buy+=6;
+  if(cur.close<cur.open&&prev.close<prev.open)sell+=6;
+  if(bodyRatio>.58){if(cur.close>cur.open)buy+=5;else sell+=5}
+  if(cur.close>ext.high)buy+=8;
+  if(cur.close<ext.low)sell+=8;
+
+  const dominant=Math.max(buy,sell),difference=Math.abs(buy-sell);
+  const buyTrend=f>s&&s>slow&&cur.close>s&&trendSlope>0;
+  const sellTrend=f<s&&s<slow&&cur.close<s&&trendSlope<0;
+  const volatilityOK=atrPct>=(asset==="BTCUSD"?0.08:0.025);
+  let side="WAIT";
+
+  // STRICT MODE: fewer entries, stronger alignment, less noise.
+  if(volatilityOK&&buy>=78&&difference>=24&&buyTrend&&R<72)side="BUY";
+  if(volatilityOK&&sell>=78&&difference>=24&&sellTrend&&R>28)side="SELL";
+
+  const confidence=side==="WAIT"
+    ? Math.round(Math.min(74,48+dominant*.22))
+    : Math.round(Math.max(80,Math.min(96,64+dominant*.32+difference*.08)));
+
+  const entry=cur.close;
+  const atrFloor=entry*(asset==="BTCUSD"?0.0011:0.0008);
+  const risk=Math.max(A*1.10,atrFloor);
+  let sl=null,tp1=null,tp2=null,tp3=null;
+
+  if(side==="BUY"){
+    sl=entry-risk;tp1=entry+risk*.85;tp2=entry+risk*1.45;tp3=entry+risk*2.20;
+  }else if(side==="SELL"){
+    sl=entry+risk;tp1=entry-risk*.85;tp2=entry-risk*1.45;tp3=entry-risk*2.20;
+  }
+
+  const quality=side==="WAIT"?"WAIT":confidence>=91?"PREMIUM":confidence>=85?"STRONG":"VALID";
+
+  return{asset,timeframe,side,confidence,quality,entry,sl,tp1,tp2,tp3,rsi:R,momentum:mom,atr:A,emaFast:f,emaSlow:s,ema50:slow,macdHist:M.hist,atrPct,candles,buyScore:buy,sellScore:sell};
+}
+
+async function getSignal(asset,tf){
+  const key=asset+"_"+tf;
+  if(signalCache[key])return signalCache[key];
+  if(signalPromises[key])return signalPromises[key];
+  signalPromises[key]=(async()=>{
+    try{
+      const c=await fetchCandles(asset,tf,120);
+      const s=analyzeSignal(asset,tf,c);
+      signalCache[key]=s;return s;
+    }finally{delete signalPromises[key]}
+  })();
+  return signalPromises[key];
+}
+
+async function getMTF(asset){
+  const results=[];
+  for(const tf of TIMEFRAMES){
+    try{results.push(await getSignal(asset,tf))}catch(e){results.push({asset,timeframe:tf,error:true})}
+    await sleep(90);
+  }
+  return results;
+}
+
+function mtfStats(results){
+  const ok=results.filter(x=>!x.error);
+  const buys=ok.filter(x=>x.side==="BUY").length,sells=ok.filter(x=>x.side==="SELL").length,waits=ok.filter(x=>x.side==="WAIT").length;
+  let direction="WAIT";
+  if(buys>sells&&buys>=3)direction="BUY";
+  if(sells>buys&&sells>=3)direction="SELL";
+  const aligned=direction==="WAIT"?waits:ok.filter(x=>x.side===direction).length;
+  const pct=ok.length?Math.round(aligned/ok.length*100):0;
+  return{ok,buys,sells,waits,direction,aligned,pct};
+}
+
+function higherTFConfirmed(all,selected){
+  const map=Object.fromEntries(all.filter(x=>!x.error).map(x=>[x.timeframe,x]));
+  if(selected==="M1")return map.M5&&map.M15&&map.M5.side===map.M15.side&&map.M15.side!=="WAIT";
+  if(selected==="M5")return map.M15&&map.M30&&map.M15.side===map.M30.side&&map.M15.side!=="WAIT";
+  if(selected==="M15")return map.M30&&map.H1&&map.M30.side===map.H1.side&&map.H1.side!=="WAIT";
+  if(selected==="M30")return map.H1&&map.H4&&map.H1.side===map.H4.side&&map.H1.side!=="WAIT";
+  if(selected==="H1")return map.H4&&map.H4.side!=="WAIT";
+  return true;
+}
+
+function formatPrice(asset,p){
+  if(!Number.isFinite(p))return"--";
+  return p.toLocaleString(undefined,asset==="BTCUSD"?{maximumFractionDigits:2}:{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function signalColor(side){return side==="BUY"?"green":side==="SELL"?"red":"gold"}
+function qualityColor(q){return q==="PREMIUM"?"gold":q==="STRONG"?"green":q==="VALID"?"green":"gold"}
+
+async function requestAlerts(){
+  try{
+    if("Notification" in window){
+      const permission=await Notification.requestPermission();
+      alert(permission==="granted"?"Notifications enabled.":"Notifications were not enabled.");
+    }else alert("Notifications are not supported in this browser.");
+  }catch(e){alert("Could not enable notifications.")}
+}
+function notify(title,body){
+  try{
+    if("Notification" in window&&Notification.permission==="granted"){
+      new Notification(title,{body,icon:""});
+    }
+  }catch(e){console.log("Notification error",e)}
+}
+
+function renderSignalCard(s,allowed=true,reason=""){
+  if(s.side==="WAIT"||!allowed){
+    return `<div class="waitBox">
+      <div class="side gold">WAIT</div>
+      <div class="signalSymbol">${s.asset} • ${s.timeframe}</div>
+      <p class="note" style="margin-bottom:0">${reason||"Market conditions are not strong enough for a high-quality entry."}</p>
+    </div>`;
+  }
+  const color=signalColor(s.side),q=qualityColor(s.quality);
+  return `<div class="signalCard ${s.side==="BUY"?"buySignal":"sellSignal"}">
+    <div class="signalHeader">
+      <div><div class="side ${color}">${s.side} NOW</div><div class="signalSymbol">${s.asset} • ${s.timeframe} • CONFIRMED ENTRY</div></div>
+      <div class="confidence ${color}">${s.confidence}%</div>
+    </div>
+    <div class="levels">
+      <div class="level entry"><label>ENTRY</label><strong class="gold">${formatPrice(s.asset,s.entry)}</strong></div>
+      <div class="level sl"><label>STOP LOSS</label><strong class="red">${formatPrice(s.asset,s.sl)}</strong></div>
+      <div class="level tp"><label>TP1</label><strong class="green">${formatPrice(s.asset,s.tp1)}</strong></div>
+      <div class="level tp"><label>TP2</label><strong class="green">${formatPrice(s.asset,s.tp2)}</strong></div>
+      <div class="level tp"><label>TP3</label><strong class="green">${formatPrice(s.asset,s.tp3)}</strong></div>
+    </div>
+    <div class="signalInfo">
+      <div><span class="mini muted">RSI </span><strong>${s.rsi.toFixed(1)}</strong>
+      <span class="mini muted"> • Momentum </span><strong class="${s.momentum>=0?"green":"red"}">${s.momentum.toFixed(2)}%</strong>
+      <span class="mini muted"> • TP plan </span><strong class="green">0.85R / 1.45R / 2.20R</strong></div>
+      <span class="quality ${q}">${s.quality}</span>
+    </div>
+    <div class="actionRow">
+      <button class="actionBtn buy" data-side-action="BUY" ${s.side!=="BUY"?"disabled":""}>BUY</button>
+      <button class="actionBtn sell" data-side-action="SELL" ${s.side!=="SELL"?"disabled":""}>SELL</button>
+    </div>
+    <button class="trackBtn" data-track="1">TRACK CONFIRMED ${s.side}</button>
+  </div>`;
+}
+
+
+function signalFingerprint(s){
+  if(!s || s.side==="WAIT") return "";
+  const bucket=Math.floor(Date.now()/(15*60*1000));
+  return `${s.asset}|${s.timeframe}|${s.side}|${bucket}`;
+}
+
+async function checkForNewSignals(){
+  if(document.hidden) return;
+  for(const asset of ["XAUUSD","BTCUSD"]){
+    try{
+      const [m15,m30,h1]=await Promise.all([
+        getSignal(asset,"M15"),
+        getSignal(asset,"M30"),
+        getSignal(asset,"H1")
+      ]);
+
+      const aligned=
+        m15.side!=="WAIT" &&
+        m15.side===m30.side &&
+        m15.side===h1.side &&
+        m15.confidence>=80 &&
+        m30.confidence>=80 &&
+        h1.confidence>=80;
+
+      if(!aligned) continue;
+
+      const fp=signalFingerprint(m15);
+      const key="bitAdamsLastSignal_"+asset;
+      const last=localStorage.getItem(key);
+
+      if(fp && fp!==last){
+        localStorage.setItem(key,fp);
+        notify(`${m15.side} SIGNAL — ${asset} M15`,
+          `Entry ${formatPrice(asset,m15.entry)} | SL ${formatPrice(asset,m15.sl)} | TP1 ${formatPrice(asset,m15.tp1)} | TP2 ${formatPrice(asset,m15.tp2)} | TP3 ${formatPrice(asset,m15.tp3)}`);
+      }
+    }catch(e){
+      console.log("Signal notification check failed",asset,e);
+    }
+  }
+}
+
+function buildTimeframeButtons(){
+  signalTFButtons.innerHTML=TIMEFRAMES.map(tf=>`<button class="tf ${tf===signalTF?"active":""}" data-signal-tf="${tf}">${tf}</button>`).join("");
+  chartTFButtons.innerHTML=TIMEFRAMES.map(tf=>`<button class="tf ${tf===chartTF?"active":""}" data-chart-tf="${tf}">${tf}</button>`).join("");
+  document.querySelectorAll("[data-signal-tf]").forEach(b=>b.onclick=async()=>{signalTF=b.dataset.signalTf;buildTimeframeButtons();await loadSelectedSignal()});
+  document.querySelectorAll("[data-chart-tf]").forEach(b=>b.onclick=async()=>{chartTF=b.dataset.chartTf;buildTimeframeButtons();await loadChart()});
+}
+
+async function loadSelectedSignal(){
+  signalContent.innerHTML=`<div class="loading">Analyzing ${signalAsset} ${signalTF}...</div>`;
+  mtfSummary.innerHTML=`<div class="loading">Checking multi-timeframe confirmation...</div>`;
+  try{
+    const [signal,all]=await Promise.all([getSignal(signalAsset,signalTF),getMTF(signalAsset)]);
+    const m=mtfStats(all),higherOk=higherTFConfirmed(all,signalTF);
+    const alignedSelected=m.direction===signal.side&&signal.side!=="WAIT";
+    const enoughAlignment=m.aligned>=4&&m.pct>=67;
+    const allowed=signal.side!=="WAIT"&&alignedSelected&&higherOk&&enoughAlignment&&signal.confidence>=80;
+
+    mtfSummary.innerHTML=`<div class="mtfBox">
+      <div class="mtfTop">
+        <div><b>MULTI-TF CONFIRMATION</b><div class="mini muted">${m.aligned}/${m.ok.length} aligned</div></div>
+        <b class="${signalColor(m.direction)}">${m.direction} • ${m.pct}%</b>
+      </div>
+      <div class="mtfBar"><div class="mtfFill" style="width:${m.pct}%"></div></div>
+      <div class="mtfList">${all.map(x=>x.error?`<span class="mtfPill muted">${x.timeframe}: --</span>`:`<span class="mtfPill ${signalColor(x.side)}">${x.timeframe}: ${x.side}</span>`).join("")}</div>
+      <div class="mini ${allowed?"green":"gold"}" style="margin-top:9px">${allowed?"ENTRY CONFIRMED — trend + momentum + 4/6 MTF alignment":"WAIT — requires at least 4/6 aligned plus higher-timeframe confirmation."}</div>
+    </div>`;
+
+    signalContent.innerHTML=renderSignalCard(signal,allowed,"WAIT — MTF confirmation is not strong enough for this entry.");
+
+    if(allowed){
+      const btn=signalContent.querySelector("[data-track]");
+      if(btn)btn.onclick=()=>trackSignal(signal);
+      signalContent.querySelectorAll("[data-side-action]").forEach(action=>{
+        action.onclick=()=>{
+          if(action.disabled)return;
+          trackSignal(signal);
+        };
+      });
+    }
+  }catch(e){
+    signalContent.innerHTML=`<div class="errorBox">${e.message}</div>`;mtfSummary.innerHTML="";
+  }
+}
+
+async function loadHome(){
+  updateHomeWinRates();
+  await loadHomeM15Signals();
+  await loadHomeTimeframes();
+}
+
+async function loadHomeM15Signals(){
+  async function confirmedHomeSignal(asset){
+    const [m15,m30,h1]=await Promise.all([getSignal(asset,"M15"),getSignal(asset,"M30"),getSignal(asset,"H1")]);
+    const confirmed=m15.side!=="WAIT"&&m15.side===m30.side&&m15.side===h1.side&&m15.confidence>=80&&m30.confidence>=80&&h1.confidence>=80;
+    return {raw:m15,side:confirmed?m15.side:"WAIT",confidence:confirmed?Math.round((m15.confidence+m30.confidence+h1.confidence)/3):m15.confidence,confirmed};
+  }
+  try{
+    const x=await confirmedHomeSignal("XAUUSD"),s=x.raw;
+    goldPrice.textContent="$"+formatPrice("XAUUSD",s.entry);
+    homeGoldSignal.textContent=`${x.side} • ${x.confidence}%`;homeGoldSignal.className="statusValue "+signalColor(x.side);
+    goldTrend.textContent=x.side==="BUY"?"▲ BULLISH CONFIRMED":x.side==="SELL"?"▼ BEARISH CONFIRMED":"◆ WAIT";
+    goldTrend.className="trendText "+signalColor(x.side);
+  }catch(e){goldPrice.textContent="Unavailable";homeGoldSignal.textContent="ERROR"}
+
+  try{
+    const x=await confirmedHomeSignal("BTCUSD"),s=x.raw;
+    btcPrice.textContent="$"+formatPrice("BTCUSD",s.entry);
+    homeBTCSignal.textContent=`${x.side} • ${x.confidence}%`;homeBTCSignal.className="statusValue "+signalColor(x.side);
+    btcTrend.textContent=x.side==="BUY"?"▲ BULLISH CONFIRMED":x.side==="SELL"?"▼ BEARISH CONFIRMED":"◆ WAIT";
+    btcTrend.className="trendText "+signalColor(x.side);
+  }catch(e){btcPrice.textContent="Unavailable";homeBTCSignal.textContent="ERROR"}
+}
+
+async function loadHomeTimeframes(){
+  homeTFList.innerHTML=`<div class="loading">Loading ${homeAsset} signals...</div>`;
+  const rows=[];
+  for(const tf of TIMEFRAMES){
+    try{
+      const s=await getSignal(homeAsset,tf);
+      rows.push(`<div class="statusLine"><span class="statusName">${homeAsset} • ${tf}</span><span class="statusValue ${signalColor(s.side)}">${s.side} • ${s.confidence}%</span></div>`);
+    }catch(e){rows.push(`<div class="statusLine"><span class="statusName">${homeAsset} • ${tf}</span><span class="statusValue muted">unavailable</span></div>`)}
+    await sleep(90);
+  }
+  homeTFList.innerHTML=rows.join("");
+}
+
+async function loadChart(){
+  chartTitle.textContent=chartAsset;chartTimeframe.textContent=chartTF;chartSignal.textContent="Loading...";
+  try{
+    const c=await fetchCandles(chartAsset,chartTF,160);chartCandles=c;
+    const s=analyzeSignal(chartAsset,chartTF,c);chartSignalData=s;signalCache[chartAsset+"_"+chartTF]=s;
+    chartSignal.textContent=`${s.side} • ${s.confidence}%`;chartSignal.className="statusValue "+signalColor(s.side);
+    chartEntry.textContent=formatPrice(chartAsset,s.entry);
+    chartSL.textContent=formatPrice(chartAsset,s.sl);
+    chartTP1.textContent=formatPrice(chartAsset,s.tp1);chartTP2.textContent=formatPrice(chartAsset,s.tp2);chartTP3.textContent=formatPrice(chartAsset,s.tp3);
+    chartZoom=1;chartOffset=0;drawChart();
+  }catch(e){chartSignalData=null;chartSignal.textContent="ERROR";drawChartError(e.message)}
+}
+
+function resizeCanvas(){
+  const c=chartCanvas,r=c.getBoundingClientRect(),ratio=devicePixelRatio||1;
+  c.width=Math.max(1,Math.floor(r.width*ratio));c.height=Math.max(1,Math.floor(r.height*ratio));
+  const ctx=c.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);return{ctx,width:r.width,height:r.height}
+}
+
+function drawChart(){
+  if(!chartCandles.length)return;
+  const {ctx,width,height}=resizeCanvas();ctx.clearRect(0,0,width,height);
+  const visibleCount=Math.max(14,Math.floor(48/chartZoom));
+  const maxOffset=Math.max(0,chartCandles.length-visibleCount);chartOffset=Math.max(0,Math.min(maxOffset,chartOffset));
+  const end=chartCandles.length-chartOffset,start=Math.max(0,end-visibleCount),v=chartCandles.slice(start,end);if(!v.length)return;
+
+  let max=Math.max(...v.map(c=>c.high)),min=Math.min(...v.map(c=>c.low));
+  if(chartSignalData&&chartSignalData.side!=="WAIT"){
+    max=Math.max(max,chartSignalData.entry,chartSignalData.sl,chartSignalData.tp1,chartSignalData.tp2,chartSignalData.tp3);
+    min=Math.min(min,chartSignalData.entry,chartSignalData.sl,chartSignalData.tp1,chartSignalData.tp2,chartSignalData.tp3);
+  }
+  let range=Math.max(max-min,max*.0001);max+=range*.10;min-=range*.10;
+
+  const L=10,R=76,T=14,B=22,W=width-L-R,H=height-T-B,y=p=>T+(max-p)/(max-min)*H;
+  ctx.strokeStyle="#163426";ctx.fillStyle="#81958b";ctx.font="10px Arial";
+  for(let i=0;i<=5;i++){
+    const yy=T+H*i/5;ctx.beginPath();ctx.moveTo(L,yy);ctx.lineTo(width-R,yy);ctx.stroke();
+    ctx.fillText(formatPrice(chartAsset,max-(max-min)*i/5),width-R+6,yy+3);
+  }
+
+  if(chartSignalData&&chartSignalData.side!=="WAIT"){
+    const levels=[
+      {label:"ENTRY",price:chartSignalData.entry,color:"#f4c95d"},
+      {label:"SL",price:chartSignalData.sl,color:"#ff5b6e"},
+      {label:"TP1",price:chartSignalData.tp1,color:"#20f28a"},
+      {label:"TP2",price:chartSignalData.tp2,color:"#20f28a"},
+      {label:"TP3",price:chartSignalData.tp3,color:"#20f28a"}
+    ];
+    ctx.save();ctx.font="bold 11px Arial";ctx.setLineDash([6,4]);
+    for(const level of levels){
+      const yy=y(level.price);ctx.strokeStyle=level.color;ctx.fillStyle=level.color;ctx.lineWidth=1.4;
+      ctx.beginPath();ctx.moveTo(L,yy);ctx.lineTo(width-R,yy);ctx.stroke();
+      const txt=level.label+" "+formatPrice(chartAsset,level.price);
+      const tw=ctx.measureText(txt).width+10;
+      ctx.fillRect(L+3,Math.max(T,yy-17),tw,16);
+      ctx.fillStyle="#050807";ctx.fillText(txt,L+8,Math.max(T+12,yy-5));
+    }
+    ctx.restore();
+  }
+
+  const step=W/v.length,bw=Math.max(3,Math.min(10,step*.58));
+  v.forEach((c,i)=>{
+    const x=L+step*i+step/2,up=c.close>=c.open,col=up?"#20f28a":"#ff5b6e";
+    ctx.strokeStyle=col;ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(x,y(c.high));ctx.lineTo(x,y(c.low));ctx.stroke();
+    const oy=y(c.open),cy=y(c.close),top=Math.min(oy,cy),bh=Math.max(2,Math.abs(cy-oy));ctx.fillRect(x-bw/2,top,bw,bh);
+  });
+}
+function drawChartError(msg){const {ctx,width,height}=resizeCanvas();ctx.clearRect(0,0,width,height);ctx.fillStyle="#ff8c98";ctx.font="13px Arial";ctx.textAlign="center";ctx.fillText(msg,width/2,height/2);ctx.textAlign="left"}
+
+function marketTimeToMs(value){
+  if(!value)return NaN;
+  const normalized=value.includes("T")?value:value.replace(" ","T");
+  const utc=new Date(normalized.endsWith("Z")?normalized:normalized+"Z");
+  if(!Number.isNaN(utc.getTime()))return utc.getTime();
+  return new Date(normalized).getTime();
+}
+function formatDuration(ms){
+  if(!Number.isFinite(ms)||ms<0)return"--";
+  const totalMinutes=Math.floor(ms/60000),days=Math.floor(totalMinutes/1440),hours=Math.floor((totalMinutes%1440)/60),minutes=totalMinutes%60;
+  if(days>0)return`${days}d ${hours}h`;if(hours>0)return`${hours}h ${minutes}m`;return`${minutes}m`;
+}
+function tradeIsActive(trade){return["OPEN","TP1","TP2","BREAKEVEN"].includes(trade.status)}
+function addTradeEventOnce(trade,label,text){
+  if(!Array.isArray(trade.events))trade.events=[];
+  if(!trade.events.some(event=>event.label===label))trade.events.push({label,text});
+}
+function timeframeMinutes(tf){return{M1:1,M5:5,M15:15,M30:30,H1:60,H4:240}[tf]||15}
+
+function trackSignal(s){
+  if(s.side==="WAIT"){alert("WAIT signals cannot be tracked.");return}
+  const history=getHistory(),now=Date.now();
+  const duplicate=history[s.asset].find(item=>item.timeframe===s.timeframe&&item.side===s.side&&tradeIsActive(item)&&now-item.timestamp<15*60*1000);
+  if(duplicate){alert("A similar signal is already active.");return}
+
+  const item={
+    id:[s.asset,s.timeframe,s.side,now].join("_"),asset:s.asset,timeframe:s.timeframe,side:s.side,confidence:s.confidence,quality:s.quality,
+    entry:s.entry,originalSL:s.sl,sl:s.sl,tp1:s.tp1,tp2:s.tp2,tp3:s.tp3,status:"OPEN",timestamp:now,created:new Date(now).toLocaleString(),
+    lastChecked:now,lastPrice:s.entry,highestPrice:s.entry,lowestPrice:s.entry,reachedTP1:false,reachedTP2:false,reachedTP3:false,
+    breakEvenActive:false,closedAt:null,events:[{label:"Signal created",text:new Date(now).toLocaleTimeString()}]
+  };
+
+  history[s.asset].unshift(item);saveHistory(history);updateHomeWinRates();renderHistory();
+  notify(`${s.side} SIGNAL — ${s.asset} ${s.timeframe}`,
+    `Entry ${formatPrice(s.asset,s.entry)} | SL ${formatPrice(s.asset,s.sl)} | TP1 ${formatPrice(s.asset,s.tp1)} | TP2 ${formatPrice(s.asset,s.tp2)} | TP3 ${formatPrice(s.asset,s.tp3)}`);
+  alert(`${s.asset} ${s.timeframe} signal added to History.`);
+}
+
+function evaluateTradeV4(trade,candles){
+  let changed=false;if(!Array.isArray(candles)||!candles.length)return false;
+  const tolerance=timeframeMinutes(trade.timeframe)*60*1000;
+  let relevant=candles.filter(c=>{const t=marketTimeToMs(c.datetime);return Number.isFinite(t)&&t>=trade.timestamp-tolerance});
+  if(!relevant.length)relevant=candles.slice(-Math.min(candles.length,12));
+
+  for(const candle of relevant){
+    const close=Number(candle.close),high=Number(candle.high),low=Number(candle.low);
+    if(Number.isFinite(close)){trade.lastPrice=close;changed=true}
+    if(Number.isFinite(high)){trade.highestPrice=Math.max(Number.isFinite(trade.highestPrice)?trade.highestPrice:trade.entry,high);changed=true}
+    if(Number.isFinite(low)){trade.lowestPrice=Math.min(Number.isFinite(trade.lowestPrice)?trade.lowestPrice:trade.entry,low);changed=true}
+    trade.lastChecked=Date.now();
+
+    const isBuy=trade.side==="BUY";
+    const tp1Hit=isBuy?high>=trade.tp1:low<=trade.tp1;
+    const tp2Hit=isBuy?high>=trade.tp2:low<=trade.tp2;
+    const tp3Hit=isBuy?high>=trade.tp3:low<=trade.tp3;
+
+    if(tp1Hit&&!trade.reachedTP1){
+      trade.reachedTP1=true;trade.status="TP1";trade.breakEvenActive=true;trade.sl=trade.entry;
+      addTradeEventOnce(trade,"TP1 HIT","TP1 reached — Stop Loss moved to Entry (Break-Even)");
+      addTradeEventOnce(trade,"BREAK-EVEN ACTIVATED","Position protected at Entry");
+      notify(`BREAK-EVEN ACTIVATED — ${trade.asset} ${trade.timeframe}`,`TP1 reached. Stop Loss moved automatically to Entry ${formatPrice(trade.asset,trade.entry)}.`);
+      changed=true;
+    }
+
+    if(tp2Hit&&!trade.reachedTP2){
+      trade.reachedTP1=true;trade.reachedTP2=true;trade.status="TP2";
+      addTradeEventOnce(trade,"TP2 HIT","Second profit target reached");
+      notify(`TP2 HIT — ${trade.asset} ${trade.timeframe}`,"Second Take Profit reached. Trade remains protected.");
+      changed=true;
+    }
+
+    if(tp3Hit&&!trade.reachedTP3){
+      trade.reachedTP1=true;trade.reachedTP2=true;trade.reachedTP3=true;trade.status="WIN";trade.closedAt=Date.now();
+      addTradeEventOnce(trade,"TP3 HIT","Final Take Profit reached — WIN");
+      notify(`TP3 HIT — ${trade.asset} ${trade.timeframe}`,"Final Take Profit reached — WIN.");
+      changed=true;return changed;
+    }
+
+    const activeSL=trade.breakEvenActive?trade.entry:trade.originalSL;
+    const slHit=isBuy?low<=activeSL:high>=activeSL;
+
+    if(slHit){
+      if(trade.breakEvenActive){
+        trade.status="BREAKEVEN";trade.closedAt=Date.now();
+        addTradeEventOnce(trade,"BREAK-EVEN","Trade protected after TP1");
+        notify(`BREAK-EVEN — ${trade.asset} ${trade.timeframe}`,"Trade protected. Stop Loss at Entry was reached.");
+      }else{
+        trade.status="LOST";trade.closedAt=Date.now();
+        addTradeEventOnce(trade,"STOP LOSS HIT",candle.datetime);
+        notify(`STOP LOSS HIT — ${trade.asset} ${trade.timeframe}`,"Trade closed at Stop Loss.");
+      }
+      changed=true;return changed;
+    }
+  }
+  return changed;
+}
+
+async function checkOpenTrades(){
+  const history=getHistory();let changed=false,checked=0;
+  const statusEl=document.getElementById("historyCheckStatus"),buttonEl=document.getElementById("historyCheckNow"),dotEl=document.getElementById("historyLiveDot");
+  if(statusEl)statusEl.textContent="Checking open trades…";
+  if(buttonEl){buttonEl.disabled=true;buttonEl.textContent="CHECKING…"}if(dotEl)dotEl.style.opacity=".45";
+
+  const groups=new Map();
+  for(const asset of ["XAUUSD","BTCUSD"]){
+    for(const trade of history[asset].filter(trade=>tradeIsActive(trade))){
+      const key=`${asset}|${trade.timeframe}`;
+      if(!groups.has(key))groups.set(key,{asset,timeframe:trade.timeframe,trades:[]});
+      groups.get(key).trades.push(trade);
+    }
+  }
+
+  for(const group of groups.values()){
+    try{
+      const candles=await fetchCandles(group.asset,group.timeframe,180);
+      for(const trade of group.trades){checked++;if(evaluateTradeV4(trade,candles))changed=true}
+    }catch(error){console.log("Trade check error",error)}
+  }
+
+  if(changed)saveHistory(history);
+  renderHistory();updateHomeWinRates();
+
+  const timeText=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+  if(statusEl)statusEl.textContent=checked?`Last check ${timeText} • ${checked} open trade${checked===1?"":"s"} checked`:`Last check ${timeText} • No open trades`;
+  if(buttonEl){buttonEl.disabled=false;buttonEl.textContent="CHECK NOW"}if(dotEl)dotEl.style.opacity="1";
+  return{checked,changed};
+}
+
+function renderHistory(){
+  const data=getHistory()[historyAsset];
+  const wins=data.filter(x=>x.status==="WIN").length,lost=data.filter(x=>x.status==="LOST").length;
+  const breakeven=data.filter(x=>x.status==="BREAKEVEN").length,closed=wins+lost;
+  historySignals.textContent=data.length;historyWinRate.textContent=closed?Math.round(wins/closed*100)+"%":"--%";historyLost.textContent=lost;
+  if(!data.length){historyList.innerHTML=`<div class="loading">No ${historyAsset} signals tracked yet.</div>`;return}
+
+  historyList.innerHTML=data.map((t,i)=>{
+    const cls=t.status==="LOST"?"red":t.status==="OPEN"?"gold":"green";
+    const extra=t.status==="BREAKEVEN"?" • Protected":"";
+    return `<div class="tradeRow"><button class="tradeBtn" data-trade-index="${i}">
+      <div><strong><span class="${signalColor(t.side)}">${t.side}</span> ${t.asset} • ${t.timeframe}</strong>
+      <div class="tradeMeta">${t.created} • ${t.confidence}%${extra}</div></div>
+      <span class="badge ${cls}">${t.status}</span>
+    </button></div>`;
+  }).join("");
+  historyList.querySelectorAll("[data-trade-index]").forEach(b=>b.onclick=()=>showTradeDetails(data[Number(b.dataset.tradeIndex)]));
+}
+
+function showTradeDetails(t){
+  detailTitle.innerHTML=`<span class="${signalColor(t.side)}">${t.side}</span> ${t.asset} • ${t.timeframe} • ${t.status}`;
+  detailDate.textContent=t.created;detailEntry.textContent=formatPrice(t.asset,t.entry);
+  detailSL.textContent=t.breakEvenActive?"ENTRY / BREAK-EVEN "+formatPrice(t.asset,t.entry):formatPrice(t.asset,t.sl);
+  detailTP1.textContent=formatPrice(t.asset,t.tp1);detailTP2.textContent=formatPrice(t.asset,t.tp2);detailTP3.textContent=formatPrice(t.asset,t.tp3);
+  detailCurrent.textContent=formatPrice(t.asset,Number.isFinite(t.lastPrice)?t.lastPrice:t.entry);
+  detailHigh.textContent=formatPrice(t.asset,Number.isFinite(t.highestPrice)?t.highestPrice:t.entry);
+  detailLow.textContent=formatPrice(t.asset,Number.isFinite(t.lowestPrice)?t.lowestPrice:t.entry);
+  detailDuration.textContent=formatDuration((t.closedAt||Date.now())-t.timestamp);
+  const events=Array.isArray(t.events)?t.events:[];
+  detailTimeline.innerHTML=events.map(e=>`<div class="timelineItem"><div class="timelineDot"></div><div><strong>${e.label}</strong><div class="mini muted">${e.text}</div></div></div>`).join("");
+  tradeOverlay.classList.add("open");
+}
+
+function calculateAssetStats(asset){
+  const h=getHistory()[asset],wins=h.filter(x=>x.status==="WIN").length,lost=h.filter(x=>x.status==="LOST").length,closed=wins+lost;
+  return{total:h.length,wins,lost,closed,winRate:closed?Math.round(wins/closed*100):0};
+}
+function updateHomeWinRates(){
+  const g=calculateAssetStats("XAUUSD"),b=calculateAssetStats("BTCUSD");
+  goldWinRate.textContent=g.closed?g.winRate+"%":"--%";btcWinRate.textContent=b.closed?b.winRate+"%":"--%";
+  goldRing.style.setProperty("--p",g.winRate);btcRing.style.setProperty("--p",b.winRate);
+  bestPerformer.textContent=!b.closed&&!g.closed?"NO DATA":g.winRate>b.winRate?"GOLD":b.winRate>g.winRate?"BITCOIN":"EQUAL";
+}
+
+document.querySelectorAll(".nav").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+  document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.screen).classList.add("active");
+  if(b.dataset.screen==="signals")loadSelectedSignal();
+  if(b.dataset.screen==="chart")setTimeout(loadChart,50);
+  if(b.dataset.screen==="history")checkOpenTrades();
+});
+
+document.querySelectorAll("[data-home-asset]").forEach(b=>b.onclick=()=>{
+  homeAsset=b.dataset.homeAsset;document.querySelectorAll("[data-home-asset]").forEach(x=>x.classList.toggle("active",x===b));loadHomeTimeframes()
+});
+document.querySelectorAll("[data-signal-asset]").forEach(b=>b.onclick=()=>{
+  signalAsset=b.dataset.signalAsset;document.querySelectorAll("[data-signal-asset]").forEach(x=>x.classList.toggle("active",x===b));loadSelectedSignal()
+});
+document.querySelectorAll("[data-chart-asset]").forEach(b=>b.onclick=()=>{
+  chartAsset=b.dataset.chartAsset;document.querySelectorAll("[data-chart-asset]").forEach(x=>x.classList.toggle("active",x===b));loadChart()
+});
+document.querySelectorAll("[data-history-asset]").forEach(b=>b.onclick=()=>{
+  historyAsset=b.dataset.historyAsset;document.querySelectorAll("[data-history-asset]").forEach(x=>x.classList.toggle("active",x===b));renderHistory()
+});
+
+function updateRiskCalculator(){
+  const balance=Math.max(0,Number(document.getElementById("accountBalance")?.value)||0);
+  const risk=Math.min(3,Math.max(.1,Number(document.getElementById("riskPercent")?.value)||1));
+  const amount=balance*risk/100;
+  const out=document.getElementById("riskResult");
+  if(out)out.textContent=`Risk amount: £${amount.toFixed(2)} at ${risk.toFixed(1)}% of £${balance.toFixed(2)}`;
+}
+
+document.querySelectorAll("[data-quick-analyze]").forEach(b=>b.onclick=async()=>{
+  signalAsset=b.dataset.quickAnalyze;signalTF="M15";
+  document.querySelectorAll("[data-signal-asset]").forEach(x=>x.classList.toggle("active",x.dataset.signalAsset===signalAsset));
+  buildTimeframeButtons();
+  document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.screen==="signals"));
+  document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.id==="signals"));
+  await loadSelectedSignal();
+});
+
+["accountBalance","riskPercent"].forEach(id=>document.getElementById(id)?.addEventListener("input",updateRiskCalculator));
+updateRiskCalculator();
+
+historyCheckNow.onclick=async()=>{if(historyWatcherBusy)return;historyWatcherBusy=true;try{await checkOpenTrades()}finally{historyWatcherBusy=false}};
+enableAlertsBtn.onclick=requestAlerts;
+
+zoomInBtn.onclick=()=>{chartZoom=Math.min(3,chartZoom+.25);drawChart()};
+zoomOutBtn.onclick=()=>{chartZoom=Math.max(.7,chartZoom-.25);drawChart()};
+resetChartBtn.onclick=()=>{chartZoom=1;chartOffset=0;drawChart()};
+chartArea.addEventListener("wheel",e=>{e.preventDefault();chartZoom=e.deltaY<0?Math.min(3,chartZoom+.15):Math.max(.7,chartZoom-.15);drawChart()},{passive:false});
+chartArea.addEventListener("pointerdown",e=>{pointerStartX=e.clientX;chartArea.setPointerCapture(e.pointerId)});
+chartArea.addEventListener("pointermove",e=>{if(pointerStartX===null)return;const d=e.clientX-pointerStartX;if(Math.abs(d)<18)return;chartOffset+=d>0?2:-2;pointerStartX=e.clientX;drawChart()});
+chartArea.addEventListener("pointerup",()=>pointerStartX=null);chartArea.addEventListener("pointercancel",()=>pointerStartX=null);
+
+closeTradeBtn.onclick=()=>tradeOverlay.classList.remove("open");
+tradeOverlay.onclick=e=>{if(e.target===tradeOverlay)tradeOverlay.classList.remove("open")};
+
+refreshAllBtn.onclick=async()=>{
+  signalCache={};signalPromises={};candleCache={};await loadHome();
+  if(signals.classList.contains("active"))await loadSelectedSignal();
+  if(chart.classList.contains("active"))await loadChart();
+};
+
+window.addEventListener("resize",()=>{if(chartCandles.length)drawChart()});
+window.addEventListener("load",()=>{setTimeout(()=>window.scrollTo(0,0),60)});
+
+setInterval(async()=>{
+  if(document.hidden||historyWatcherBusy)return;
+  const history=getHistory();
+  const hasOpen=["XAUUSD","BTCUSD"].some(asset=>history[asset].some(trade=>tradeIsActive(trade)));
+  if(!hasOpen)return;
+  historyWatcherBusy=true;try{await checkOpenTrades()}finally{historyWatcherBusy=false}
+},60000);
+
+setInterval(checkForNewSignals,300000);
+setTimeout(checkForNewSignals,15000);
+
+buildTimeframeButtons();
+renderHistory();
+updateHomeWinRates();
+loadHome();
+</script>
+</body>
+</html>
