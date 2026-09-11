@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050807">
+
+<title>BIT ADAMS</title>
+
+<!--
+BIT ADAMS V8.4 FAST
+GOLD LEFT / BITCOIN RIGHT
+M5 + M15 FAST SIGNALS
+ONE OPEN TRADE PER ASSET / MAX 2 TOTAL
+AUTO TP1 -> BREAK-EVEN -> TP2 -> TP3/WIN / SL/LOST
+LOCAL HISTORY + LIVE TRACKING
+-->
+
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+
+OneSignalDeferred.push(async function(OneSignal) {
+  try {
+    await OneSignal.init({
+      appId: "cda9b6dc-b0a8-4171-8e7d-c47bd35b6ba0",
+      serviceWorkerPath: "OneSignalSDKWorker.js",
+      serviceWorkerParam: {
+        scope: "/bit-adams/"
+      },
+      notifyButton: {
+        enable: true,
+        position: "bottom-right",
+        size: "medium",
+        showCredit: false
+      }
+    });
+
+    window.BIT_ONE_SIGNAL = OneSignal;
+    console.log("OneSignal initialized");
+
+    try {
+      const enabled = OneSignal.Notifications.permission === true ||
+                      Notification.permission === "granted";
+      if (enabled) setNotificationStatus(true);
+    } catch(e) {}
+  } catch(error) {
+    console.error("OneSignal init error:", error);
+  }
+});
+
+function setNotificationStatus(on) {
+  const el = document.getElementById("notificationStatus");
+  if (!el) return;
+  el.textContent = on ? "NOTIFICATIONS ON" : "NOTIFICATIONS NOT ENABLED";
+  el.className = on ? "statusOn" : "statusOff";
+}
+
+async function enableNotifications() {
+  try {
+    const OneSignal = window.BIT_ONE_SIGNAL;
+
+    if(!OneSignal) {
+      alert("OneSignal is still loading. Wait a few seconds and try again.");
+      return;
+    }
+
+    const permission = await OneSignal.Notifications.requestPermission();
+
+    if(permission === true || Notification.permission === "granted") {
+      try {
+        await OneSignal.User.PushSubscription.optIn();
+      } catch(e) {
+        console.log("Push opt-in:", e);
+      }
+
+      setNotificationStatus(true);
+      alert("BIT ADAMS notifications enabled ✅");
+    } else {
+      setNotificationStatus(false);
+      alert("Notifications are blocked. Allow notifications for BIT ADAMS in Chrome.");
+    }
+  } catch(error) {
+    console.error(error);
+    alert("Could not enable notifications. Check Chrome notification permissions.");
+  }
+}
+</script>
+
+<style>
+*{box-sizing:border-box}
+
+:root{
+  --bg:#050807;
+  --panel:#08110d;
+  --panel2:#0b1712;
+  --line:#18372a;
+  --green:#20f28a;
+  --red:#ff5b6e;
+  --gold:#f2c85b;
+  --text:#f4f7f5;
+  --muted:#89958f;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  padding-bottom:100px;
+  background:
+    radial-gradient(circle at 50% -5%,#0b291a 0,transparent 32%),
+    var(--bg);
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px;
+  background:rgba(5,8,7,.96);
+  border-bottom:1px solid #10261b;
+}
+
+.logoArea{display:flex;align-items:center;gap:15px}
+
+.logo{
+  width:54px;height:54px;border-radius:16px;
+  display:flex;justify-content:center;align-items:center;
+  font-size:30px;color:var(--gold);
+  background:linear-gradient(145deg,#173124,#07130d);
+  border:1px solid #385a3d;
+  box-shadow:0 0 25px rgba(32,242,138,.08);
+}
+
+.brand{font-weight:800;font-size:24px;letter-spacing:2px}
+
+.subtitle{
+  color:var(--muted);
+  margin-top:5px;
+  font-size:13px;
+  letter-spacing:1px;
+}
+
+.refresh{
+  width:54px;height:54px;border-radius:17px;
+  border:1px solid #16432d;
+  background:#07140e;color:white;font-size:25px;
+}
+
+main{padding:20px;max-width:1000px;margin:auto}
+
+.page{display:none}
+.page.active{display:block}
+
+.assetGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.assetCard{
+  border:1px solid #183c2a;
+  background:linear-gradient(145deg,#081a11,#06100b);
+  border-radius:28px;
+  padding:18px;
+  min-height:195px;
+}
+
+.assetTitle{display:flex;justify-content:space-between;align-items:center}
+.assetName{font-weight:800;font-size:19px}
+.price{font-size:14px;color:var(--muted)}
+.signal{margin-top:25px;font-size:25px;font-weight:900}
+.buy{color:var(--green)}
+.sell{color:var(--red)}
+.wait{color:var(--gold)}
+.confidence{margin-top:8px;color:var(--muted)}
+
+.sectionTitle{
+  margin:40px 2px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.sectionTitle strong{font-size:25px;letter-spacing:.5px}
+.sectionTitle span{color:var(--muted);font-size:13px}
+
+.panel{
+  background:linear-gradient(145deg,#07170f,#07120d);
+  border:1px solid #173b29;
+  border-radius:28px;
+  padding:22px;
+}
+
+.row{
+  padding:17px 3px;
+  border-bottom:1px solid #12291d;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.row:last-child{border-bottom:none}
+.label{color:#a9b3ae;font-size:16px}
+.value{font-weight:800}
+
+.timeButtons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:15px;
+}
+
+.assetButton{
+  padding:18px;
+  border-radius:20px;
+  border:1px solid #19412c;
+  background:#07130d;
+  color:#8d9992;
+  font-size:19px;
+  font-weight:800;
+}
+
+.assetButton.active{
+  color:white;
+  border-color:var(--green);
+  box-shadow:inset 0 0 20px rgba(32,242,138,.05);
+}
+
+.levels{margin-top:18px}
+.level{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #13291d;
+}
+.level:last-child{border-bottom:none}
+.level span:first-child{color:#89958f}
+.entry{color:white}
+.sl{color:var(--red)}
+.tp{color:var(--green)}
+
+.notifyBox{
+  margin-top:20px;
+  border:1px solid #36562d;
+  background:linear-gradient(145deg,#111b0d,#07120c);
+  padding:20px;
+  border-radius:24px;
+}
+.notifyTitle{font-size:19px;font-weight:800;color:var(--gold);margin-bottom:8px}
+.notifyText{color:#97a49d;font-size:14px;line-height:1.5}
+.notifyButton{
+  width:100%;margin-top:16px;padding:17px;
+  background:linear-gradient(135deg,#1bdc7d,#0e9d5a);
+  border:none;border-radius:18px;color:#031009;
+  font-size:16px;font-weight:900;
+}
+.statusOff{color:var(--gold);font-weight:800}
+.statusOn{color:var(--green);font-weight:800}
+
+.risk{font-size:14px;line-height:1.8;color:#a3ada8}
+.risk strong{color:white}
+
+.statsGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:8px;
+}
+
+.statBox{
+  background:linear-gradient(145deg,#07170f,#07120d);
+  border:1px solid #173b29;
+  border-radius:22px;
+  padding:18px 14px;
+}
+.statLabel{color:var(--muted);font-size:13px}
+.statValue{font-size:28px;font-weight:900;margin-top:8px}
+
+.historyList{
+  background:linear-gradient(145deg,#07170f,#07120d);
+  border:1px solid #173b29;
+  border-radius:28px;
+  padding:8px 20px;
+}
+
+.historyItem{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+  padding:20px 0;
+  border-bottom:1px solid #12291d;
+}
+.historyItem:last-child{border-bottom:none}
+
+.historyMain{min-width:0}
+.historyTitle{font-size:20px;font-weight:900}
+.historyMeta{color:var(--muted);font-size:13px;margin-top:6px}
+.historyLevels{
+  color:#93a099;
+  font-size:12px;
+  margin-top:7px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.badge{
+  min-width:76px;
+  text-align:center;
+  padding:10px 12px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:12px;
+  border:1px solid var(--gold);
+  color:var(--gold);
+}
+.badge.win,.badge.tp3{border-color:var(--green);color:var(--green)}
+.badge.lost{border-color:var(--red);color:var(--red)}
+.badge.be{border-color:#7cc7ff;color:#7cc7ff}
+.badge.cancelled{border-color:#65716b;color:#8a9790}
+.badge.tp1,.badge.tp2{border-color:#55d69a;color:#55d69a}
+
+.emptyState{
+  padding:35px 15px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.smallNote{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+
+footer{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:2px;
+  padding:10px 4px calc(10px + env(safe-area-inset-bottom));
+  background:#050907;
+  border-top:1px solid #12291d;
+  z-index:50;
+}
+
+.nav{
+  text-align:center;
+  color:#727d77;
+  font-size:11px;
+  cursor:pointer;
+  user-select:none;
+}
+.navIcon{font-size:20px;margin-bottom:5px}
+.nav.active{color:var(--gold)}
+
+@media(max-width:500px){
+  main{padding:15px}
+  header{padding:15px}
+  .logo{width:48px;height:48px}
+  .brand{font-size:21px}
+  .assetGrid{grid-template-columns:1fr 1fr;gap:9px}
+  .assetCard{padding:14px;border-radius:23px}
+  .assetName{font-size:16px}
+  .signal{font-size:20px}
+  .statsGrid{gap:7px}
+  .statBox{padding:15px 10px}
+  .statValue{font-size:25px}
+  .historyTitle{font-size:18px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logoArea">
+    <div class="logo">♛</div>
+    <div>
+      <div class="brand">BIT <span style="color:#e2c165">ADAMS</span></div>
+      <div class="subtitle">AI MARKET ANALYSIS • V8.4 FAST</div>
+    </div>
+  </div>
+  <button class="refresh" onclick="manualRefresh()">↻</button>
+</header>
+
+<main>
+
+<section id="homePage" class="page active">
+
+<div class="assetGrid">
+
+  <div class="assetCard">
+    <div class="assetTitle">
+      <div class="assetName">GOLD</div>
+      <div class="price" id="goldPrice">XAUUSD</div>
+    </div>
+    <div class="signal wait" id="goldSignal">◆ WAIT</div>
+    <div class="confidence" id="goldConfidence">Waiting for confirmation</div>
+  </div>
+
+  <div class="assetCard">
+    <div class="assetTitle">
+      <div class="assetName">BITCOIN</div>
+      <div class="price" id="btcPrice">BTCUSD</div>
+    </div>
+    <div class="signal wait" id="btcSignal">◆ WAIT</div>
+    <div class="confidence" id="btcConfidence">Waiting for confirmation</div>
+  </div>
+
+</div>
+
+<div class="sectionTitle">
+  <strong>MARKET OVERVIEW</strong>
+  <span>LIVE DATA</span>
+</div>
+
+<div class="panel">
+  <div class="row">
+    <div class="label">Gold M15</div>
+    <div class="value wait" id="goldM15">WAIT</div>
+  </div>
+
+  <div class="row">
+    <div class="label">Bitcoin M15</div>
+    <div class="value wait" id="btcM15">WAIT</div>
+  </div>
+
+  <div class="row">
+    <div class="label">Best performer</div>
+    <div class="value" style="color:#f2c85b" id="bestPerformer">WAIT</div>
+  </div>
+
+  <div class="row">
+    <div class="label">Open trades</div>
+    <div class="value" id="openTradesCount">0 / 2</div>
+  </div>
+</div>
+
+<div class="sectionTitle">
+  <strong>FAST TIMEFRAMES</strong>
+  <span>M5 + M15</span>
+</div>
+
+<div class="timeButtons">
+  <button class="assetButton active" onclick="selectAsset('XAUUSD',this)">XAUUSD</button>
+  <button class="assetButton" onclick="selectAsset('BTCUSD',this)">BTCUSD</button>
+</div>
+
+<div class="panel">
+  <div class="row">
+    <div class="label"><span id="assetTF1">XAUUSD</span> • M5</div>
+    <div class="value wait" id="signalM5">WAIT</div>
+  </div>
+  <div class="row">
+    <div class="label"><span id="assetTF2">XAUUSD</span> • M15</div>
+    <div class="value wait" id="signalM15">WAIT</div>
+  </div>
+  <div class="row">
+    <div class="label">M30</div>
+    <div class="value" id="signalM30">—</div>
+  </div>
+  <div class="row">
+    <div class="label">H1</div>
+    <div class="value" id="signalH1">—</div>
+  </div>
+  <div class="row">
+    <div class="label">H4</div>
+    <div class="value" id="signalH4">—</div>
+  </div>
+</div>
+
+<div class="sectionTitle">
+  <strong>TRADE LEVELS</strong>
+  <span id="selectedAssetLabel">XAUUSD</span>
+</div>
+
+<div class="panel levels">
+  <div class="level"><span>ENTRY</span><strong class="entry" id="entryPrice">—</strong></div>
+  <div class="level"><span>STOP LOSS</span><strong class="sl" id="stopLoss">—</strong></div>
+  <div class="level"><span>TP1</span><strong class="tp" id="tp1">—</strong></div>
+  <div class="level"><span>TP2</span><strong class="tp" id="tp2">—</strong></div>
+  <div class="level"><span>TP3</span><strong class="tp" id="tp3">—</strong></div>
+  <div class="level"><span>STATUS</span><strong id="tradeStatus">WAIT</strong></div>
+</div>
+
+<div class="notifyBox">
+  <div class="notifyTitle">🔔 BIT ADAMS NOTIFICATIONS</div>
+  <div class="notifyText">
+    Receive alerts for confirmed signals, TP1, move SL to Entry,
+    TP2, TP3/WIN, SL and BREAK-EVEN.
+  </div>
+
+  <div id="notificationStatus" class="statusOff" style="margin-top:12px">
+    NOTIFICATIONS NOT ENABLED
+  </div>
+
+  <button class="notifyButton" onclick="enableNotifications()">
+    ENABLE NOTIFICATIONS
+  </button>
+</div>
+
+<div class="sectionTitle">
+  <strong>RISK MANAGEMENT</strong>
+  <span>SAFETY</span>
+</div>
+
+<div class="panel risk">
+  <strong>Recommended risk:</strong> 0.5–1% per trade<br>
+  <strong>Maximum open trades:</strong> 2<br>
+  <strong>Daily loss limit:</strong> 2–3%<br>
+  <strong>After TP1:</strong> move Stop Loss to ENTRY<br>
+  <strong>High-impact USD news:</strong> avoid new entries
+</div>
+
+</section>
+
+<section id="historyPage" class="page">
+
+  <div class="sectionTitle" style="margin-top:8px">
+    <strong>HISTORY</strong>
+    <span>AUTO TRACKING</span>
+  </div>
+
+  <div class="statsGrid">
+    <div class="statBox">
+      <div class="statLabel">Signals</div>
+      <div class="statValue" id="historySignals">0</div>
+    </div>
+    <div class="statBox">
+      <div class="statLabel">Win Rate</div>
+      <div class="statValue" id="historyWinRate" style="color:var(--green)">0%</div>
+    </div>
+    <div class="statBox">
+      <div class="statLabel">Lost</div>
+      <div class="statValue" id="historyLost" style="color:var(--red)">0</div>
+    </div>
+  </div>
+
+  <div class="sectionTitle">
+    <strong>TRADES</strong>
+    <span id="historyOpenCount">0 OPEN</span>
+  </div>
+
+  <div class="historyList" id="historyList">
+    <div class="emptyState">No tracked trades yet.</div>
+  </div>
+
+  <div class="smallNote">
+    Win Rate = WIN ÷ (WIN + LOST). OPEN and BREAK-EVEN trades are not counted as losses.
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  <div class="nav active" data-page="home" onclick="showPage('home',this)">
+    <div class="navIcon">⌂</div>Home
+  </div>
+  <div class="nav" onclick="showPage('home',this)">
+    <div class="navIcon">⌁</div>Signals
+  </div>
+  <div class="nav" onclick="showPage('home',this)">
+    <div class="navIcon">▥</div>Chart
+  </div>
+  <div class="nav" onclick="showPage('home',this)">
+    <div class="navIcon">▤</div>News
+  </div>
+  <div class="nav" data-page="history" onclick="showPage('history',this)">
+    <div class="navIcon">◷</div>History
+  </div>
+  <div class="nav" onclick="showPage('home',this)">
+    <div class="navIcon">⚙</div>Settings
+  </div>
+</footer>
+
+<script>
+const SERVER = "https://bit-adams-server.onrender.com";
+const HISTORY_KEY = "bitAdamsHistory";
+const ARMED_KEY = "bitAdamsSignalArmed";
+const LAST_SIGNAL_KEY = "bitAdamsLastAcceptedSignal";
+const MAX_OPEN_TRADES = 2;
+
+let selectedAsset = localStorage.getItem("bitAdamsAsset") || "XAUUSD";
+let lastScan = null;
+let loading = false;
+
+function num(v){
+  if(v === null || v === undefined || v === "") return null;
+  const n = parseFloat(String(v).replace(/,/g,"").replace("%",""));
+  return Number.isFinite(n) ? n : null;
+}
+
+function formatPrice(v, asset){
+  const n = num(v);
+  if(n === null) return "—";
+  const digits = asset === "BTCUSD" ? 2 : 2;
+  return n.toLocaleString(undefined,{
+    minimumFractionDigits:digits,
+    maximumFractionDigits:digits
+  });
+}
+
+function nowIso(){
+  return new Date().toISOString();
+}
+
+function readHistory(){
+  try{
+    const raw = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+    return Array.isArray(raw) ? raw : [];
+  }catch(e){
+    return [];
+  }
+}
+
+function writeHistory(history){
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(0,500)));
+}
+
+function getArmed(){
+  try{
+    return Object.assign({XAUUSD:true,BTCUSD:true},
+      JSON.parse(localStorage.getItem(ARMED_KEY) || "{}")
+    );
+  }catch(e){
+    return {XAUUSD:true,BTCUSD:true};
+  }
+}
+
+function setArmed(value){
+  localStorage.setItem(ARMED_KEY, JSON.stringify(value));
+}
+
+function getLastAccepted(){
+  try{
+    return JSON.parse(localStorage.getItem(LAST_SIGNAL_KEY) || "{}");
+  }catch(e){
+    return {};
+  }
+}
+
+function setLastAccepted(value){
+  localStorage.setItem(LAST_SIGNAL_KEY, JSON.stringify(value));
+}
+
+function isOpenStatus(status){
+  return ["OPEN","TP1","TP2"].includes(String(status || "").toUpperCase());
+}
+
+function getOpenTrades(history = readHistory()){
+  return history.filter(t => isOpenStatus(t.status));
+}
+
+function getOpenTradeForAsset(asset, history = readHistory()){
+  return history.find(t => t.asset === asset && isOpenStatus(t.status)) || null;
+}
+
+function repairLegacyOpenTrades(){
+  const history = readHistory();
+  let changed = false;
+
+  ["XAUUSD","BTCUSD"].forEach(asset => {
+    const opens = history
+      .filter(t => t.asset === asset && isOpenStatus(t.status))
+      .sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+    if(opens.length > 1){
+      opens.slice(1).forEach(oldTrade => {
+        const target = history.find(x => x.id === oldTrade.id);
+        if(target){
+          target.status = "CANCELLED";
+          target.closedAt = nowIso();
+          target.note = "Auto-repaired duplicate OPEN trade";
+          changed = true;
+        }
+      });
+    }
+  });
+
+  const allOpen = history
+    .filter(t => isOpenStatus(t.status))
+    .sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+  if(allOpen.length > MAX_OPEN_TRADES){
+    allOpen.slice(MAX_OPEN_TRADES).forEach(oldTrade => {
+      const target = history.find(x => x.id === oldTrade.id);
+      if(target){
+        target.status = "CANCELLED";
+        target.closedAt = nowIso();
+        target.note = "Auto-repaired: maximum 2 OPEN trades";
+        changed = true;
+      }
+    });
+  }
+
+  if(changed) writeHistory(history);
+}
+
+function showPage(page, navEl){
+  document.getElementById("homePage").classList.toggle("active", page === "home");
+  document.getElementById("historyPage").classList.toggle("active", page === "history");
+
+  document.querySelectorAll(".nav").forEach(n => n.classList.remove("active"));
+  if(navEl) navEl.classList.add("active");
+
+  if(page === "history") renderHistory();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function selectAsset(asset,button){
+  selectedAsset = asset;
+  localStorage.setItem("bitAdamsAsset", asset);
+
+  document.querySelectorAll(".assetButton").forEach(btn => btn.classList.remove("active"));
+  if(button) button.classList.add("active");
+
+  document.getElementById("selectedAssetLabel").textContent = asset;
+  document.getElementById("assetTF1").textContent = asset;
+  document.getElementById("assetTF2").textContent = asset;
+
+  if(lastScan){
+    const info = findAssetData(lastScan, asset);
+    renderSelectedAsset(info);
+  }else{
+    loadData();
+  }
+}
+
+function setSignal(element, signal, confidence){
+  if(!element) return;
+
+  signal = String(signal || "WAIT").toUpperCase();
+  element.classList.remove("buy","sell","wait");
+
+  if(signal === "BUY"){
+    element.classList.add("buy");
+    element.textContent = "BUY" + (confidence ? " • " + confidence + "%" : "");
+  }else if(signal === "SELL"){
+    element.classList.add("sell");
+    element.textContent = "SELL" + (confidence ? " • " + confidence + "%" : "");
+  }else{
+    element.classList.add("wait");
+    element.textContent = "WAIT" + (confidence ? " • " + confidence + "%" : "");
+  }
+}
+
+function findAssetData(data,asset){
+  if(!data) return null;
+  if(data[asset]) return data[asset];
+  if(data.assets && data.assets[asset]) return data.assets[asset];
+
+  if(Array.isArray(data)){
+    return data.find(x => x.symbol === asset || x.asset === asset);
+  }
+  return null;
+}
+
+function getCurrentPrice(info){
+  return num(
+    info?.price ??
+    info?.currentPrice ??
+    info?.lastPrice ??
+    info?.last ??
+    info?.close
+  );
+}
+
+function showAssetCard(asset,info){
+  if(!info) return;
+
+  const isGold = asset === "XAUUSD";
+  const signalElement = document.getElementById(isGold ? "goldSignal" : "btcSignal");
+  const confidenceElement = document.getElementById(isGold ? "goldConfidence" : "btcConfidence");
+  const priceElement = document.getElementById(isGold ? "goldPrice" : "btcPrice");
+
+  const signal = info.signal || info.direction || info.action || "WAIT";
+  const confidence = num(info.confidence ?? info.score) || 0;
+  const price = getCurrentPrice(info);
+
+  if(priceElement && price !== null){
+    priceElement.textContent = formatPrice(price, asset);
+  }
+
+  setSignal(signalElement, signal, confidence);
+
+  if(confidenceElement){
+    confidenceElement.textContent = confidence
+      ? confidence + "% confidence"
+      : "Waiting for confirmation";
+  }
+}
+
+function getTFNode(info, tf){
+  const all = info?.timeframes || info?.tf || {};
+  return all?.[tf] || all?.[tf.toLowerCase()] || info?.[tf.toLowerCase()] || null;
+}
+
+function getSignalFromNode(node){
+  return String(node?.signal || node?.direction || node?.action || "WAIT").toUpperCase();
+}
+
+function extractCandidate(asset, info){
+  if(!info) return null;
+
+  const topSignal = String(info.signal || info.direction || info.action || "").toUpperCase();
+  const choices = [];
+
+  const m5 = getTFNode(info,"M5");
+  const m15 = getTFNode(info,"M15");
+
+  if(["BUY","SELL"].includes(getSignalFromNode(m5))){
+    choices.push({
+      tf:"M5",
+      node:m5,
+      signal:getSignalFromNode(m5),
+      confidence:num(m5?.confidence ?? m5?.score) || 0
+    });
+  }
+
+  if(["BUY","SELL"].includes(getSignalFromNode(m15))){
+    choices.push({
+      tf:"M15",
+      node:m15,
+      signal:getSignalFromNode(m15),
+      confidence:num(m15?.confidence ?? m15?.score) || 0
+    });
+  }
+
+  if(["BUY","SELL"].includes(topSignal)){
+    choices.push({
+      tf:String(info.timeframe || info.interval || "M15").toUpperCase(),
+      node:info,
+      signal:topSignal,
+      confidence:num(info.confidence ?? info.score) || 0
+    });
+  }
+
+  if(!choices.length) return null;
+
+  choices.sort((a,b) => b.confidence - a.confidence);
+  const best = choices[0];
+
+  const src =
+    best.node?.levels ||
+    best.node?.trade ||
+    info.levels ||
+    info.trade ||
+    best.node ||
+    info;
+
+  const entry = num(src.entry ?? src.entryPrice ?? info.entry ?? info.entryPrice);
+  const sl = num(src.sl ?? src.stopLoss ?? info.sl ?? info.stopLoss);
+  const tp1 = num(src.tp1 ?? info.tp1);
+  const tp2 = num(src.tp2 ?? info.tp2);
+  const tp3 = num(src.tp3 ?? info.tp3);
+
+  if([entry,sl,tp1,tp2,tp3].some(v => v === null)) return null;
+
+  return {
+    asset,
+    direction:best.signal,
+    timeframe:best.tf === "M5" ? "M5" : "M15",
+    confidence:best.confidence,
+    entry, sl, tp1, tp2, tp3
+  };
+}
+
+function candidateKey(c){
+  return [c.asset,c.direction,c.timeframe,
+    Math.round(c.entry * 100) / 100
+  ].join("|");
+}
+
+function createTrade(candidate){
+  const history = readHistory();
+  const openTrades = getOpenTrades(history);
+
+  if(openTrades.length >= MAX_OPEN_TRADES) return false;
+  if(getOpenTradeForAsset(candidate.asset, history)) return false;
+
+  const trade = {
+    id: Date.now() + "-" + candidate.asset,
+    asset:candidate.asset,
+    direction:candidate.direction,
+    timeframe:candidate.timeframe,
+    confidence:candidate.confidence,
+    entry:candidate.entry,
+    sl:candidate.sl,
+    originalSl:candidate.sl,
+    tp1:candidate.tp1,
+    tp2:candidate.tp2,
+    tp3:candidate.tp3,
+    status:"OPEN",
+    createdAt:nowIso(),
+    updatedAt:nowIso(),
+    tp1Hit:false,
+    tp2Hit:false,
+    tp3Hit:false,
+    breakEvenActive:false
+  };
+
+  history.unshift(trade);
+  writeHistory(history);
+
+  const armed = getArmed();
+  armed[candidate.asset] = false;
+  setArmed(armed);
+
+  const last = getLastAccepted();
+  last[candidate.asset] = {
+    key:candidateKey(candidate),
+    direction:candidate.direction,
+    timeframe:candidate.timeframe,
+    at:Date.now()
+  };
+  setLastAccepted(last);
+
+  notifyTrade(
+    "NEW " + candidate.direction + " " + candidate.asset,
+    candidate.timeframe + " • Entry " + formatPrice(candidate.entry,candidate.asset) +
+    " • " + candidate.confidence + "%",
+    "SIGNAL",
+    trade
+  );
+
+  renderHistory();
+  updateOpenCount();
+  return true;
+}
+
+function processNewSignal(asset, info){
+  const candidate = extractCandidate(asset, info);
+  const armed = getArmed();
+  const last = getLastAccepted();
+
+  if(!candidate){
+    armed[asset] = true;
+    setArmed(armed);
+    return;
+  }
+
+  const history = readHistory();
+  if(getOpenTradeForAsset(asset, history)) return;
+  if(getOpenTrades(history).length >= MAX_OPEN_TRADES) return;
+
+  const lastForAsset = last[asset];
+
+  const isOppositeNewSignal =
+    lastForAsset &&
+    candidate.direction !== lastForAsset.direction;
+
+  if(!armed[asset] && !isOppositeNewSignal) return;
+
+  createTrade(candidate);
+}
+
+function hitBuy(price, level){ return price >= level; }
+function hitSell(price, level){ return price <= level; }
+
+function updateOneTrade(trade, currentPrice){
+  if(!isOpenStatus(trade.status)) return false;
+  if(currentPrice === null) return false;
+
+  const isBuy = trade.direction === "BUY";
+  const hitProfit = (level) => isBuy ? hitBuy(currentPrice, level) : hitSell(currentPrice, level);
+  const hitStop = (level) => isBuy ? currentPrice <= level : currentPrice >= level;
+
+  let changed = false;
+
+  if(!trade.tp1Hit && hitStop(trade.originalSl ?? trade.sl)){
+    trade.status = "LOST";
+    trade.closedAt = nowIso();
+    trade.updatedAt = nowIso();
+    trade.closePrice = currentPrice;
+    changed = true;
+
+    notifyTrade(
+      "SL • " + trade.asset,
+      trade.direction + " " + trade.timeframe + " • LOST",
+      "SL",
+      trade
+    );
+    return changed;
+  }
+
+  if(!trade.tp1Hit && hitProfit(trade.tp1)){
+    trade.tp1Hit = true;
+    trade.breakEvenActive = true;
+    trade.sl = trade.entry;
+    trade.status = "TP1";
+    trade.tp1At = nowIso();
+    trade.updatedAt = nowIso();
+    changed = true;
+
+    notifyTrade(
+      "TP1 • " + trade.asset,
+      "TP1 hit. Move SL to ENTRY " + formatPrice(trade.entry,trade.asset),
+      "TP1",
+      trade
+    );
+  }
+
+  if(trade.tp1Hit && !trade.tp2Hit && hitProfit(trade.tp2)){
+    trade.tp2Hit = true;
+    trade.status = "TP2";
+    trade.tp2At = nowIso();
+    trade.updatedAt = nowIso();
+    changed = true;
+
+    notifyTrade(
+      "TP2 • " + trade.asset,
+      trade.direction + " " + trade.timeframe + " • TP2 hit",
+      "TP2",
+      trade
+    );
+  }
+
+  if(trade.tp1Hit && !trade.tp3Hit && hitProfit(trade.tp3)){
+    if(!trade.tp2Hit){
+      trade.tp2Hit = true;
+      trade.tp2At = nowIso();
+      notifyTrade(
+        "TP2 • " + trade.asset,
+        trade.direction + " " + trade.timeframe + " • TP2 hit",
+        "TP2",
+        trade
+      );
+    }
+
+    trade.tp3Hit = true;
+    trade.status = "WIN";
+    trade.tp3At = nowIso();
+    trade.closedAt = nowIso();
+    trade.updatedAt = nowIso();
+    trade.closePrice = currentPrice;
+    changed = true;
+
+    notifyTrade(
+      "TP3 / WIN • " + trade.asset,
+      trade.direction + " " + trade.timeframe + " • WIN ✅",
+      "WIN",
+      trade
+    );
+    return changed;
+  }
+
+  if(trade.tp1Hit && trade.breakEvenActive && hitStop(trade.entry)){
+    trade.status = "BREAK-EVEN";
+    trade.closedAt = nowIso();
+    trade.updatedAt = nowIso();
+    trade.closePrice = currentPrice;
+    changed = true;
+
+    notifyTrade(
+      "BREAK-EVEN • " + trade.asset,
+      trade.direction + " " + trade.timeframe + " • closed at ENTRY",
+      "BREAK_EVEN",
+      trade
+    );
+    return changed;
+  }
+
+  return changed;
+}
+
+function trackOpenTrades(gold, bitcoin){
+  const history = readHistory();
+  let changed = false;
+
+  const prices = {
+    XAUUSD:getCurrentPrice(gold),
+    BTCUSD:getCurrentPrice(bitcoin)
+  };
+
+  history.forEach(trade => {
+    if(updateOneTrade(trade, prices[trade.asset])) changed = true;
+  });
+
+  if(changed) writeHistory(history);
+
+  updateOpenCount();
+  renderHistory();
+}
+
+async function notifyTrade(title, body, eventType, trade){
+  console.log("[BIT ADAMS]", eventType, title, body);
+
+  try{
+    if("Notification" in window && Notification.permission === "granted"){
+      new Notification(title, {
+        body,
+        tag:"bit-adams-" + trade.id + "-" + eventType
+      });
+    }
+  }catch(e){}
+
+  /*
+    Optional server push:
+    If your Render server has POST /api/notify, this will also request
+    OneSignal push delivery. If the route does not exist, nothing breaks.
+  */
+  try{
+    await fetch(SERVER + "/api/notify", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        title,
+        message:body,
+        event:eventType,
+        trade
+      })
+    });
+  }catch(e){}
+}
+
+function renderSelectedAsset(info){
+  if(!info) return;
+
+  const tf = info.timeframes || info.tf || {};
+
+  setSignal(
+    document.getElementById("signalM5"),
+    tf.M5?.signal || tf.m5?.signal || info.m5?.signal || "WAIT",
+    num(tf.M5?.confidence ?? tf.m5?.confidence ?? info.m5?.confidence)
+  );
+
+  setSignal(
+    document.getElementById("signalM15"),
+    tf.M15?.signal || tf.m15?.signal || info.m15?.signal || info.signal || "WAIT",
+    num(tf.M15?.confidence ?? tf.m15?.confidence ?? info.m15?.confidence ?? info.confidence)
+  );
+
+  setSignal(
+    document.getElementById("signalM30"),
+    tf.M30?.signal || tf.m30?.signal || "WAIT",
+    num(tf.M30?.confidence ?? tf.m30?.confidence)
+  );
+
+  setSignal(
+    document.getElementById("signalH1"),
+    tf.H1?.signal || tf.h1?.signal || "WAIT",
+    num(tf.H1?.confidence ?? tf.h1?.confidence)
+  );
+
+  setSignal(
+    document.getElementById("signalH4"),
+    tf.H4?.signal || tf.h4?.signal || "WAIT",
+    num(tf.H4?.confidence ?? tf.h4?.confidence)
+  );
+
+  const active = getOpenTradeForAsset(selectedAsset);
+  const levels = active || info.levels || info.trade || info;
+
+  document.getElementById("entryPrice").textContent =
+    formatPrice(levels.entry ?? levels.entryPrice, selectedAsset);
+
+  document.getElementById("stopLoss").textContent =
+    formatPrice(levels.sl ?? levels.stopLoss, selectedAsset);
+
+  document.getElementById("tp1").textContent =
+    formatPrice(levels.tp1, selectedAsset);
+
+  document.getElementById("tp2").textContent =
+    formatPrice(levels.tp2, selectedAsset);
+
+  document.getElementById("tp3").textContent =
+    formatPrice(levels.tp3, selectedAsset);
+
+  document.getElementById("tradeStatus").textContent =
+    active?.status || levels.status || info.status || "WAIT";
+}
+
+function updateOpenCount(){
+  const count = getOpenTrades().length;
+  const el = document.getElementById("openTradesCount");
+  if(el) el.textContent = count + " / " + MAX_OPEN_TRADES;
+
+  const h = document.getElementById("historyOpenCount");
+  if(h) h.textContent = count + " OPEN";
+}
+
+function statusClass(status){
+  const s = String(status || "").toUpperCase();
+  if(s === "WIN") return "win";
+  if(s === "LOST") return "lost";
+  if(s === "BREAK-EVEN") return "be";
+  if(s === "CANCELLED") return "cancelled";
+  if(s === "TP1") return "tp1";
+  if(s === "TP2") return "tp2";
+  if(s === "TP3") return "tp3";
+  return "";
+}
+
+function formatDate(iso){
+  if(!iso) return "";
+  const d = new Date(iso);
+  if(Number.isNaN(d.getTime())) return "";
+  return d.toLocaleString([],{
+    year:"numeric",month:"2-digit",day:"2-digit",
+    hour:"2-digit",minute:"2-digit",second:"2-digit"
+  });
+}
+
+function renderHistory(){
+  const history = readHistory().sort(
+    (a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)
+  );
+
+  const wins = history.filter(t => String(t.status).toUpperCase() === "WIN").length;
+  const lost = history.filter(t => String(t.status).toUpperCase() === "LOST").length;
+  const closedForRate = wins + lost;
+  const rate = closedForRate ? Math.round((wins / closedForRate) * 100) : 0;
+
+  document.getElementById("historySignals").textContent =
+    history.filter(t => String(t.status).toUpperCase() !== "CANCELLED").length;
+
+  document.getElementById("historyWinRate").textContent = rate + "%";
+  document.getElementById("historyLost").textContent = lost;
+
+  updateOpenCount();
+
+  const list = document.getElementById("historyList");
+  if(!history.length){
+    list.innerHTML = '<div class="emptyState">No tracked trades yet.</div>';
+    return;
+  }
+
+  list.innerHTML = history.map(t => {
+    const dirClass = t.direction === "BUY" ? "buy" : "sell";
+    const status = String(t.status || "OPEN").toUpperCase();
+
+    return `
+      <div class="historyItem">
+        <div class="historyMain">
+          <div class="historyTitle">
+            <span class="${dirClass}">${t.direction || "—"}</span>
+            ${t.asset || "—"} • ${t.timeframe || "—"}
+          </div>
+          <div class="historyMeta">
+            ${formatDate(t.createdAt)}${t.confidence ? " • " + t.confidence + "%" : ""}
+          </div>
+          <div class="historyLevels">
+            E ${formatPrice(t.entry,t.asset)} •
+            SL ${formatPrice(t.sl,t.asset)} •
+            TP1 ${formatPrice(t.tp1,t.asset)} •
+            TP2 ${formatPrice(t.tp2,t.asset)} •
+            TP3 ${formatPrice(t.tp3,t.asset)}
+          </div>
+        </div>
+        <div class="badge ${statusClass(status)}">${status}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+async function loadData(){
+  if(loading) return;
+  loading = true;
+
+  try{
+    const response = await fetch(SERVER + "/api/scan", {cache:"no-store"});
+
+    if(!response.ok){
+      throw new Error("Server response " + response.status);
+    }
+
+    const data = await response.json();
+    lastScan = data;
+
+    const gold = findAssetData(data,"XAUUSD");
+    const bitcoin = findAssetData(data,"BTCUSD");
+
+    showAssetCard("XAUUSD",gold);
+    showAssetCard("BTCUSD",bitcoin);
+
+    if(gold){
+      const goldSignal =
+        gold.m15?.signal ||
+        gold.timeframes?.M15?.signal ||
+        gold.timeframes?.m15?.signal ||
+        gold.signal ||
+        "WAIT";
+
+      const goldConf = num(
+        gold.m15?.confidence ??
+        gold.timeframes?.M15?.confidence ??
+        gold.timeframes?.m15?.confidence ??
+        gold.confidence
+      );
+
+      setSignal(document.getElementById("goldM15"),goldSignal,goldConf);
+    }
+
+    if(bitcoin){
+      const btcSignal =
+        bitcoin.m15?.signal ||
+        bitcoin.timeframes?.M15?.signal ||
+        bitcoin.timeframes?.m15?.signal ||
+        bitcoin.signal ||
+        "WAIT";
+
+      const btcConf = num(
+        bitcoin.m15?.confidence ??
+        bitcoin.timeframes?.M15?.confidence ??
+        bitcoin.timeframes?.m15?.confidence ??
+        bitcoin.confidence
+      );
+
+      setSignal(document.getElementById("btcM15"),btcSignal,btcConf);
+    }
+
+    trackOpenTrades(gold,bitcoin);
+
+    processNewSignal("XAUUSD",gold);
+    processNewSignal("BTCUSD",bitcoin);
+
+    const selected = selectedAsset === "XAUUSD" ? gold : bitcoin;
+    renderSelectedAsset(selected);
+
+    const gc = num(gold?.confidence) || 0;
+    const bc = num(bitcoin?.confidence) || 0;
+
+    document.getElementById("bestPerformer").textContent =
+      bc > gc ? "BITCOIN" : gc > bc ? "GOLD" : "WAIT";
+
+    renderHistory();
+  }
+  catch(error){
+    console.error("BIT ADAMS load error:",error);
+  }
+  finally{
+    loading = false;
+  }
+}
+
+function restoreAsset(){
+  document.querySelectorAll(".assetButton").forEach(btn => {
+    const asset = btn.textContent.trim();
+    btn.classList.toggle("active", asset === selectedAsset);
+  });
+
+  document.getElementById("selectedAssetLabel").textContent = selectedAsset;
+  document.getElementById("assetTF1").textContent = selectedAsset;
+  document.getElementById("assetTF2").textContent = selectedAsset;
+}
+
+async function manualRefresh(){
+  await loadData();
+}
+
+repairLegacyOpenTrades();
+restoreAsset();
+renderHistory();
+updateOpenCount();
+loadData();
+
+/*
+  30 seconds = 2 scan requests/minute from this page.
+  This stays safely below an 8 credits/minute front-end polling pace
+  if /api/scan itself is optimized server-side.
+*/
+setInterval(loadData, 30000);
+</script>
+
+</body>
+</html>
