@@ -4,3686 +4,1342 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050807">
+
 <title>BIT ADAMS</title>
 
+<!--
+BIT ADAMS V8 FAST
+GOLD LEFT / BITCOIN RIGHT
+M5 + M15 FAST SIGNALS
+OneSignal Notifications
+-->
+
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
 <script>
 window.OneSignalDeferred = window.OneSignalDeferred || [];
 
 OneSignalDeferred.push(async function(OneSignal) {
   try {
+
     await OneSignal.init({
       appId: "cda9b6dc-b0a8-4171-8e7d-c47bd35b6ba0",
-      serviceWorkerPath: "/bit-adams/OneSignalSDKWorker.js",
+
+      serviceWorkerPath: "OneSignalSDKWorker.js",
+
       serviceWorkerParam: {
         scope: "/bit-adams/"
+      },
+
+      notifyButton: {
+        enable: true,
+        position: "bottom-right",
+        size: "medium",
+        showCredit: false
       }
     });
 
     console.log("OneSignal initialized");
 
-  } catch (e) {
-    console.log("OneSignal init error:", e);
+    window.BIT_ONE_SIGNAL = OneSignal;
+
+  } catch(error) {
+    console.error("OneSignal init error:", error);
   }
 });
+
+async function enableNotifications() {
+
+  try {
+
+    const OneSignal = window.BIT_ONE_SIGNAL;
+
+    if(!OneSignal) {
+      alert("OneSignal is still loading. Wait a few seconds and try again.");
+      return;
+    }
+
+    const permission =
+      await OneSignal.Notifications.requestPermission();
+
+    if(permission === true) {
+
+      try {
+        await OneSignal.User.PushSubscription.optIn();
+      } catch(e) {
+        console.log("Push opt-in:", e);
+      }
+
+      document.getElementById("notificationStatus").textContent =
+        "NOTIFICATIONS ON";
+
+      document.getElementById("notificationStatus").className =
+        "statusOn";
+
+      alert("BIT ADAMS notifications enabled ✅");
+
+    } else {
+
+      alert(
+        "Notifications are blocked. Allow notifications for BIT ADAMS in Chrome."
+      );
+    }
+
+  } catch(error) {
+
+    console.error(error);
+
+    alert(
+      "Could not enable notifications. Check Chrome notification permissions."
+    );
+  }
+}
 </script>
 
 <style>
-*{box-sizing:border-box}
 
-:root{
---bg:#050807;
---panel:#08110d;
---panel2:#0b1712;
---line:#18372a;
---green:#20f28a;
---red:#ff5b6e;
---gold:#f4c95d;
---text:#f6f8f7;
---muted:#7f9188
+*{
+  box-sizing:border-box;
 }
 
-html,body{
-margin:0;
-padding:0;
-background:
-radial-gradient(circle at 50% -10%,#0b2b1b 0,transparent 28%),
-var(--bg);
-color:var(--text);
-font-family:Arial,sans-serif
+:root{
+  --bg:#050807;
+  --panel:#08110d;
+  --panel2:#0b1712;
+  --line:#18372a;
+  --green:#20f28a;
+  --red:#ff5b6e;
+  --gold:#f2c85b;
+  --text:#f4f7f5;
+  --muted:#89958f;
+}
+
+html,
+body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
-min-height:100vh;
-padding-bottom:82px
+  padding-bottom:100px;
+  background:
+    radial-gradient(circle at 50% -5%,#0b291a 0,transparent 32%),
+    var(--bg);
 }
 
-button,input{font:inherit}
-button{cursor:pointer}
-
-.app{
-max-width:560px;
-margin:auto
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px;
+  background:rgba(5,8,7,.96);
+  border-bottom:1px solid #10261b;
 }
 
-.topbar{
-position:sticky;
-top:0;
-z-index:50;
-min-height:72px;
-padding:14px 16px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-background:rgba(5,8,7,.97);
-border-bottom:1px solid #10241a
-}
-
-.brand{
-display:flex;
-align-items:center;
-gap:10px
+.logoArea{
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
 
 .logo{
-width:44px;
-height:44px;
-border-radius:14px;
-border:1px solid #59471f;
-display:grid;
-place-items:center;
-color:var(--gold);
-font-size:27px;
-background:#0b1712
+  width:54px;
+  height:54px;
+  border-radius:16px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+  color:var(--gold);
+  background:
+    linear-gradient(145deg,#173124,#07130d);
+  border:1px solid #385a3d;
+  box-shadow:
+    0 0 25px rgba(32,242,138,.08);
 }
 
-.brandTitle{
-font-weight:900;
-letter-spacing:1.4px
+.brand{
+  font-weight:800;
+  font-size:24px;
+  letter-spacing:2px;
 }
 
-.brandSub{
-font-size:9px;
-color:var(--muted);
-margin-top:3px
+.subtitle{
+  color:var(--muted);
+  margin-top:5px;
+  font-size:13px;
+  letter-spacing:1px;
 }
 
 .refresh{
-width:44px;
-height:44px;
-border-radius:13px;
-border:1px solid var(--line);
-background:var(--panel);
-color:#fff;
-font-size:20px
+  width:54px;
+  height:54px;
+  border-radius:17px;
+  border:1px solid #16432d;
+  background:#07140e;
+  color:white;
+  font-size:25px;
 }
 
-main{padding:14px}
-
-.screen{display:none}
-.screen.active{display:block}
-
-.card,
-.assetCard,
-.signalCard,
-.chartCard,
-.stat{
-background:linear-gradient(145deg,#0a1510,#07100c);
-border:1px solid var(--line)
-}
-
-.card{
-border-radius:18px;
-padding:13px;
-margin-bottom:10px
-}
-
-.hero{
-border:1px solid var(--line);
-border-radius:24px;
-padding:10px;
-background:#07120d
+main{
+  padding:20px;
+  max-width:1000px;
+  margin:auto;
 }
 
 .assetGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:9px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
 }
 
 .assetCard{
-border-radius:19px;
-padding:12px;
-min-width:0
+  border:1px solid #183c2a;
+  background:
+    linear-gradient(145deg,#081a11,#06100b);
+  border-radius:28px;
+  padding:18px;
+  min-height:195px;
 }
-
-.goldCard{border-color:#59471f}
 
 .assetTitle{
-display:flex;
-justify-content:space-between;
-gap:5px;
-font-size:11px;
-font-weight:900
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.symbol{
-font-size:9px;
-color:var(--muted)
+.assetName{
+  font-weight:800;
+  font-size:19px;
 }
 
 .price{
-font-size:20px;
-font-weight:900;
-margin:9px 0
+  font-size:14px;
+  color:var(--muted);
 }
 
-.trend{
-font-size:10px;
-font-weight:900;
-min-height:13px
+.signal{
+  margin-top:25px;
+  font-size:25px;
+  font-weight:900;
 }
 
-.analyze{
-width:100%;
-margin-top:11px;
-min-height:48px;
-border-radius:12px;
-border:1px solid #59471f;
-background:#151208;
-color:var(--gold);
-font-weight:900
+.buy{
+  color:var(--green);
 }
 
-.sectionTitle{
-margin:21px 2px 10px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px
-}
-
-.sectionTitle h2{
-font-size:15px;
-margin:0
-}
-
-.mini{font-size:10px}
-.small{font-size:12px}
-.muted{color:var(--muted)}
-.green{color:var(--green)}
-.red{color:var(--red)}
-.gold{color:var(--gold)}
-
-.statusLine{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:10px;
-padding:10px 0;
-border-bottom:1px solid #11251b
-}
-
-.statusLine:last-child{border-bottom:0}
-
-.statusName{
-font-size:11px;
-color:#afbbb5
-}
-
-.statusValue{
-font-size:11px;
-font-weight:900;
-text-align:right
-}
-
-.tabs{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:7px
-}
-
-.tab,.tf,.smallBtn{
-min-height:44px;
-border-radius:11px;
-border:1px solid var(--line);
-background:var(--panel);
-color:var(--muted);
-font-weight:900
-}
-
-.tab.active,.tf.active{
-border-color:var(--green);
-color:#fff
-}
-
-.tfTabs{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:5px;
-margin-top:9px
-}
-
-.mtf{
-margin-top:10px;
-padding:12px;
-border-radius:15px;
-border:1px solid #28513d;
-background:#09160f
-}
-
-.mtfPills{
-display:flex;
-flex-wrap:wrap;
-gap:5px;
-margin-top:8px
-}
-
-.pill{
-font-size:9px;
-padding:5px 7px;
-border:1px solid var(--line);
-border-radius:999px
-}
-
-.signalCard{
-border-radius:20px;
-padding:14px;
-margin-top:10px
-}
-
-.signalCard.buy{border-color:var(--green)}
-.signalCard.sell{border-color:var(--red)}
-
-.signalHeader{
-display:flex;
-justify-content:space-between;
-gap:10px
-}
-
-.side{
-font-size:28px;
-font-weight:900
-}
-
-.confidence{
-border:1px solid currentColor;
-border-radius:999px;
-padding:7px 9px;
-height:max-content;
-font-size:11px;
-font-weight:900
-}
-
-.levels{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:5px;
-margin-top:12px
-}
-
-.level{
-min-width:0;
-padding:10px 5px;
-border-radius:11px;
-background:#06100c;
-border:1px solid #153021;
-text-align:center
-}
-
-.level label{
-display:block;
-font-size:8px;
-color:var(--muted);
-margin-bottom:5px
-}
-
-.level strong{
-font-size:10px;
-display:block;
-overflow:hidden;
-text-overflow:ellipsis
+.sell{
+  color:var(--red);
 }
 
 .wait{
-margin-top:10px;
-padding:15px;
-border-radius:17px;
-border:1px solid #59471f;
-background:#161307
+  color:var(--gold);
 }
 
-.track{
-width:100%;
-min-height:47px;
-margin-top:11px;
-border-radius:12px;
-border:1px solid #24533c;
-background:#0b2016;
-color:var(--green);
-font-weight:900
+.confidence{
+  margin-top:8px;
+  color:var(--muted);
 }
 
-.chartCard{
-margin-top:10px;
-border-radius:18px;
-overflow:hidden
+.sectionTitle{
+  margin:40px 2px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.chartTop{
-padding:12px;
-display:flex;
-justify-content:space-between
+.sectionTitle strong{
+  font-size:25px;
+  letter-spacing:.5px;
 }
 
-.chartArea{
-height:420px;
-position:relative;
-touch-action:none;
-background:
-linear-gradient(#0c1a13 1px,transparent 1px),
-linear-gradient(90deg,#0c1a13 1px,transparent 1px);
-background-size:100% 50px,60px 100%
+.sectionTitle span{
+  color:var(--muted);
+  font-size:13px;
 }
 
-#chartCanvas{
-display:block;
-width:100%;
-height:100%
+.panel{
+  background:
+    linear-gradient(145deg,#07170f,#07120d);
+  border:1px solid #173b29;
+  border-radius:28px;
+  padding:22px;
 }
 
-.zoom{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:7px;
-padding:9px
+.row{
+  padding:17px 3px;
+  border-bottom:1px solid #12291d;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.zoom button{
-min-height:44px;
-border-radius:11px;
-border:1px solid var(--line);
-background:var(--panel);
-color:#fff
+.row:last-child{
+  border-bottom:none;
 }
 
-.stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:6px;
-margin:10px 0
+.label{
+  color:#a9b3ae;
+  font-size:16px;
 }
 
-.stat{
-border-radius:13px;
-padding:9px;
-min-width:0
+.value{
+  font-weight:800;
 }
 
-.stat small{
-font-size:8px;
-color:var(--muted)
+.timeButtons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:15px;
 }
 
-.stat strong{
-display:block;
-font-size:17px;
-margin-top:4px
+.assetButton{
+  padding:18px;
+  border-radius:20px;
+  border:1px solid #19412c;
+  background:#07130d;
+  color:#8d9992;
+  font-size:19px;
+  font-weight:800;
 }
 
-.trade{
-padding:11px 0;
-border-bottom:1px solid #11251b
+.assetButton.active{
+  color:white;
+  border-color:var(--green);
+  box-shadow:
+    inset 0 0 20px rgba(32,242,138,.05);
 }
 
-.trade:last-child{border-bottom:0}
-
-.trade button{
-border:0;
-background:transparent;
-color:#fff;
-width:100%;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:8px;
-text-align:left
+.levels{
+  margin-top:18px;
 }
 
-.badge{
-font-size:9px;
-font-weight:900;
-border:1px solid currentColor;
-border-radius:999px;
-padding:5px 7px
+.level{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #13291d;
 }
 
-.news{
-padding:11px 0;
-border-bottom:1px solid #11251b
+.level:last-child{
+  border-bottom:none;
 }
 
-.news:last-child{border-bottom:0}
-
-.newsTop{
-display:flex;
-justify-content:space-between;
-gap:8px
+.level span:first-child{
+  color:#89958f;
 }
 
-.newsTitle{
-font-size:12px;
-font-weight:900;
-line-height:1.35;
-margin-top:4px
+.entry{
+  color:white;
 }
 
-.impact{
-font-size:8px;
-border:1px solid currentColor;
-border-radius:999px;
-padding:4px 6px;
-height:max-content;
-font-weight:900
+.sl{
+  color:var(--red);
 }
 
-.riskBox{
-border-radius:17px;
-border:1px solid #59471f;
-padding:13px;
-background:#121006
+.tp{
+  color:var(--green);
 }
 
-.riskInputs{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:7px;
-margin-top:9px
+.notifyBox{
+  margin-top:20px;
+  border:1px solid #36562d;
+  background:
+    linear-gradient(145deg,#111b0d,#07120c);
+  padding:20px;
+  border-radius:24px;
 }
 
-.riskInput{
-width:100%;
-min-height:44px;
-border:1px solid var(--line);
-background:#06100c;
-color:#fff;
-border-radius:11px;
-padding:9px
+.notifyTitle{
+  font-size:19px;
+  font-weight:800;
+  color:var(--gold);
+  margin-bottom:8px;
 }
 
-.riskResult{
-margin-top:9px;
-border:1px solid #59471f;
-border-radius:11px;
-padding:10px
+.notifyText{
+  color:#97a49d;
+  font-size:14px;
+  line-height:1.5;
 }
 
-.note{
-font-size:10px;
-color:var(--muted);
-line-height:1.55
+.notifyButton{
+  width:100%;
+  margin-top:16px;
+  padding:17px;
+  background:
+    linear-gradient(135deg,#1bdc7d,#0e9d5a);
+  border:none;
+  border-radius:18px;
+  color:#031009;
+  font-size:16px;
+  font-weight:900;
 }
 
-.error{
-border:1px solid #632d36;
-background:#231015;
-color:#ff9ba5;
-padding:12px;
-border-radius:12px;
-font-size:11px
+.statusOff{
+  color:var(--gold);
+  font-weight:800;
 }
 
-.bottom{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-z-index:40;
-background:#050807;
-border-top:1px solid #10241a
+.statusOn{
+  color:var(--green);
+  font-weight:800;
 }
 
-.bottomInner{
-max-width:560px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(6,1fr)
+.risk{
+  font-size:14px;
+  line-height:1.8;
+  color:#a3ada8;
+}
+
+.risk strong{
+  color:white;
+}
+
+footer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:2px;
+  padding:
+    10px
+    4px
+    calc(10px + env(safe-area-inset-bottom));
+  background:#050907;
+  border-top:1px solid #12291d;
+  z-index:50;
 }
 
 .nav{
-min-height:68px;
-border:0;
-background:transparent;
-color:#6c7d74;
-font-size:8px
+  text-align:center;
+  color:#727d77;
+  font-size:11px;
 }
-
-.nav.active{color:var(--gold)}
 
 .navIcon{
-display:block;
-font-size:18px;
-margin-bottom:4px
+  font-size:20px;
+  margin-bottom:5px;
 }
 
-.overlay{
-position:fixed;
-inset:0;
-z-index:100;
-background:rgba(0,0,0,.78);
-display:none;
-align-items:flex-end
+.nav.active{
+  color:var(--gold);
 }
 
-.overlay.open{display:flex}
+@media(max-width:500px){
 
-.sheet{
-width:100%;
-max-width:560px;
-margin:auto;
-max-height:88vh;
-overflow:auto;
-background:#07100c;
-border-radius:22px 22px 0 0;
-border:1px solid var(--line);
-padding:15px
+  main{
+    padding:15px;
+  }
+
+  header{
+    padding:15px;
+  }
+
+  .logo{
+    width:48px;
+    height:48px;
+  }
+
+  .brand{
+    font-size:21px;
+  }
+
+  .assetGrid{
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+  }
+
+  .assetCard{
+    padding:14px;
+    border-radius:23px;
+  }
+
+  .assetName{
+    font-size:16px;
+  }
+
+  .signal{
+    font-size:20px;
+  }
 }
 
-.close{
-float:right;
-width:40px;
-height:40px;
-border-radius:11px;
-border:1px solid var(--line);
-background:var(--panel);
-color:#fff
-}
-
-@media(max-width:420px){
-.tfTabs{grid-template-columns:repeat(3,1fr)}
-.levels{grid-template-columns:repeat(2,1fr)}
-.chartArea{height:390px}
-.stats{grid-template-columns:repeat(2,1fr)}
-}
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<header>
 
-<header class="topbar">
-<div class="brand">
-<div class="logo">♛</div>
+<div class="logoArea">
+
+<div class="logo">
+♛
+</div>
+
 <div>
-<div class="brandTitle">BIT ADAMS</div>
-<div class="brandSub">AI MARKET ANALYSIS</div>
+<div class="brand">
+BIT <span style="color:#e2c165">ADAMS</span>
+</div>
+
+<div class="subtitle">
+AI MARKET ANALYSIS • V8 FAST
 </div>
 </div>
 
-<button class="refresh" id="refreshBtn">↻</button>
+</div>
+
+<button class="refresh"
+onclick="location.reload()">
+↻
+</button>
+
 </header>
 
 <main>
 
-<section class="screen active" id="home">
-
-<div class="hero">
 <div class="assetGrid">
 
-<div class="assetCard goldCard">
-<div class="assetTitle">
-<span>◆ GOLD</span>
-<span class="symbol">XAUUSD</span>
-</div>
-
-<div class="price gold" id="goldPrice">Loading...</div>
-<div class="trend" id="goldTrend">ANALYZING...</div>
-
-<button class="analyze" data-analyze="XAUUSD">
-ANALYZE GOLD
-</button>
-</div>
+<!-- GOLD LEFT -->
 
 <div class="assetCard">
+
 <div class="assetTitle">
-<span>₿ BITCOIN</span>
-<span class="symbol">BTCUSD</span>
+<div class="assetName">
+GOLD
 </div>
 
-<div class="price" id="btcPrice">Loading...</div>
-<div class="trend" id="btcTrend">ANALYZING...</div>
-
-<button class="analyze" data-analyze="BTCUSD">
-ANALYZE BITCOIN
-</button>
-</div>
-
+<div class="price"
+id="goldPrice">
+XAUUSD
 </div>
 </div>
 
-<div class="sectionTitle">
-<h2>MARKET OVERVIEW</h2>
-<span class="mini muted">LIVE DATA</span>
+<div
+class="signal wait"
+id="goldSignal">
+◆ WAIT
 </div>
 
-<div class="card">
-
-<div class="statusLine">
-<span class="statusName">Gold M15</span>
-<span class="statusValue" id="goldStatus">Loading...</span>
-</div>
-
-<div class="statusLine">
-<span class="statusName">Bitcoin M15</span>
-<span class="statusValue" id="btcStatus">Loading...</span>
-</div>
-
-<div class="statusLine">
-<span class="statusName">News Safety</span>
-<span class="statusValue" id="homeNewsSafety">Checking...</span>
+<div
+class="confidence"
+id="goldConfidence">
+Waiting for confirmation
 </div>
 
 </div>
 
-<div class="sectionTitle">
-<h2>TIMEFRAMES</h2>
+<!-- BITCOIN RIGHT -->
+
+<div class="assetCard">
+
+<div class="assetTitle">
+<div class="assetName">
+BITCOIN
 </div>
 
-<div class="tabs">
-<button class="tab active" data-homeasset="XAUUSD">XAUUSD</button>
-<button class="tab" data-homeasset="BTCUSD">BTCUSD</button>
+<div class="price"
+id="btcPrice">
+BTCUSD
+</div>
 </div>
 
-<div class="card" id="homeTF" style="margin-top:9px">
-Loading...
+<div
+class="signal wait"
+id="btcSignal">
+◆ WAIT
 </div>
 
-</section>
-
-<section class="screen" id="signals">
-
-<div class="sectionTitle">
-<h2>SIGNALS</h2>
-<span class="mini muted">STRICT + MULTI TF</span>
+<div
+class="confidence"
+id="btcConfidence">
+Waiting for confirmation
 </div>
 
-<div class="tabs">
-<button class="tab active" data-signalasset="XAUUSD">XAUUSD</button>
-<button class="tab" data-signalasset="BTCUSD">BTCUSD</button>
 </div>
 
-<div class="tfTabs" id="signalTFButtons"></div>
-<div id="mtfBox"></div>
-<div id="signalContent"></div>
+</div>
 
-</section>
-
-<section class="screen" id="chart">
 
 <div class="sectionTitle">
-<h2>CANDLESTICK CHART</h2>
-<span class="mini muted">ENTRY / SL / TP1 / TP2 / TP3</span>
+<strong>MARKET OVERVIEW</strong>
+<span>LIVE DATA</span>
 </div>
 
-<div class="tabs">
-<button class="tab active" data-chartasset="XAUUSD">XAUUSD</button>
-<button class="tab" data-chartasset="BTCUSD">BTCUSD</button>
+<div class="panel">
+
+<div class="row">
+
+<div class="label">
+Gold M15
 </div>
 
-<div class="tfTabs" id="chartTFButtons"></div>
-
-<div class="chartCard">
-
-<div class="chartTop">
-<div>
-<strong id="chartTitle">XAUUSD</strong>
-<div class="mini muted" id="chartTfText">M15</div>
-</div>
-<strong id="chartSignal">--</strong>
-</div>
-
-<div class="chartArea" id="chartArea">
-<canvas id="chartCanvas"></canvas>
-</div>
-
-<div class="zoom">
-<button id="zoomOut">− Zoom</button>
-<button id="zoomReset">Reset</button>
-<button id="zoomIn">+ Zoom</button>
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="statusLine">
-<span class="statusName">ENTRY</span>
-<strong class="gold" id="chartEntry">--</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">STOP LOSS</span>
-<strong class="red" id="chartSL">--</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">TAKE PROFIT 1</span>
-<strong class="green" id="chartTP1">--</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">TAKE PROFIT 2</span>
-<strong class="green" id="chartTP2">--</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">TAKE PROFIT 3</span>
-<strong class="green" id="chartTP3">--</strong>
-</div>
-
-</div>
-
-</section>
-
-<section class="screen" id="news">
-
-<div class="sectionTitle">
-<h2>ECONOMIC CALENDAR</h2>
-<span class="mini muted">UK TIME</span>
-</div>
-
-<div class="card">
-
-<div class="statusLine">
-<span class="statusName">Calendar</span>
-<span class="statusValue" id="calendarStatus">Loading...</span>
-</div>
-
-<div class="statusLine">
-<span class="statusName">Alert</span>
-<strong class="gold">5 MIN BEFORE</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">Gold protection</span>
-<strong>USD HIGH IMPACT</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">Next High USD</span>
-<span class="statusValue gold" id="nextHighNews">Checking...</span>
-</div>
-
-</div>
-
-<div class="card">
-<strong class="gold">NEWS SAFETY MODE</strong>
-<p class="note">
-New tracked signals are blocked from
-10 minutes before until 15 minutes after
-a HIGH-impact USD event.
-</p>
-</div>
-
-<div class="card" id="newsList">
-Loading live calendar...
-</div>
-
-</section>
-
-<section class="screen" id="history">
-
-<div class="sectionTitle">
-<h2>TRADE HISTORY</h2>
-<span class="mini muted">WIN / LOST / TP</span>
-</div>
-
-<div class="tabs">
-<button class="tab active" data-historyasset="XAUUSD">XAUUSD</button>
-<button class="tab" data-historyasset="BTCUSD">BTCUSD</button>
-</div>
-
-<div class="stats">
-
-<div class="stat">
-<small>SIGNALS</small>
-<strong id="historyTotal">0</strong>
-</div>
-
-<div class="stat">
-<small>WIN</small>
-<strong class="green" id="historyWins">0</strong>
-</div>
-
-<div class="stat">
-<small>LOST</small>
-<strong class="red" id="historyLost">0</strong>
-</div>
-
-<div class="stat">
-<small>WIN RATE</small>
-<strong class="gold" id="historyRate">--%</strong>
-</div>
-
-</div>
-
-<div class="card">
-<div class="statusLine">
-<span class="statusName" id="historyCheckText">
-Open trades are checked automatically
-</span>
-
-<button class="smallBtn" id="checkTrades">
-CHECK NOW
-</button>
-</div>
-</div>
-
-<div class="card" id="historyList">
-No tracked signals yet.
-</div>
-
-</section>
-
-<section class="screen" id="settings">
-
-<div class="sectionTitle">
-<h2>RISK MANAGEMENT</h2>
-</div>
-
-<div class="riskBox">
-
-<div class="statusLine">
-<span class="statusName">Recommended risk</span>
-<strong>0.5% – 1%</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">Maximum open trades</span>
-<strong>2</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">Daily loss limit</span>
-<strong class="red">2% – 3%</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">After TP1</span>
-<strong class="green">MOVE SL → ENTRY</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">High impact news</span>
-<strong class="gold">AVOID NEW ENTRY</strong>
-</div>
-
-<div class="riskInputs">
-
-<input
-class="riskInput"
-id="balance"
-type="number"
-min="0"
-step="0.01"
-value="100"
-placeholder="Account balance">
-
-<input
-class="riskInput"
-id="riskPercent"
-type="number"
-min="0.1"
-max="3"
-step="0.1"
-value="1"
-placeholder="Risk %">
-
-</div>
-
-<div class="riskResult" id="riskResult">
-Risk amount: £1.00
-</div>
-
-</div>
-
-<div class="sectionTitle">
-<h2>NOTIFICATIONS</h2>
-</div>
-
-<div class="card">
-
-<button class="track" id="notificationBtn">
-ENABLE NOTIFICATIONS
-</button>
-
-<p class="note">
-Alerts: confirmed signal, TP1, TP2, TP3,
-Stop Loss, Break-Even and high-impact USD
-news approximately 5 minutes before the event
-while BIT ADAMS is running.
-</p>
-
-<p class="note">
-OneSignal push subscription is enabled by the
-button above. Automatic alerts while the app is
-completely closed require a remote sender/backend.
-</p>
-
-</div>
-
-<div class="sectionTitle">
-<h2>TERMS & CONDITIONS</h2>
-<span class="mini muted">RISK DISCLAIMER</span>
-</div>
-
-<div class="card">
-
-<p class="note">
-<strong class="gold">
-BIT ADAMS is a market-analysis tool and does not
-provide financial advice.
-</strong>
-</p>
-
-<p class="note">
-Trading Bitcoin, gold, forex and leveraged products
-carries substantial risk. You can lose part or all
-of your capital.
-</p>
-
-<p class="note">
-BUY, SELL, WAIT, Entry, Stop Loss, Take Profit
-levels, confidence scores and win rates are
-algorithmic analysis outputs. They are not
-guarantees of profit.
-</p>
-
-<p class="note">
-Past results do not guarantee future results.
-Broker prices, spread, slippage, gaps, delayed
-data, API outages, internet problems and news
-events may cause actual results to differ from
-the levels displayed by BIT ADAMS.
-</p>
-
-<p class="note">
-The user is responsible for all trading decisions,
-position sizes and risk. Never trade money you
-cannot afford to lose.
-</p>
-
-</div>
-
-</section>
-
-</main>
-</div>
-
-<nav class="bottom">
-<div class="bottomInner">
-
-<button class="nav active" data-screen="home">
-<span class="navIcon">⌂</span>Home
-</button>
-
-<button class="nav" data-screen="signals">
-<span class="navIcon">⌁</span>Signals
-</button>
-
-<button class="nav" data-screen="chart">
-<span class="navIcon">▥</span>Chart
-</button>
-
-<button class="nav" data-screen="news">
-<span class="navIcon">▤</span>News
-</button>
-
-<button class="nav" data-screen="history">
-<span class="navIcon">◷</span>History
-</button>
-
-<button class="nav" data-screen="settings">
-<span class="navIcon">⚙</span>Settings
-</button>
-
-</div>
-</nav>
-
-<div class="overlay" id="tradeOverlay">
-
-<div class="sheet">
-
-<button class="close" id="closeTrade">✕</button>
-
-<h3 id="detailTitle">TRADE</h3>
-<div class="mini muted" id="detailDate"></div>
-
-<div class="sectionTitle">
-<h2>LEVELS</h2>
-</div>
-
-<div class="card">
-
-<div class="statusLine">
-<span>Entry</span>
-<strong class="gold" id="detailEntry">--</strong>
-</div>
-
-<div class="statusLine">
-<span>Stop Loss</span>
-<strong class="red" id="detailSL">--</strong>
-</div>
-
-<div class="statusLine">
-<span>TP1</span>
-<strong class="green" id="detailTP1">--</strong>
-</div>
-
-<div class="statusLine">
-<span>TP2</span>
-<strong class="green" id="detailTP2">--</strong>
-</div>
-
-<div class="statusLine">
-<span>TP3</span>
-<strong class="green" id="detailTP3">--</strong>
-</div>
-
-</div>
-
-<div class="sectionTitle">
-<h2>PROGRESS</h2>
-</div>
-
-<div class="card" id="detailEvents"></div>
-
-</div>
-</div>
-
-<script>
-
-const API_KEY=
-"9ad169b63c6e40f1bb5dcdac9ec085b1";
-
-const CALENDAR_URL=
-"https://nfs.faireconomy.media/ff_calendar_thisweek.json";
-
-const TIMEFRAMES=["M1","M5","M15","M30","H1","H4"];
-
-const INTERVALS={
-M1:"1min",
-M5:"5min",
-M15:"15min",
-M30:"30min",
-H1:"1h",
-H4:"4h"
-};
-
-const SYMBOLS={
-XAUUSD:"XAU/USD",
-BTCUSD:"BTC/USD"
-};
-
-let homeAsset="XAUUSD";
-let signalAsset="XAUUSD";
-let signalTF="M15";
-let chartAsset="XAUUSD";
-let chartTF="M15";
-let historyAsset="XAUUSD";
-
-let chartCandles=[];
-let chartSignalData=null;
-let chartZoom=1;
-let chartOffset=0;
-let dragStart=null;
-
-let economicEvents=[];
-let calendarLoaded=0;
-
-let apiTimes=[];
-let apiGate=Promise.resolve();
-
-const CACHE={};
-
-function sleep(ms){
-return new Promise(r=>setTimeout(r,ms));
-}
-
-async function reserveCredit(){
-
-const run=
-apiGate.then(async()=>{
-
-while(true){
-
-const now=Date.now();
-
-apiTimes=
-apiTimes.filter(t=>now-t<60000);
-
-if(apiTimes.length<8){
-apiTimes.push(Date.now());
-return;
-}
-
-await sleep(
-Math.max(
-500,
-60000-(now-apiTimes[0])+300
-)
-);
-
-}
-
-});
-
-apiGate=run.catch(()=>{});
-return run;
-
-}
-
-function formatPrice(asset,p){
-
-if(!Number.isFinite(p))
-return "--";
-
-return p.toLocaleString(
-undefined,
-asset==="BTCUSD"
-?{maximumFractionDigits:2}
-:{minimumFractionDigits:2,maximumFractionDigits:2}
-);
-
-}
-
-function signalColor(side){
-return side==="BUY"
-?"green"
-:side==="SELL"
-?"red"
-:"gold";
-}
-
-function ema(values,p){
-
-if(!values.length)
-return [];
-
-const k=2/(p+1);
-const out=[values[0]];
-
-for(let i=1;i<values.length;i++){
-out.push(
-values[i]*k+
-out[i-1]*(1-k)
-);
-}
-
-return out;
-
-}
-
-function rsi(values,p=14){
-
-if(values.length<=p)
-return 50;
-
-let gain=0;
-let loss=0;
-
-for(let i=values.length-p;i<values.length;i++){
-
-const d=
-values[i]-values[i-1];
-
-if(d>0)
-gain+=d;
-else
-loss+=Math.abs(d);
-
-}
-
-if(loss===0)
-return 100;
-
-const rs=(gain/p)/(loss/p);
-
-return 100-100/(1+rs);
-
-}
-
-function atr(candles,p=14){
-
-if(candles.length<p+1)
-return 0;
-
-const tr=[];
-
-for(let i=1;i<candles.length;i++){
-
-const a=candles[i];
-const b=candles[i-1];
-
-tr.push(
-Math.max(
-a.high-a.low,
-Math.abs(a.high-b.close),
-Math.abs(a.low-b.close)
-)
-);
-
-}
-
-const last=tr.slice(-p);
-
-return last.reduce((a,b)=>a+b,0)/last.length;
-
-}
-
-function momentum(values,n=6){
-
-if(values.length<=n)
-return 0;
-
-const a=values.at(-1);
-const b=values[values.length-1-n];
-
-return(
-(a-b)/
-Math.max(Math.abs(b),1)
-)*100;
-
-}
-
-async function fetchSeries(symbol,interval,size=120){
-
-await reserveCredit();
-
-const url=
-"https://api.twelvedata.com/time_series"+
-"?symbol="+encodeURIComponent(symbol)+
-"&interval="+encodeURIComponent(interval)+
-"&outputsize="+size+
-"&apikey="+API_KEY;
-
-const response=await fetch(url);
-const data=await response.json();
-
-if(
-!response.ok||
-data.status==="error"||
-!Array.isArray(data.values)
-){
-
-throw new Error(
-data.message||
-"Market data unavailable"
-);
-
-}
-
-return data.values
-.map(x=>({
-datetime:x.datetime,
-open:Number(x.open),
-high:Number(x.high),
-low:Number(x.low),
-close:Number(x.close)
-}))
-.filter(c=>
-[c.open,c.high,c.low,c.close]
-.every(Number.isFinite)
-)
-.reverse();
-
-}
-
-function aggregateH4(h1){
-
-const groups=[];
-
-for(let i=0;i<h1.length;i+=4){
-
-const g=h1.slice(i,i+4);
-
-if(g.length<4)
-continue;
-
-groups.push({
-datetime:g[0].datetime,
-open:g[0].open,
-high:Math.max(...g.map(x=>x.high)),
-low:Math.min(...g.map(x=>x.low)),
-close:g.at(-1).close
-});
-
-}
-
-return groups;
-
-}
-
-async function fetchCandles(asset,tf,size=120){
-
-const key=asset+"_"+tf;
-const now=Date.now();
-
-const ttl=
-tf==="M1"?45000:
-tf==="M5"?90000:
-tf==="M15"?180000:
-tf==="M30"?300000:
-tf==="H1"?600000:
-1800000;
-
-if(
-CACHE[key]&&
-now-CACHE[key].time<ttl
-){
-
-return CACHE[key].data.slice(-size);
-
-}
-
-let data;
-
-if(tf==="H4"){
-
-try{
-
-data=
-await fetchSeries(
-SYMBOLS[asset],
-"4h",
-size
-);
-
-}catch(e){
-
-const h1=
-await fetchSeries(
-SYMBOLS[asset],
-"1h",
-Math.min(480,size*4)
-);
-
-data=aggregateH4(h1);
-
-}
-
-}else{
-
-data=
-await fetchSeries(
-SYMBOLS[asset],
-INTERVALS[tf],
-size
-);
-
-}
-
-if(data.length<30)
-throw new Error("Not enough candle data");
-
-CACHE[key]={
-time:Date.now(),
-data
-};
-
-return data.slice(-size);
-
-}
-
-function analyze(asset,tf,candles){
-
-const closes=candles.map(c=>c.close);
-
-const e9=ema(closes,9);
-const e21=ema(closes,21);
-const e50=ema(closes,50);
-
-const cur=candles.at(-1);
-const prev=candles.at(-2);
-
-const fast=e9.at(-1);
-const medium=e21.at(-1);
-const slow=e50.at(-1);
-
-const R=rsi(closes);
-const A=atr(candles);
-const M=momentum(closes,6);
-
-let buy=0;
-let sell=0;
-
-if(fast>medium) buy+=20;
-else sell+=20;
-
-if(medium>slow) buy+=20;
-else sell+=20;
-
-if(cur.close>fast) buy+=10;
-else sell+=10;
-
-if(cur.close>medium) buy+=10;
-else sell+=10;
-
-if(R>=53&&R<=68) buy+=15;
-if(R<=47&&R>=32) sell+=15;
-
-if(M>.02) buy+=10;
-if(M<-.02) sell+=10;
-
-if(cur.close>cur.open) buy+=7;
-else sell+=7;
-
-if(prev.close>prev.open&&cur.close>cur.open)
-buy+=5;
-
-if(prev.close<prev.open&&cur.close<cur.open)
-sell+=5;
-
-const body=
-Math.abs(cur.close-cur.open);
-
-const range=
-Math.max(cur.high-cur.low,.0000001);
-
-if(body/range>.55){
-
-if(cur.close>cur.open)
-buy+=5;
-else
-sell+=5;
-
-}
-
-const difference=
-Math.abs(buy-sell);
-
-let side="WAIT";
-
-const buyTrend=
-fast>medium&&
-medium>slow&&
-cur.close>medium;
-
-const sellTrend=
-fast<medium&&
-medium<slow&&
-cur.close<medium;
-
-if(
-buy>=72&&
-difference>=22&&
-buyTrend&&
-R<72
-){
-side="BUY";
-}
-
-if(
-sell>=72&&
-difference>=22&&
-sellTrend&&
-R>28
-){
-side="SELL";
-}
-
-const dominant=
-Math.max(buy,sell);
-
-const confidence=
-side==="WAIT"
-?Math.min(74,Math.round(48+dominant*.25))
-:Math.min(
-96,
-Math.max(
-80,
-Math.round(
-68+
-dominant*.3+
-difference*.08
-)
-)
-);
-
-const entry=cur.close;
-
-const floor=
-entry*
-(asset==="BTCUSD"?.0011:.0008);
-
-const risk=
-Math.max(A*1.1,floor);
-
-let sl=null;
-let tp1=null;
-let tp2=null;
-let tp3=null;
-
-if(side==="BUY"){
-sl=entry-risk;
-tp1=entry+risk*.85;
-tp2=entry+risk*1.45;
-tp3=entry+risk*2.2;
-}
-
-if(side==="SELL"){
-sl=entry+risk;
-tp1=entry-risk*.85;
-tp2=entry-risk*1.45;
-tp3=entry-risk*2.2;
-}
-
-return{
-asset,
-timeframe:tf,
-side,
-confidence,
-entry,
-sl,
-tp1,
-tp2,
-tp3,
-rsi:R,
-momentum:M,
-candles
-};
-
-}
-
-async function getSignal(asset,tf){
-
-const candles=
-await fetchCandles(asset,tf,120);
-
-return analyze(asset,tf,candles);
-
-}
-
-async function getMTF(asset){
-
-const result=[];
-
-for(const tf of TIMEFRAMES){
-
-try{
-result.push(
-await getSignal(asset,tf)
-);
-}catch(e){
-result.push({
-timeframe:tf,
-side:"ERROR",
-error:true
-});
-}
-
-}
-
-return result;
-
-}
-
-function mtfDirection(list){
-
-const valid=
-list.filter(x=>!x.error);
-
-const buys=
-valid.filter(x=>x.side==="BUY").length;
-
-const sells=
-valid.filter(x=>x.side==="SELL").length;
-
-let direction="WAIT";
-
-if(buys>=4)
-direction="BUY";
-
-if(sells>=4)
-direction="SELL";
-
-return{
-direction,
-buys,
-sells,
-valid
-};
-
-}
-
-async function loadHome(){
-
-try{
-
-const gold=
-await getSignal("XAUUSD","M15");
-
-goldPrice.textContent=
-"$"+formatPrice("XAUUSD",gold.entry);
-
-goldTrend.textContent=
-gold.side==="BUY"
-?"▲ BULLISH"
-:gold.side==="SELL"
-?"▼ BEARISH"
-:"◆ WAIT";
-
-goldTrend.className=
-"trend "+signalColor(gold.side);
-
-goldStatus.textContent=
-gold.side+" • "+gold.confidence+"%";
-
-goldStatus.className=
-"statusValue "+signalColor(gold.side);
-
-}catch(e){
-
-goldPrice.textContent="Unavailable";
-goldStatus.textContent="ERROR";
-
-}
-
-try{
-
-const btc=
-await getSignal("BTCUSD","M15");
-
-btcPrice.textContent=
-"$"+formatPrice("BTCUSD",btc.entry);
-
-btcTrend.textContent=
-btc.side==="BUY"
-?"▲ BULLISH"
-:btc.side==="SELL"
-?"▼ BEARISH"
-:"◆ WAIT";
-
-btcTrend.className=
-"trend "+signalColor(btc.side);
-
-btcStatus.textContent=
-btc.side+" • "+btc.confidence+"%";
-
-btcStatus.className=
-"statusValue "+signalColor(btc.side);
-
-}catch(e){
-
-btcPrice.textContent="Unavailable";
-btcStatus.textContent="ERROR";
-
-}
-
-updateNewsSafety();
-await loadHomeTF();
-
-}
-
-async function loadHomeTF(){
-
-homeTF.innerHTML=
-"Loading "+homeAsset+"...";
-
-let html="";
-
-for(const tf of TIMEFRAMES){
-
-try{
-
-const s=
-await getSignal(homeAsset,tf);
-
-html+=`
-<div class="statusLine">
-<span class="statusName">
-${homeAsset} • ${tf}
-</span>
-<strong class="${signalColor(s.side)}">
-${s.side} • ${s.confidence}%
-</strong>
-</div>
-`;
-
-}catch(e){
-
-html+=`
-<div class="statusLine">
-<span>${tf}</span>
-<span class="red">ERROR</span>
-</div>
-`;
-
-}
-
-}
-
-homeTF.innerHTML=html;
-
-}
-
-function buildTF(){
-
-signalTFButtons.innerHTML=
-TIMEFRAMES.map(
-tf=>`
-<button
-class="tf ${tf===signalTF?"active":""}"
-data-signaltf="${tf}">
-${tf}
-</button>
-`
-).join("");
-
-chartTFButtons.innerHTML=
-TIMEFRAMES.map(
-tf=>`
-<button
-class="tf ${tf===chartTF?"active":""}"
-data-charttf="${tf}">
-${tf}
-</button>
-`
-).join("");
-
-document
-.querySelectorAll("[data-signaltf]")
-.forEach(b=>{
-
-b.onclick=()=>{
-
-signalTF=b.dataset.signaltf;
-buildTF();
-loadSelectedSignal();
-
-};
-
-});
-
-document
-.querySelectorAll("[data-charttf]")
-.forEach(b=>{
-
-b.onclick=()=>{
-
-chartTF=b.dataset.charttf;
-buildTF();
-loadChart();
-
-};
-
-});
-
-}
-
-async function loadSelectedSignal(){
-
-signalContent.innerHTML=
-`<div class="card muted">
-Analyzing ${signalAsset} ${signalTF}...
-</div>`;
-
-mtfBox.innerHTML=
-`<div class="mtf muted">
-Checking multi-timeframe...
-</div>`;
-
-try{
-
-const signal=
-await getSignal(signalAsset,signalTF);
-
-const all=
-await getMTF(signalAsset);
-
-const mtf=
-mtfDirection(all);
-
-const aligned=
-signal.side!=="WAIT"&&
-mtf.direction===signal.side;
-
-mtfBox.innerHTML=`
-<div class="mtf">
-
-<div class="statusLine">
-<span class="statusName">
-MULTI-TF CONFIRMATION
-</span>
-<strong class="${signalColor(mtf.direction)}">
-${mtf.direction}
-</strong>
-</div>
-
-<div class="mtfPills">
-${all.map(
-x=>`
-<span class="pill ${signalColor(x.side)}">
-${x.timeframe}: ${x.side}
-</span>
-`
-).join("")}
-</div>
-
-<p class="note">
-Confirmed entry requires strong selected timeframe
-plus broad Multi-TF alignment.
-</p>
-
-</div>
-`;
-
-if(
-signal.side==="WAIT"||
-!aligned
-){
-
-signalContent.innerHTML=`
-<div class="wait">
-
-<div class="side gold">
+<div
+class="value wait"
+id="goldM15">
 WAIT
 </div>
 
-<p class="note">
-No high-quality confirmed entry.
-Selected signal: ${signal.side}.
-Multi-TF: ${mtf.direction}.
-</p>
-
-<div class="statusLine">
-<span>Confidence</span>
-<strong class="gold">
-${signal.confidence}%
-</strong>
 </div>
 
-</div>
-`;
+<div class="row">
 
-return;
-
-}
-
-signalContent.innerHTML=`
-<div class="signalCard ${
-signal.side==="BUY"?"buy":"sell"
-}">
-
-<div class="signalHeader">
-
-<div>
-
-<div class="side ${signalColor(signal.side)}">
-${signal.side} NOW
+<div class="label">
+Bitcoin M15
 </div>
 
-<div class="mini muted">
-${signal.asset} •
-${signal.timeframe} •
-CONFIRMED
+<div
+class="value wait"
+id="btcM15">
+WAIT
 </div>
 
 </div>
 
-<div class="confidence ${signalColor(signal.side)}">
-${signal.confidence}%
+<div class="row">
+
+<div class="label">
+Best performer
+</div>
+
+<div
+class="value"
+style="color:#f2c85b"
+id="bestPerformer">
+WAIT
 </div>
 
 </div>
 
-<div class="levels">
-
-<div class="level">
-<label>ENTRY</label>
-<strong class="gold">
-${formatPrice(signal.asset,signal.entry)}
-</strong>
 </div>
 
-<div class="level">
-<label>STOP LOSS</label>
-<strong class="red">
-${formatPrice(signal.asset,signal.sl)}
-</strong>
+
+<div class="sectionTitle">
+<strong>FAST TIMEFRAMES</strong>
+<span>M5 + M15</span>
 </div>
 
-<div class="level">
-<label>TP1</label>
-<strong class="green">
-${formatPrice(signal.asset,signal.tp1)}
-</strong>
-</div>
+<div class="timeButtons">
 
-<div class="level">
-<label>TP2</label>
-<strong class="green">
-${formatPrice(signal.asset,signal.tp2)}
-</strong>
-</div>
+<button
+class="assetButton active"
+onclick="selectAsset('XAUUSD',this)">
+XAUUSD
+</button>
 
-<div class="level">
-<label>TP3</label>
-<strong class="green">
-${formatPrice(signal.asset,signal.tp3)}
-</strong>
-</div>
-
-</div>
-
-<div class="statusLine">
-<span class="statusName">RSI</span>
-<strong>${signal.rsi.toFixed(1)}</strong>
-</div>
-
-<div class="statusLine">
-<span class="statusName">After TP1</span>
-<strong class="green">SL → ENTRY</strong>
-</div>
-
-<button class="track" id="trackSignal">
-TRACK CONFIRMED ${signal.side}
+<button
+class="assetButton"
+onclick="selectAsset('BTCUSD',this)">
+BTCUSD
 </button>
 
 </div>
-`;
 
-document
-.getElementById("trackSignal")
-.onclick=
-()=>trackSignal(signal);
+<div class="panel">
 
-}catch(e){
+<div class="row">
 
-signalContent.innerHTML=
-`<div class="error">
-${e.message}
-</div>`;
+<div class="label">
+<span id="assetTF1">XAUUSD</span> • M5
+</div>
 
-mtfBox.innerHTML="";
+<div
+class="value wait"
+id="signalM5">
+WAIT
+</div>
 
-}
+</div>
 
-}
+<div class="row">
 
-function getHistory(){
+<div class="label">
+<span id="assetTF2">XAUUSD</span> • M15
+</div>
 
-try{
+<div
+class="value wait"
+id="signalM15">
+WAIT
+</div>
 
-const saved=
-localStorage.getItem(
-"bitAdamsFinalHistory"
-);
+</div>
 
-if(!saved){
+<div class="row">
 
-return{
-XAUUSD:[],
-BTCUSD:[]
-};
+<div class="label">
+M30
+</div>
 
-}
+<div
+class="value"
+id="signalM30">
+—
+</div>
 
-const data=JSON.parse(saved);
+</div>
 
-return{
-XAUUSD:
-Array.isArray(data.XAUUSD)
-?data.XAUUSD:[],
-BTCUSD:
-Array.isArray(data.BTCUSD)
-?data.BTCUSD:[]
-};
+<div class="row">
 
-}catch(e){
+<div class="label">
+H1
+</div>
 
-return{
-XAUUSD:[],
-BTCUSD:[]
-};
+<div
+class="value"
+id="signalH1">
+—
+</div>
 
-}
+</div>
 
-}
+<div class="row">
 
-function saveHistory(h){
+<div class="label">
+H4
+</div>
 
-localStorage.setItem(
-"bitAdamsFinalHistory",
-JSON.stringify(h)
-);
+<div
+class="value"
+id="signalH4">
+—
+</div>
 
-}
-  function activeTrade(t){
+</div>
 
-return[
-"OPEN",
-"TP1",
-"TP2"
-].includes(t.status);
+</div>
 
-}
 
-function newsBlocked(){
+<div class="sectionTitle">
+<strong>TRADE LEVELS</strong>
+<span id="selectedAssetLabel">XAUUSD</span>
+</div>
 
-const now=Date.now();
+<div class="panel levels">
 
-return economicEvents
-.some(event=>{
+<div class="level">
+<span>ENTRY</span>
+<strong class="entry" id="entryPrice">—</strong>
+</div>
 
-if(
-event.country!=="USD"||
-String(event.impact)
-.toLowerCase()!=="high"
-)
-return false;
+<div class="level">
+<span>STOP LOSS</span>
+<strong class="sl" id="stopLoss">—</strong>
+</div>
 
-const time=
-new Date(event.date)
-.getTime();
+<div class="level">
+<span>TP1</span>
+<strong class="tp" id="tp1">—</strong>
+</div>
 
-return(
-Number.isFinite(time)&&
-now>=time-10*60000&&
-now<=time+15*60000
-);
-
-});
-
-}
-
-function trackSignal(signal){
-
-if(signal.side==="WAIT")
-return;
-
-if(newsBlocked()){
-
-alert(
-"NEWS SAFETY MODE: HIGH-impact USD news is inside the protected window."
-);
-
-return;
-
-}
-
-const h=getHistory();
-
-const openCount=
-["XAUUSD","BTCUSD"]
-.reduce(
-(sum,a)=>
-sum+
-h[a].filter(activeTrade).length,
-0
-);
-
-if(openCount>=2){
-
-alert(
-"Risk Management: maximum 2 open tracked trades."
-);
-
-return;
-
-}
-
-const now=Date.now();
-
-const duplicate=
-h[signal.asset]
-.some(t=>
-activeTrade(t)&&
-t.timeframe===signal.timeframe&&
-t.side===signal.side
-);
-
-if(duplicate){
-
-alert(
-"A similar tracked signal is already open."
-);
-
-return;
-
-}
-
-const trade={
-id:String(now),
-asset:signal.asset,
-timeframe:signal.timeframe,
-side:signal.side,
-confidence:signal.confidence,
-entry:signal.entry,
-originalSL:signal.sl,
-sl:signal.sl,
-tp1:signal.tp1,
-tp2:signal.tp2,
-tp3:signal.tp3,
-status:"OPEN",
-timestamp:now,
-created:new Date(now).toLocaleString(),
-tp1Hit:false,
-tp2Hit:false,
-tp3Hit:false,
-breakEven:false,
-events:[
-{
-label:"SIGNAL CREATED",
-text:new Date(now).toLocaleTimeString()
-}
-]
-};
-
-h[signal.asset].unshift(trade);
-
-saveHistory(h);
-renderHistory();
-
-notify(
-`${signal.side} SIGNAL — ${signal.asset}`,
-`Entry ${formatPrice(signal.asset,signal.entry)} | SL ${formatPrice(signal.asset,signal.sl)} | TP1 ${formatPrice(signal.asset,signal.tp1)} | TP2 ${formatPrice(signal.asset,signal.tp2)} | TP3 ${formatPrice(signal.asset,signal.tp3)}`
-);
-
-alert("Signal added to History.");
-
-}
-
-function addEvent(trade,label,text){
-
-if(
-trade.events.some(e=>e.label===label)
-)
-return;
-
-trade.events.push({
-label,
-text
-});
-
-}
-
-async function checkTradesNow(){
-
-const h=getHistory();
-let checked=0;
-
-for(
-const asset of
-["XAUUSD","BTCUSD"]
-){
-
-const groups={};
-
-for(
-const trade of
-h[asset].filter(activeTrade)
-){
-
-if(!groups[trade.timeframe])
-groups[trade.timeframe]=[];
-
-groups[trade.timeframe].push(trade);
-
-}
-
-for(
-const tf of
-Object.keys(groups)
-){
-
-try{
-
-const candles=
-await fetchCandles(
-asset,
-tf,
-120
-);
-
-const latest=
-candles.slice(-25);
-
-for(
-const trade of
-groups[tf]
-){
-
-checked++;
-
-for(
-const candle of latest
-){
-
-const high=candle.high;
-const low=candle.low;
-const buy=trade.side==="BUY";
-
-const tp1=
-buy
-?high>=trade.tp1
-:low<=trade.tp1;
-
-const tp2=
-buy
-?high>=trade.tp2
-:low<=trade.tp2;
-
-const tp3=
-buy
-?high>=trade.tp3
-:low<=trade.tp3;
-
-if(tp1&&!trade.tp1Hit){
-
-trade.tp1Hit=true;
-trade.breakEven=true;
-trade.sl=trade.entry;
-trade.status="TP1";
-
-addEvent(
-trade,
-"TP1 HIT",
-"Stop Loss moved to Entry"
-);
-
-notify(
-`TP1 HIT — ${asset}`,
-`TP1 reached. Stop Loss → Entry ${formatPrice(asset,trade.entry)}`
-);
-
-}
-
-if(tp2&&!trade.tp2Hit){
-
-trade.tp1Hit=true;
-trade.tp2Hit=true;
-trade.breakEven=true;
-trade.status="TP2";
-
-addEvent(
-trade,
-"TP2 HIT",
-"Second Take Profit reached"
-);
-
-notify(
-`TP2 HIT — ${asset}`,
-"Second Take Profit reached."
-);
-
-}
-
-if(tp3&&!trade.tp3Hit){
-
-trade.tp1Hit=true;
-trade.tp2Hit=true;
-trade.tp3Hit=true;
-trade.status="WIN";
-trade.closedAt=Date.now();
-
-addEvent(
-trade,
-"TP3 HIT",
-"Final Take Profit — WIN"
-);
-
-notify(
-`TP3 HIT — ${asset}`,
-"Final Take Profit reached — WIN."
-);
-
-break;
-
-}
-
-const activeSL=
-trade.breakEven
-?trade.entry
-:trade.originalSL;
-
-const slHit=
-buy
-?low<=activeSL
-:high>=activeSL;
-
-if(
-slHit&&
-trade.status!=="WIN"
-){
-
-if(trade.breakEven){
-
-trade.status="BREAKEVEN";
-
-addEvent(
-trade,
-"BREAK-EVEN",
-"Trade protected after TP1"
-);
-
-notify(
-`BREAK-EVEN — ${asset}`,
-"Trade closed at Entry after TP1."
-);
-
-}else{
-
-trade.status="LOST";
-
-addEvent(
-trade,
-"STOP LOSS",
-"Stop Loss hit"
-);
-
-notify(
-`STOP LOSS — ${asset}`,
-"Trade closed at Stop Loss."
-);
-
-}
-
-trade.closedAt=Date.now();
-break;
-
-}
-
-}
-
-}
-
-}catch(e){
-
-console.log(
-"History check:",
-e
-);
-
-}
-
-}
-
-}
-
-saveHistory(h);
-renderHistory();
-
-historyCheckText.textContent=
-checked
-?`${checked} open trade(s) checked`
-:"No open trades";
-
-}
-
-function renderHistory(){
-
-const h=
-getHistory()[historyAsset];
-
-const wins=
-h.filter(
-t=>t.status==="WIN"
-).length;
-
-const lost=
-h.filter(
-t=>t.status==="LOST"
-).length;
-
-const closed=wins+lost;
-
-historyTotal.textContent=h.length;
-historyWins.textContent=wins;
-historyLost.textContent=lost;
-
-historyRate.textContent=
-closed
-?Math.round(wins/closed*100)+"%"
-:"--%";
-
-if(!h.length){
-
-historyList.innerHTML=
-`No ${historyAsset} tracked signals yet.`;
-
-return;
-
-}
-
-historyList.innerHTML=
-h.map((t,i)=>{
-
-const cls=
-t.status==="LOST"
-?"red"
-:t.status==="OPEN"
-?"gold"
-:"green";
-
-return`
-<div class="trade">
-<button data-trade="${i}">
-<div>
-<strong>
-<span class="${signalColor(t.side)}">
-${t.side}
-</span>
-${t.asset} • ${t.timeframe}
+<div class="level">
+<span>TP2</span>
+<strong class="tp" id="tp2">—</strong>
+</div>
+
+<div class="level">
+<span>TP3</span>
+<strong class="tp" id="tp3">—</strong>
+</div>
+
+<div class="level">
+<span>STATUS</span>
+<strong id="tradeStatus">
+WAIT
 </strong>
-<div class="mini muted">
-${t.created} • ${t.confidence}%
 </div>
+
 </div>
-<span class="badge ${cls}">
-${t.status}
-</span>
+
+
+<div class="notifyBox">
+
+<div class="notifyTitle">
+🔔 BIT ADAMS NOTIFICATIONS
+</div>
+
+<div class="notifyText">
+
+Receive alerts for confirmed signals,
+TP1, move SL to Entry,
+TP2, TP3/WIN,
+SL and BREAK-EVEN.
+
+</div>
+
+<div
+id="notificationStatus"
+class="statusOff"
+style="margin-top:12px">
+NOTIFICATIONS NOT ENABLED
+</div>
+
+<button
+class="notifyButton"
+onclick="enableNotifications()">
+ENABLE NOTIFICATIONS
 </button>
+
 </div>
-`;
 
-}).join("");
 
-historyList
-.querySelectorAll("[data-trade]")
-.forEach(b=>{
+<div class="sectionTitle">
+<strong>RISK MANAGEMENT</strong>
+<span>SAFETY</span>
+</div>
 
-b.onclick=()=>{
+<div class="panel risk">
 
-const t=
-h[Number(b.dataset.trade)];
+<strong>Recommended risk:</strong>
+0.5–1% per trade
 
-showTrade(t);
+<br>
 
-};
+<strong>Maximum open trades:</strong>
+2
 
-});
+<br>
 
+<strong>Daily loss limit:</strong>
+2–3%
+
+<br>
+
+<strong>After TP1:</strong>
+move Stop Loss to ENTRY
+
+<br>
+
+<strong>High-impact USD news:</strong>
+avoid new entries
+
+</div>
+
+</main>
+
+
+<footer>
+
+<div class="nav active">
+<div class="navIcon">⌂</div>
+Home
+</div>
+
+<div class="nav">
+<div class="navIcon">⌁</div>
+Signals
+</div>
+
+<div class="nav">
+<div class="navIcon">▥</div>
+Chart
+</div>
+
+<div class="nav">
+<div class="navIcon">▤</div>
+News
+</div>
+
+<div class="nav">
+<div class="navIcon">◷</div>
+History
+</div>
+
+<div class="nav">
+<div class="navIcon">⚙</div>
+Settings
+</div>
+
+</footer>
+
+
+<script>
+
+const SERVER =
+"https://bit-adams-server.onrender.com";
+
+let selectedAsset =
+localStorage.getItem("bitAdamsAsset") ||
+"XAUUSD";
+
+
+function selectAsset(asset,button){
+
+  selectedAsset = asset;
+
+  localStorage.setItem(
+    "bitAdamsAsset",
+    asset
+  );
+
+  document
+  .querySelectorAll(".assetButton")
+  .forEach(btn=>{
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  document.getElementById(
+    "selectedAssetLabel"
+  ).textContent = asset;
+
+  document.getElementById(
+    "assetTF1"
+  ).textContent = asset;
+
+  document.getElementById(
+    "assetTF2"
+  ).textContent = asset;
+
+  loadData();
 }
 
-function showTrade(t){
 
-detailTitle.innerHTML=
-`<span class="${signalColor(t.side)}">${t.side}</span> ${t.asset} • ${t.status}`;
-
-detailDate.textContent=t.created;
-
-detailEntry.textContent=
-formatPrice(t.asset,t.entry);
-
-detailSL.textContent=
-t.breakEven
-?"BREAK-EVEN "+formatPrice(t.asset,t.entry)
-:formatPrice(t.asset,t.sl);
-
-detailTP1.textContent=
-formatPrice(t.asset,t.tp1);
-
-detailTP2.textContent=
-formatPrice(t.asset,t.tp2);
-
-detailTP3.textContent=
-formatPrice(t.asset,t.tp3);
-
-detailEvents.innerHTML=
-(t.events||[])
-.map(e=>`
-<div class="statusLine">
-<div>
-<strong>${e.label}</strong>
-<div class="mini muted">
-${e.text}
-</div>
-</div>
-</div>
-`)
-.join("");
-
-tradeOverlay.classList.add("open");
-
-}
-
-function resizeCanvas(){
-
-const rect=
-chartCanvas.getBoundingClientRect();
-
-const ratio=
-devicePixelRatio||1;
-
-chartCanvas.width=
-Math.max(
-1,
-Math.floor(rect.width*ratio)
-);
-
-chartCanvas.height=
-Math.max(
-1,
-Math.floor(rect.height*ratio)
-);
-
-const ctx=
-chartCanvas.getContext("2d");
-
-ctx.setTransform(
-ratio,
-0,
-0,
-ratio,
-0,
-0
-);
-
-return{
-ctx,
-width:rect.width,
-height:rect.height
-};
-
-}
-
-function drawChart(){
-
-if(!chartCandles.length)
-return;
-
-const{
-ctx,
-width,
-height
-}=resizeCanvas();
-
-ctx.clearRect(
-0,
-0,
-width,
-height
-);
-
-const count=
-Math.max(
-15,
-Math.floor(48/chartZoom)
-);
-
-const maxOffset=
-Math.max(
-0,
-chartCandles.length-count
-);
-
-chartOffset=
-Math.max(
-0,
-Math.min(
-chartOffset,
-maxOffset
-)
-);
-
-const end=
-chartCandles.length-
-chartOffset;
-
-const visible=
-chartCandles.slice(
-Math.max(0,end-count),
-end
-);
-
-let max=
-Math.max(
-...visible.map(c=>c.high)
-);
-
-let min=
-Math.min(
-...visible.map(c=>c.low)
-);
-
-if(
-chartSignalData&&
-chartSignalData.side!=="WAIT"
+function setSignal(
+  element,
+  signal,
+  confidence
 ){
 
-const prices=[
-chartSignalData.entry,
-chartSignalData.sl,
-chartSignalData.tp1,
-chartSignalData.tp2,
-chartSignalData.tp3
-].filter(Number.isFinite);
+  if(!element) return;
 
-max=Math.max(max,...prices);
-min=Math.min(min,...prices);
+  signal =
+    String(signal || "WAIT")
+    .toUpperCase();
 
+  element.classList.remove(
+    "buy",
+    "sell",
+    "wait"
+  );
+
+  if(signal === "BUY"){
+
+    element.classList.add("buy");
+
+    element.textContent =
+      "BUY" +
+      (
+        confidence
+        ? " • " + confidence + "%"
+        : ""
+      );
+
+  }
+
+  else if(signal === "SELL"){
+
+    element.classList.add("sell");
+
+    element.textContent =
+      "SELL" +
+      (
+        confidence
+        ? " • " + confidence + "%"
+        : ""
+      );
+
+  }
+
+  else{
+
+    element.classList.add("wait");
+
+    element.textContent =
+      "WAIT" +
+      (
+        confidence
+        ? " • " + confidence + "%"
+        : ""
+      );
+  }
 }
 
-const range=
-Math.max(
-max-min,
-max*.0001
-);
 
-max+=range*.08;
-min-=range*.08;
+function findAssetData(data,asset){
 
-const L=8;
-const R=72;
-const T=12;
-const B=20;
+  if(!data) return null;
 
-const W=width-L-R;
-const H=height-T-B;
+  if(
+    data[asset]
+  ){
+    return data[asset];
+  }
 
-const y=
-p=>
-T+
-(max-p)/
-(max-min)*
-H;
+  if(
+    data.assets &&
+    data.assets[asset]
+  ){
+    return data.assets[asset];
+  }
 
-ctx.strokeStyle="#163426";
-ctx.fillStyle="#809188";
-ctx.font="10px Arial";
+  if(
+    Array.isArray(data)
+  ){
 
-for(let i=0;i<=5;i++){
+    return data.find(x=>
+      x.symbol === asset ||
+      x.asset === asset
+    );
+  }
 
-const yy=
-T+H*i/5;
-
-ctx.beginPath();
-ctx.moveTo(L,yy);
-ctx.lineTo(width-R,yy);
-ctx.stroke();
-
-ctx.fillText(
-formatPrice(
-chartAsset,
-max-(max-min)*i/5
-),
-width-R+4,
-yy+3
-);
-
+  return null;
 }
 
-if(
-chartSignalData&&
-chartSignalData.side!=="WAIT"
+
+function showAssetCard(
+  asset,
+  info
 ){
 
-const levels=[
-["ENTRY",chartSignalData.entry,"#f4c95d"],
-["SL",chartSignalData.sl,"#ff5b6e"],
-["TP1",chartSignalData.tp1,"#20f28a"],
-["TP2",chartSignalData.tp2,"#20f28a"],
-["TP3",chartSignalData.tp3,"#20f28a"]
-];
+  if(!info) return;
 
-ctx.save();
-ctx.setLineDash([5,4]);
-ctx.font="bold 10px Arial";
+  const isGold =
+    asset === "XAUUSD";
 
-levels.forEach(
-([label,price,color])=>{
+  const signalElement =
+    document.getElementById(
+      isGold
+      ? "goldSignal"
+      : "btcSignal"
+    );
 
-if(!Number.isFinite(price))
-return;
+  const confidenceElement =
+    document.getElementById(
+      isGold
+      ? "goldConfidence"
+      : "btcConfidence"
+    );
 
-const yy=y(price);
+  const priceElement =
+    document.getElementById(
+      isGold
+      ? "goldPrice"
+      : "btcPrice"
+    );
 
-ctx.strokeStyle=color;
-ctx.fillStyle=color;
+  const signal =
+    info.signal ||
+    info.direction ||
+    info.action ||
+    "WAIT";
 
-ctx.beginPath();
-ctx.moveTo(L,yy);
-ctx.lineTo(width-R,yy);
-ctx.stroke();
+  const confidence =
+    info.confidence ||
+    info.score ||
+    0;
 
-const text=
-label+" "+
-formatPrice(chartAsset,price);
+  if(priceElement){
 
-const tw=
-ctx.measureText(text).width+8;
+    const price =
+      info.price ||
+      info.currentPrice ||
+      info.lastPrice;
 
-ctx.fillRect(
-L+3,
-Math.max(T,yy-15),
-tw,
-14
-);
+    if(price){
+      priceElement.textContent =
+        Number(price).toLocaleString();
+    }
+  }
 
-ctx.fillStyle="#050807";
+  setSignal(
+    signalElement,
+    signal,
+    confidence
+  );
 
-ctx.fillText(
-text,
-L+6,
-Math.max(T+10,yy-5)
-);
-
-});
-
-ctx.restore();
-
+  confidenceElement.textContent =
+    confidence
+    ? confidence + "% confidence"
+    : "Waiting for confirmation";
 }
 
-const step=
-W/visible.length;
 
-const bw=
-Math.max(
-3,
-Math.min(
-10,
-step*.58
-)
-);
+function renderSelectedAsset(info){
 
-visible.forEach(
-(c,i)=>{
+  if(!info) return;
 
-const x=
-L+
-step*i+
-step/2;
+  const tf =
+    info.timeframes ||
+    info.tf ||
+    {};
 
-const up=
-c.close>=c.open;
+  setSignal(
+    document.getElementById("signalM5"),
+    tf.M5?.signal ||
+    tf.m5?.signal ||
+    info.m5?.signal ||
+    "WAIT",
+    tf.M5?.confidence ||
+    tf.m5?.confidence ||
+    info.m5?.confidence
+  );
 
-const color=
-up
-?"#20f28a"
-:"#ff5b6e";
+  setSignal(
+    document.getElementById("signalM15"),
+    tf.M15?.signal ||
+    tf.m15?.signal ||
+    info.m15?.signal ||
+    info.signal ||
+    "WAIT",
+    tf.M15?.confidence ||
+    tf.m15?.confidence ||
+    info.m15?.confidence ||
+    info.confidence
+  );
 
-ctx.strokeStyle=color;
-ctx.fillStyle=color;
+  setSignal(
+    document.getElementById("signalM30"),
+    tf.M30?.signal ||
+    tf.m30?.signal ||
+    "WAIT",
+    tf.M30?.confidence ||
+    tf.m30?.confidence
+  );
 
-ctx.beginPath();
-ctx.moveTo(x,y(c.high));
-ctx.lineTo(x,y(c.low));
-ctx.stroke();
+  setSignal(
+    document.getElementById("signalH1"),
+    tf.H1?.signal ||
+    tf.h1?.signal ||
+    "WAIT",
+    tf.H1?.confidence ||
+    tf.h1?.confidence
+  );
 
-const oy=y(c.open);
-const cy=y(c.close);
+  setSignal(
+    document.getElementById("signalH4"),
+    tf.H4?.signal ||
+    tf.h4?.signal ||
+    "WAIT",
+    tf.H4?.confidence ||
+    tf.h4?.confidence
+  );
 
-ctx.fillRect(
-x-bw/2,
-Math.min(oy,cy),
-bw,
-Math.max(
-2,
-Math.abs(cy-oy)
-)
-);
+  const levels =
+    info.levels ||
+    info.trade ||
+    info;
 
-});
+  document.getElementById(
+    "entryPrice"
+  ).textContent =
+    levels.entry ??
+    levels.entryPrice ??
+    "—";
 
+  document.getElementById(
+    "stopLoss"
+  ).textContent =
+    levels.sl ??
+    levels.stopLoss ??
+    "—";
+
+  document.getElementById(
+    "tp1"
+  ).textContent =
+    levels.tp1 ??
+    "—";
+
+  document.getElementById(
+    "tp2"
+  ).textContent =
+    levels.tp2 ??
+    "—";
+
+  document.getElementById(
+    "tp3"
+  ).textContent =
+    levels.tp3 ??
+    "—";
+
+  document.getElementById(
+    "tradeStatus"
+  ).textContent =
+    levels.status ||
+    info.status ||
+    "WAIT";
 }
 
-async function loadChart(){
 
-chartTitle.textContent=chartAsset;
-chartTfText.textContent=chartTF;
-chartSignal.textContent="Loading...";
-
-try{
-
-chartCandles=
-await fetchCandles(
-chartAsset,
-chartTF,
-160
-);
-
-chartSignalData=
-analyze(
-chartAsset,
-chartTF,
-chartCandles
-);
-
-const s=chartSignalData;
-
-chartSignal.textContent=
-s.side+" • "+s.confidence+"%";
-
-chartSignal.className=
-signalColor(s.side);
-
-chartEntry.textContent=
-formatPrice(chartAsset,s.entry);
-
-chartSL.textContent=
-formatPrice(chartAsset,s.sl);
-
-chartTP1.textContent=
-formatPrice(chartAsset,s.tp1);
-
-chartTP2.textContent=
-formatPrice(chartAsset,s.tp2);
-
-chartTP3.textContent=
-formatPrice(chartAsset,s.tp3);
-
-chartZoom=1;
-chartOffset=0;
-
-drawChart();
-
-}catch(e){
-
-chartSignal.textContent="ERROR";
-chartEntry.textContent="--";
-chartSL.textContent="--";
-chartTP1.textContent="--";
-chartTP2.textContent="--";
-chartTP3.textContent="--";
-
-}
-
-}
-
-function ukTime(ms){
-
-return new Intl.DateTimeFormat(
-"en-GB",
-{
-timeZone:"Europe/London",
-weekday:"short",
-day:"2-digit",
-month:"short",
-hour:"2-digit",
-minute:"2-digit",
-hour12:false
-}
-).format(new Date(ms));
-
-}
-
-async function loadCalendar(force=false){
-
-if(
-!force&&
-economicEvents.length&&
-Date.now()-calendarLoaded<
-60*60000
-){
-
-renderCalendar();
-return;
-
-}
-
-calendarStatus.textContent="Loading...";
-calendarStatus.className="statusValue gold";
-
-try{
-
-const response=
-await fetch(
-CALENDAR_URL,
-{cache:"no-store"}
-);
-
-if(!response.ok)
-throw new Error(
-"HTTP "+response.status
-);
-
-const data=
-await response.json();
-
-if(!Array.isArray(data))
-throw new Error(
-"Invalid calendar"
-);
-
-economicEvents=data;
-calendarLoaded=Date.now();
-
-calendarStatus.textContent="LIVE";
-calendarStatus.className="statusValue green";
-
-renderCalendar();
-checkNewsAlerts();
-updateNewsSafety();
-
-}catch(e){
-
-calendarStatus.textContent="UNAVAILABLE";
-calendarStatus.className="statusValue red";
-
-newsList.innerHTML=
-`<div class="error">
-Calendar could not load:
-${e.message}
-</div>`;
-
-}
-
-}
-
-function renderCalendar(){
-
-const now=Date.now();
-
-const events=
-economicEvents
-.map(e=>({
-e,
-t:new Date(e.date).getTime()
-}))
-.filter(x=>
-Number.isFinite(x.t)&&
-x.t>=now-60*60000
-)
-.sort((a,b)=>a.t-b.t);
-
-const high=
-events.find(x=>
-x.e.country==="USD"&&
-String(x.e.impact)
-.toLowerCase()==="high"&&
-x.t>=now
-);
-
-nextHighNews.textContent=
-high
-?`${high.e.title} • ${ukTime(high.t)}`
-:"No upcoming HIGH USD event";
-
-if(!events.length){
-
-newsList.innerHTML=
-"No upcoming events.";
-
-return;
-
-}
-
-newsList.innerHTML=
-events.slice(0,40)
-.map(({e,t})=>{
-
-const impact=
-String(e.impact||"Low");
-
-const cls=
-impact==="High"
-?"red"
-:impact==="Medium"
-?"gold"
-:"muted";
-
-return`
-<div class="news">
-<div class="newsTop">
-<div>
-<div class="mini muted">
-${ukTime(t)} •
-${e.country||"--"}
-</div>
-<div class="newsTitle">
-${e.title||"Economic event"}
-</div>
-<div class="mini muted"
-style="margin-top:4px">
-Forecast:
-${e.forecast||"--"}
-•
-Previous:
-${e.previous||"--"}
-</div>
-</div>
-<span class="impact ${cls}">
-${impact.toUpperCase()}
-</span>
-</div>
-</div>
-`;
-
-})
-.join("");
-
-}
-
-function checkNewsAlerts(){
-
-const now=Date.now();
-
-economicEvents.forEach(e=>{
-
-if(
-e.country!=="USD"||
-String(e.impact)
-.toLowerCase()!=="high"
-)
-return;
-
-const t=
-new Date(e.date).getTime();
-
-const minutes=
-(t-now)/60000;
-
-if(
-!Number.isFinite(t)||
-minutes<0||
-minutes>5.5
-)
-return;
-
-const key=
-"newsAlert_"+
-e.title+
-e.date;
-
-if(localStorage.getItem(key))
-return;
-
-localStorage.setItem(key,"1");
-
-notify(
-`HIGH IMPACT USD NEWS IN ${Math.max(1,Math.ceil(minutes))} MIN`,
-`${e.title} • ${ukTime(t)}. Avoid new entries around the release.`
-);
-
-});
-
-}
-
-function updateNewsSafety(){
-
-if(!window.homeNewsSafety)
-return;
-
-if(newsBlocked()){
-
-homeNewsSafety.textContent=
-"BLOCK NEW ENTRY";
-
-homeNewsSafety.className=
-"statusValue red";
-
-}else{
-
-homeNewsSafety.textContent=
-"NORMAL";
-
-homeNewsSafety.className=
-"statusValue green";
-
-}
-
-}
-
-/* CORRECTED ONESIGNAL FUNCTION */
-
-async function enableNotifications(){
-
-try{
-
-window.OneSignalDeferred =
-window.OneSignalDeferred || [];
-
-OneSignalDeferred.push(
-async function(OneSignal){
-
-await OneSignal.Notifications.requestPermission();
-
-await sleep(500);
-
-if(
-!("Notification" in window) ||
-Notification.permission !== "granted"
-){
-
-alert(
-"Notification permission is still blocked."
-);
-
-return;
-
-}
-
-await OneSignal.User.PushSubscription.optIn();
-
-await sleep(1800);
-
-const subscriptionId =
-OneSignal.User.PushSubscription.id;
-
-console.log(
-"OneSignal Subscription ID:",
-subscriptionId
-);
-
-if(subscriptionId){
-
-alert(
-"OneSignal connected successfully!"
-);
-
-}else{
-
-alert(
-"Notifications are allowed. OneSignal is creating the subscription. Wait a few seconds and press ENABLE NOTIFICATIONS again."
-);
-
-}
-
-}
-);
-
-}catch(e){
-
-console.log(
-"OneSignal notification error:",
-e
-);
-
-alert(
-"Could not connect OneSignal notifications."
-);
-
-}
-
-}
-
-function notify(title,body){
-
-try{
-
-if(
-"Notification" in window&&
-Notification.permission==="granted"
-){
-
-new Notification(
-title,
-{body}
-);
-
-}
-
-}catch(e){
-
-console.log(e);
-
-}
-
-}
-
-function updateRisk(){
-
-const b=
-Math.max(
-0,
-Number(balance.value)||0
-);
-
-const r=
-Math.min(
-3,
-Math.max(
-.1,
-Number(riskPercent.value)||1
-)
-);
-
-riskResult.textContent=
-`Risk amount: £${(b*r/100).toFixed(2)} at ${r.toFixed(1)}% of £${b.toFixed(2)}`;
-
-}
-
-function showScreen(name){
-
-document
-.querySelectorAll(".screen")
-.forEach(s=>
-s.classList.remove("active")
-);
-
-document
-.getElementById(name)
-.classList.add("active");
-
-document
-.querySelectorAll(".nav")
-.forEach(n=>
-n.classList.toggle(
-"active",
-n.dataset.screen===name
-)
-);
-
-if(name==="signals")
-loadSelectedSignal();
-
-if(name==="chart")
-setTimeout(loadChart,50);
-
-if(name==="news")
-loadCalendar();
-
-if(name==="history"){
-renderHistory();
-checkTradesNow();
-}
-
-}
-
-document
-.querySelectorAll(".nav")
-.forEach(b=>{
-
-b.onclick=
-()=>showScreen(
-b.dataset.screen
-);
-
-});
-
-document
-.querySelectorAll("[data-analyze]")
-.forEach(b=>{
-
-b.onclick=()=>{
-
-signalAsset=b.dataset.analyze;
-signalTF="M15";
-
-document
-.querySelectorAll("[data-signalasset]")
-.forEach(x=>
-x.classList.toggle(
-"active",
-x.dataset.signalasset===signalAsset
-)
-);
-
-buildTF();
-showScreen("signals");
-
-};
-
-});
-
-document
-.querySelectorAll("[data-homeasset]")
-.forEach(b=>{
-
-b.onclick=()=>{
-
-homeAsset=b.dataset.homeasset;
-
-document
-.querySelectorAll("[data-homeasset]")
-.forEach(x=>
-x.classList.toggle(
-"active",
-x===b
-)
-);
-
-loadHomeTF();
-
-};
-
-});
-
-document
-.querySelectorAll("[data-signalasset]")
-.forEach(b=>{
-
-b.onclick=()=>{
-
-signalAsset=b.dataset.signalasset;
-
-document
-.querySelectorAll("[data-signalasset]")
-.forEach(x=>
-x.classList.toggle(
-"active",
-x===b
-)
-);
-
-loadSelectedSignal();
-
-};
-
-});
-
-document
-.querySelectorAll("[data-chartasset]")
-.forEach(b=>{
-
-b.onclick=()=>{
-
-chartAsset=b.dataset.chartasset;
-
-document
-.querySelectorAll("[data-chartasset]")
-.forEach(x=>
-x.classList.toggle(
-"active",
-x===b
-)
-);
-
-loadChart();
-
-};
-
-});
-
-document
-.querySelectorAll("[data-historyasset]")
-.forEach(b=>{
-
-b.onclick=()=>{
-
-historyAsset=b.dataset.historyasset;
-
-document
-.querySelectorAll("[data-historyasset]")
-.forEach(x=>
-x.classList.toggle(
-"active",
-x===b
-)
-);
-
-renderHistory();
-
-};
-
-});
-
-zoomIn.onclick=()=>{
-
-chartZoom=
-Math.min(
-3,
-chartZoom+.25
-);
-
-drawChart();
-
-};
-
-zoomOut.onclick=()=>{
-
-chartZoom=
-Math.max(
-.7,
-chartZoom-.25
-);
-
-drawChart();
-
-};
-
-zoomReset.onclick=()=>{
-
-chartZoom=1;
-chartOffset=0;
-drawChart();
-
-};
-
-chartArea
-.addEventListener(
-"pointerdown",
-e=>{
-
-dragStart=e.clientX;
-
-try{
-chartArea.setPointerCapture(e.pointerId);
-}catch(err){}
-
-}
-);
-
-chartArea
-.addEventListener(
-"pointermove",
-e=>{
-
-if(dragStart===null)
-return;
-
-const d=
-e.clientX-dragStart;
-
-if(Math.abs(d)<18)
-return;
-
-chartOffset+=
-d>0?2:-2;
-
-chartOffset=
-Math.max(
-0,
-chartOffset
-);
-
-dragStart=e.clientX;
-
-drawChart();
-
-}
-);
-
-chartArea
-.addEventListener(
-"pointerup",
-()=>dragStart=null
-);
-
-chartArea
-.addEventListener(
-"pointercancel",
-()=>dragStart=null
-);
-
-balance.addEventListener(
-"input",
-updateRisk
-);
-
-riskPercent.addEventListener(
-"input",
-updateRisk
-);
-
-notificationBtn.onclick = async function(){
-  alert("BUTTON WORKS");
+async function loadData(){
 
   try{
-    await enableNotifications();
-  }catch(e){
-    alert("ERROR: " + e.message);
-    console.log(e);
+
+    const response =
+      await fetch(
+        SERVER + "/api/scan",
+        {
+          cache:"no-store"
+        }
+      );
+
+    if(!response.ok){
+      throw new Error(
+        "Server response " +
+        response.status
+      );
+    }
+
+    const data =
+      await response.json();
+
+    const gold =
+      findAssetData(
+        data,
+        "XAUUSD"
+      );
+
+    const bitcoin =
+      findAssetData(
+        data,
+        "BTCUSD"
+      );
+
+    showAssetCard(
+      "XAUUSD",
+      gold
+    );
+
+    showAssetCard(
+      "BTCUSD",
+      bitcoin
+    );
+
+    if(gold){
+
+      const goldSignal =
+        gold.m15?.signal ||
+        gold.timeframes?.M15?.signal ||
+        gold.signal ||
+        "WAIT";
+
+      const goldConf =
+        gold.m15?.confidence ||
+        gold.timeframes?.M15?.confidence ||
+        gold.confidence;
+
+      setSignal(
+        document.getElementById(
+          "goldM15"
+        ),
+        goldSignal,
+        goldConf
+      );
+    }
+
+    if(bitcoin){
+
+      const btcSignal =
+        bitcoin.m15?.signal ||
+        bitcoin.timeframes?.M15?.signal ||
+        bitcoin.signal ||
+        "WAIT";
+
+      const btcConf =
+        bitcoin.m15?.confidence ||
+        bitcoin.timeframes?.M15?.confidence ||
+        bitcoin.confidence;
+
+      setSignal(
+        document.getElementById(
+          "btcM15"
+        ),
+        btcSignal,
+        btcConf
+      );
+    }
+
+    const selected =
+      selectedAsset === "XAUUSD"
+      ? gold
+      : bitcoin;
+
+    renderSelectedAsset(
+      selected
+    );
+
+    const gc =
+      Number(
+        gold?.confidence || 0
+      );
+
+    const bc =
+      Number(
+        bitcoin?.confidence || 0
+      );
+
+    document.getElementById(
+      "bestPerformer"
+    ).textContent =
+      bc > gc
+      ? "BITCOIN"
+      : gc > bc
+      ? "GOLD"
+      : "WAIT";
+
   }
-};
 
-checkTrades.onclick=
-checkTradesNow;
+  catch(error){
 
-closeTrade.onclick=()=>{
-
-tradeOverlay
-.classList.remove("open");
-
-};
-
-tradeOverlay.onclick=
-e=>{
-
-if(e.target===tradeOverlay)
-tradeOverlay.classList.remove("open");
-
-};
-
-refreshBtn.onclick=
-async()=>{
-
-refreshBtn.textContent="…";
-
-Object.keys(CACHE)
-.forEach(k=>delete CACHE[k]);
-
-try{
-
-await loadHome();
-
-const active=
-document.querySelector(
-".screen.active"
-);
-
-if(active?.id==="signals")
-await loadSelectedSignal();
-
-if(active?.id==="chart")
-await loadChart();
-
-if(active?.id==="news")
-await loadCalendar(true);
-
-if(active?.id==="history")
-await checkTradesNow();
-
-}finally{
-
-refreshBtn.textContent="↻";
-
+    console.error(
+      "BIT ADAMS load error:",
+      error
+    );
+  }
 }
 
-};
 
-window.addEventListener(
-"resize",
-()=>{
+function restoreAsset(){
 
-if(chartCandles.length)
-drawChart();
+  document
+  .querySelectorAll(".assetButton")
+  .forEach(btn=>{
 
+    const asset =
+      btn.textContent.trim();
+
+    btn.classList.toggle(
+      "active",
+      asset === selectedAsset
+    );
+
+  });
+
+  document.getElementById(
+    "selectedAssetLabel"
+  ).textContent =
+    selectedAsset;
+
+  document.getElementById(
+    "assetTF1"
+  ).textContent =
+    selectedAsset;
+
+  document.getElementById(
+    "assetTF2"
+  ).textContent =
+    selectedAsset;
 }
-);
+
+
+restoreAsset();
+
+loadData();
 
 setInterval(
-async()=>{
-
-if(document.hidden)
-return;
-
-const h=getHistory();
-
-const open=
-["XAUUSD","BTCUSD"]
-.some(a=>
-h[a].some(activeTrade)
+  loadData,
+  60000
 );
-
-if(open)
-await checkTradesNow();
-
-},
-60000
-);
-
-setInterval(
-checkNewsAlerts,
-60000
-);
-
-setInterval(
-()=>loadCalendar(true),
-60*60000
-);
-
-setInterval(
-async()=>{
-
-if(document.hidden)
-return;
-
-try{
-
-for(
-const asset of
-["XAUUSD","BTCUSD"]
-){
-
-const[
-m15,
-m30,
-h1
-]=await Promise.all([
-getSignal(asset,"M15"),
-getSignal(asset,"M30"),
-getSignal(asset,"H1")
-]);
-
-if(
-m15.side!=="WAIT"&&
-m15.side===m30.side&&
-m15.side===h1.side&&
-m15.confidence>=80
-){
-
-const bucket=
-Math.floor(
-Date.now()/
-(15*60*1000)
-);
-
-const key=
-`signalNotify_${asset}_${m15.side}_${bucket}`;
-
-if(!localStorage.getItem(key)){
-
-localStorage.setItem(key,"1");
-
-notify(
-`${m15.side} SIGNAL — ${asset} M15`,
-`Entry ${formatPrice(asset,m15.entry)} | SL ${formatPrice(asset,m15.sl)} | TP1 ${formatPrice(asset,m15.tp1)} | TP2 ${formatPrice(asset,m15.tp2)} | TP3 ${formatPrice(asset,m15.tp3)}`
-);
-
-}
-
-}
-
-}
-
-}catch(e){
-
-console.log(e);
-
-}
-
-},
-300000
-);
-
-buildTF();
-updateRisk();
-renderHistory();
-loadHome();
-loadCalendar();
 
 </script>
 
