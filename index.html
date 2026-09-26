@@ -971,13 +971,17 @@ function processNewSignal(asset, info){
 function hitBuy(price, level){ return price >= level; }
 function hitSell(price, level){ return price <= level; }
 
-function updateOneTrade(trade, currentPrice){
+function updateOneTrade(trade, market){
   if(!isOpenStatus(trade.status)) return false;
+  const currentPrice = getCurrentPrice(market);
   if(currentPrice === null) return false;
 
   const isBuy = trade.direction === "BUY";
-  const hitProfit = (level) => isBuy ? hitBuy(currentPrice, level) : hitSell(currentPrice, level);
-  const hitStop = (level) => isBuy ? currentPrice <= level : currentPrice >= level;
+  const m5 = getTFNode(market,"M5") || market?.m5 || {};
+  const candleHigh = num(m5.high) ?? currentPrice;
+  const candleLow = num(m5.low) ?? currentPrice;
+  const hitProfit = (level) => isBuy ? candleHigh >= level : candleLow <= level;
+  const hitStop = (level) => isBuy ? candleLow <= level : candleHigh >= level;
 
   let changed = false;
 
@@ -1081,13 +1085,13 @@ function trackOpenTrades(gold, bitcoin){
   const history = readHistory();
   let changed = false;
 
-  const prices = {
-    XAUUSD:getCurrentPrice(gold),
-    BTCUSD:getCurrentPrice(bitcoin)
+  const markets = {
+    XAUUSD:gold,
+    BTCUSD:bitcoin
   };
 
   history.forEach(trade => {
-    if(updateOneTrade(trade, prices[trade.asset])) changed = true;
+    if(updateOneTrade(trade, markets[trade.asset])) changed = true;
   });
 
   if(changed) writeHistory(history);
